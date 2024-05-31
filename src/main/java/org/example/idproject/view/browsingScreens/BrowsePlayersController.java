@@ -12,7 +12,7 @@ public class BrowsePlayersController extends BrowsingScreenController<BasicPlaye
     }
 
     @Override
-    protected void handleSearch() {
+    protected void initialize() {
         addDataColumn("ID", "ID");
         addDataColumn("Nickname", "currentNickname");
 
@@ -21,7 +21,15 @@ public class BrowsePlayersController extends BrowsingScreenController<BasicPlaye
                 new BasicPlayerData(2, "RIPer"),
                 new BasicPlayerData(3, "mkdusia")
         );
-
         dataTable.setItems(dataArray);
+
+        searchField.setPromptText("Browse Players by nickname");
+    }
+
+    @Override
+    protected void handleSearch() {
+        dataArray.addAll(
+            new BasicPlayerData(5, "Test")
+        );
     }
 }

@@ -1,5 +1,6 @@
 package org.example.idproject.viewmodel;
 
+import org.example.idproject.common.BasicClanData;
 import org.example.idproject.common.BasicPlayerData;
 
 import java.util.Collection;
@@ -12,7 +13,7 @@ public class SimpleViewModel implements ViewModel{
     }
 
     @Override
-    public Collection<BasicPlayerData> browseClans(String name) {
+    public Collection<BasicClanData> browseClans(String name) {
         return List.of();
     }
 }

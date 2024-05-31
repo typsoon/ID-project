@@ -16,7 +16,7 @@ public class ScenesHolder {
 //    public static final Scene playerInfo;
     public ScenesHolder(ViewModel viewModel) throws IOException {
         browsePlayers = loadScene("browsing-stage.fxml", new BrowsePlayersController(viewModel));
-        browseClans = loadScene("browsing-stage.fxml", new BrowseClansController(viewModel));
+        browseClans = loadScene("browsing-stage.fxml", new BrowseClansController(viewModel, "Browse clans by nickname"));
 
         mainScene = loadScene("main-scene.fxml", new MainSceneController());
     }

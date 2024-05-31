@@ -21,6 +21,9 @@ public abstract class BrowsingScreenController<T> {
     @FXML
     protected abstract void handleSearch();
 
+    @FXML
+    protected abstract void initialize();
+
     private int addedCount = 0;
 
     protected void addDataColumn(String columnName, String dataVariableName) {
@@ -42,7 +45,5 @@ public abstract class BrowsingScreenController<T> {
 
     BrowsingScreenController(ViewModel viewModel) {
         this.viewModel = viewModel;
-
-        dataTable.setItems(dataArray);
     }
 }
