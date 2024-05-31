@@ -2,22 +2,27 @@ package org.example.idproject.view;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.example.idproject.ApplicationLauncher;
+import org.example.idproject.App;
 
-import java.io.IOException;
 
 public class MainSceneController {
-    public static Stage primaryStage;
 
     @FXML
-    protected void onBrowsePlayersClick() throws IOException {
-        FXMLLoader loader = new FXMLLoader(ApplicationLauncher.class.getResource("browse-players.fxml"));
-        Scene scene = new Scene(loader.load());
+    protected void onBrowsePlayersClick() {
+        Stage primaryStage = App.getPrimaryStage();
 
-        primaryStage.setScene(scene);
+        primaryStage.setTitle("Browse Players");
+        primaryStage.setScene(App.scenesHolder.browsePlayers);
+        primaryStage.show();
+    }
+
+    @FXML
+    public void onBrowseClansClick() {
+        Stage primaryStage = App.getPrimaryStage();
+
+        primaryStage.setTitle("Browse Clans");
+        primaryStage.setScene(App.scenesHolder.browseClans);
         primaryStage.show();
     }
 
