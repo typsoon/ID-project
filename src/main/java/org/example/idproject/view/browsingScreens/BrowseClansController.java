@@ -1,12 +1,12 @@
 package org.example.idproject.view.browsingScreens;
 
 import org.example.idproject.common.BasicClanData;
-import org.example.idproject.common.BasicPlayerData;
+import org.example.idproject.view.ScreenManager;
 import org.example.idproject.viewmodel.ViewModel;
 
 public class BrowseClansController extends BrowsingScreenController<BasicClanData> {
-    public BrowseClansController(ViewModel viewModel, String promptText) {
-        super(viewModel);
+    public BrowseClansController(ViewModel viewModel, ScreenManager screenManager) {
+        super(viewModel, screenManager);
     }
 
     @Override

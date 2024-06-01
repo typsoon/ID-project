@@ -2,33 +2,28 @@ package org.example.idproject.view;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.stage.Stage;
-import org.example.idproject.App;
 
 
 public class MainSceneController {
+    private final ScreenManager screenManager;
 
     @FXML
     protected void onBrowsePlayersClick() {
-        Stage primaryStage = App.getPrimaryStage();
-
-        primaryStage.setTitle("Browse Players");
-        primaryStage.setScene(App.scenesHolder.browsePlayers);
-        primaryStage.show();
+        screenManager.showBrowsePlayersScreen();
     }
 
     @FXML
     public void onBrowseClansClick() {
-        Stage primaryStage = App.getPrimaryStage();
-
-        primaryStage.setTitle("Browse Clans");
-        primaryStage.setScene(App.scenesHolder.browseClans);
-        primaryStage.show();
+        screenManager.showBrowseClansScreen();
     }
 
     @FXML
     protected void onExitButtonClick() {
         Platform.exit();
         System.exit(0);
+    }
+
+    MainSceneController(ScreenManager screenManager) {
+        this.screenManager = screenManager;
     }
 }

@@ -7,16 +7,18 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.example.idproject.view.ScreenManager;
 import org.example.idproject.viewmodel.ViewModel;
 
 public abstract class BrowsingScreenController<T> {
     public TextField searchField;
+    protected final ScreenManager screenManager;
 
     public TableView<T> dataTable = new TableView<>();
+    ObservableList<T> dataArray = FXCollections.observableArrayList();
 
     protected final ViewModel viewModel;
 
-    ObservableList<T> dataArray = FXCollections.observableArrayList();
 
     @FXML
     protected abstract void handleSearch();
@@ -43,7 +45,8 @@ public abstract class BrowsingScreenController<T> {
         addedCount++;
     }
 
-    BrowsingScreenController(ViewModel viewModel) {
+    BrowsingScreenController(ViewModel viewModel, ScreenManager screenManager) {
+        this.screenManager = screenManager;
         this.viewModel = viewModel;
     }
 }

@@ -4,11 +4,12 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import org.example.idproject.common.BasicPlayerData;
+import org.example.idproject.view.ScreenManager;
 import org.example.idproject.viewmodel.ViewModel;
 
 public class BrowsePlayersController extends BrowsingScreenController<BasicPlayerData> {
-    public BrowsePlayersController(ViewModel viewModel) {
-        super(viewModel);
+    public BrowsePlayersController(ViewModel viewModel, ScreenManager screenManager) {
+        super(viewModel, screenManager);
     }
 
     @Override

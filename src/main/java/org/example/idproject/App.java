@@ -2,33 +2,25 @@ package org.example.idproject;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import org.example.idproject.view.ScenesHolder;
+import org.example.idproject.view.ScreenManager;
 import org.example.idproject.viewmodel.SimpleViewModel;
 
 import java.io.IOException;
 
 public class App extends Application {
-    private static Stage primaryStage;
-    public static ScenesHolder scenesHolder;
+    private ScreenManager screenManager;
 
-    static {
-        try {
-            scenesHolder = new ScenesHolder(new SimpleViewModel());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
+    @Override
+    public void init() throws Exception {
     }
 
     @Override
-    public void start(Stage stage) {
-        primaryStage = stage;
+    public void start(Stage stage) throws IOException {
+        screenManager = new ScreenManager(new SimpleViewModel(), stage);
 
-        stage.setTitle("Welcome to IDProject!");
-        stage.setScene(scenesHolder.mainScene);
-        stage.show();
+        screenManager.showMainScene();
     }
-
-    public static Stage getPrimaryStage() { return primaryStage; }
 
     public static void main(String[] args) {
         launch();
