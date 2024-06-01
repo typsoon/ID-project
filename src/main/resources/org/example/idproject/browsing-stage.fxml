@@ -8,12 +8,11 @@
 
 <?import javafx.scene.control.Button?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-<!--    fx:controller="org.example.idproject.view.browsingScreens.BrowsingScreenController">-->
    <children>
       <VBox alignment="CENTER" layoutX="95.0" layoutY="66.0" prefHeight="280.0" prefWidth="424.0" spacing="20.0">
          <children>
             <TextField fx:id="searchField" alignment="TOP_CENTER" prefHeight="15.0" prefWidth="75.0" />
-             <Button onAction="#handleSearch" text="Search"/>
+             <Button fx:id="searchButton" text="Search"/>
             <TableView fx:id="dataTable" prefHeight="231.0" prefWidth="424.0">
               <columns>
                 <TableColumn prefWidth="91.0"/>

@@ -11,6 +11,8 @@ public class BrowseClansController extends BrowsingScreenController<BasicClanDat
 
     @Override
     protected void initialize() {
+        super.initialize();
+
         addDataColumn("ID", "ID");
         addDataColumn("Nickname", "currentName");
 
@@ -19,7 +21,6 @@ public class BrowseClansController extends BrowsingScreenController<BasicClanDat
                 new BasicClanData(2, "RIPerClan"),
                 new BasicClanData(3, "mkdusiaClan")
         );
-        dataTable.setItems(dataArray);
 
         searchField.setPromptText("Browse Clans by name");
     }

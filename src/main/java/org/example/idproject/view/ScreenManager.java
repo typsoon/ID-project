@@ -12,7 +12,6 @@ import java.io.IOException;
 
 public class ScreenManager {
     private final Stage primaryStage;
-    private final ViewModel viewModel;
 
     public final Scene browsePlayers;
     public final Scene mainScene;
@@ -20,7 +19,6 @@ public class ScreenManager {
 
     public ScreenManager(ViewModel viewModel, Stage primaryStage) throws IOException {
         this.primaryStage = primaryStage;
-        this.viewModel = viewModel;
 
         browsePlayers = loadScene("browsing-stage.fxml", new BrowsePlayersController(viewModel, this));
         browseClans = loadScene("browsing-stage.fxml", new BrowseClansController(viewModel, this));

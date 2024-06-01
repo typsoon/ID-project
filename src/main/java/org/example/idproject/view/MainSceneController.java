@@ -2,25 +2,22 @@ package org.example.idproject.view;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 
 
 public class MainSceneController {
     private final ScreenManager screenManager;
+    public Button browsePlayersButton;
+    public Button browseClansButton;
+    public Button exitButton;
 
+    @SuppressWarnings("unused")
     @FXML
-    protected void onBrowsePlayersClick() {
-        screenManager.showBrowsePlayersScreen();
-    }
-
-    @FXML
-    public void onBrowseClansClick() {
-        screenManager.showBrowseClansScreen();
-    }
-
-    @FXML
-    protected void onExitButtonClick() {
-        Platform.exit();
-        System.exit(0);
+    private void initialize()
+    {
+        browsePlayersButton.setOnAction(event -> screenManager.showBrowsePlayersScreen());
+        browseClansButton.setOnAction(event -> screenManager.showBrowseClansScreen());
+        exitButton.setOnAction(event -> {Platform.exit(); System.exit(0);});
     }
 
     MainSceneController(ScreenManager screenManager) {

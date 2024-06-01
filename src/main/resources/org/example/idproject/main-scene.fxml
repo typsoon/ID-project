@@ -8,9 +8,9 @@
    <children>
       <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="303.0" prefWidth="263.0" spacing="10.0">
          <children>
-            <Button onAction="#onBrowsePlayersClick" mnemonicParsing="false" prefHeight="45.0" prefWidth="175.0" text="Browse Players" />
-            <Button onAction="#onBrowseClansClick" mnemonicParsing="false" prefHeight="45.0" prefWidth="170.0" text="Browse Clans" />
-            <Button onAction="#onExitButtonClick" mnemonicParsing="false" prefHeight="45.0" prefWidth="170.0" text="Exit" />
+            <Button fx:id="browsePlayersButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="175.0" text="Browse Players" />
+            <Button fx:id="browseClansButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="170.0" text="Browse Clans" />
+            <Button fx:id="exitButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="170.0" text="Exit" />
          </children>
       </VBox>
    </children>

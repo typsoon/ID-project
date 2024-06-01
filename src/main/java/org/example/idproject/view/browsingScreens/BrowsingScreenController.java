@@ -3,6 +3,7 @@ package org.example.idproject.view.browsingScreens;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -15,16 +16,18 @@ public abstract class BrowsingScreenController<T> {
     protected final ScreenManager screenManager;
 
     public TableView<T> dataTable = new TableView<>();
+    public Button searchButton;
     ObservableList<T> dataArray = FXCollections.observableArrayList();
 
     protected final ViewModel viewModel;
 
-
-    @FXML
     protected abstract void handleSearch();
 
     @FXML
-    protected abstract void initialize();
+    protected void initialize() {
+        dataTable.setItems(dataArray);
+        searchButton.setOnAction(event -> handleSearch());
+    }
 
     private int addedCount = 0;
 

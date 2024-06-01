@@ -1,8 +1,5 @@
 package org.example.idproject.view.browsingScreens;
 
-import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import org.example.idproject.common.BasicPlayerData;
 import org.example.idproject.view.ScreenManager;
 import org.example.idproject.viewmodel.ViewModel;
@@ -14,6 +11,8 @@ public class BrowsePlayersController extends BrowsingScreenController<BasicPlaye
 
     @Override
     protected void initialize() {
+        super.initialize();
+
         addDataColumn("ID", "ID");
         addDataColumn("Nickname", "currentNickname");
 
@@ -22,7 +21,6 @@ public class BrowsePlayersController extends BrowsingScreenController<BasicPlaye
                 new BasicPlayerData(2, "RIPer"),
                 new BasicPlayerData(3, "mkdusia")
         );
-        dataTable.setItems(dataArray);
 
         searchField.setPromptText("Browse Players by nickname");
     }
