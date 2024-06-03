@@ -1,9 +1,6 @@
 package org.example.idproject.viewmodel;
 
-import org.example.idproject.common.BasicClanData;
-import org.example.idproject.common.BasicPlayerData;
-import org.example.idproject.common.FullClanData;
-import org.example.idproject.common.FullPlayerData;
+import org.example.idproject.common.*;
 
 import java.util.Collection;
 
@@ -13,4 +10,6 @@ public interface ViewModel {
 
     Collection<BasicClanData> browseClans(String name);
     FullClanData getFullClanData(int clanId);
+
+    boolean tryLogIn(Credentials credentials);
 }

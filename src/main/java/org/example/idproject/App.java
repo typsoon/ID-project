@@ -4,8 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.example.idproject.view.ScreenManager;
-import org.example.idproject.viewmodel.SimpleViewModel;
+import org.example.idproject.view.LoginSceneController;
 
 import java.io.IOException;
 
@@ -17,15 +16,13 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        ScreenManager screenManager = new ScreenManager(new SimpleViewModel(), stage);
+        stage.setTitle("Welcome to IDProject");
+        LoginSceneController loginSceneController = new LoginSceneController(stage);
+        FXMLLoader loginScreenLoader = new FXMLLoader(getClass().getResource("login-screen.fxml"));
+        loginScreenLoader.setController(loginSceneController);
 
-        FXMLLoader managerLoader = new FXMLLoader(getClass().getResource("screen-manager.fxml"));
-        managerLoader.setController(screenManager);
-
-        stage.setScene(new Scene(managerLoader.load()));
+        stage.setScene(new Scene(loginScreenLoader.load()));
         stage.show();
-
-//        screenManager.showMainScene();
     }
 
     public static void main(String[] args) {
