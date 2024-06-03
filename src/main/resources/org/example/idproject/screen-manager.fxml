@@ -4,9 +4,8 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
 
-<SplitPane dividerPositions="0.09812108559498957" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="573.0" prefWidth="874.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<SplitPane dividerPositions="0.09812108559498957" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="637.0" prefWidth="1074.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
   <items>
     <AnchorPane minHeight="0.0" minWidth="0.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="65.0" prefWidth="716.0" style="-fx-background-color: #F0F0F0;">
          <children>
@@ -18,18 +17,10 @@
               </buttons>
             </ButtonBar>
          </children></AnchorPane>
-      <SplitPane dividerPositions="0.5022935779816514" prefHeight="351.0" prefWidth="600.0">
+      <SplitPane dividerPositions="0.41697761194029853" prefHeight="351.0" prefWidth="600.0">
          <items>
-            <AnchorPane fx:id="leftAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="512.0" prefWidth="441.0">
-               <children>
-                  <VBox fx:id="leftVBox" prefHeight="429.0" prefWidth="350.0" />
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="rightAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-               <children>
-                  <VBox fx:id="rightVBox" prefHeight="429.0" prefWidth="360.0" />
-               </children>
-            </AnchorPane>
+            <AnchorPane fx:id="leftAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="512.0" prefWidth="441.0" />
+            <AnchorPane fx:id="rightAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="570.0" prefWidth="654.0" />
          </items>
       </SplitPane>
   </items>

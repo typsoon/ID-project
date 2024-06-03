@@ -4,8 +4,8 @@ import org.example.idproject.common.BasicPlayerData;
 import org.example.idproject.view.ScreenManager;
 import org.example.idproject.viewmodel.ViewModel;
 
-public class BrowsePlayersController extends BrowsingScreenController<BasicPlayerData> {
-    public BrowsePlayersController(ViewModel viewModel, ScreenManager screenManager) {
+public class BrowsePlayersControllerAbstract extends AbstractBrowsingScreenController<BasicPlayerData> {
+    public BrowsePlayersControllerAbstract(ViewModel viewModel, ScreenManager screenManager) {
         super(viewModel, screenManager);
     }
 
@@ -31,5 +31,10 @@ public class BrowsePlayersController extends BrowsingScreenController<BasicPlaye
         dataArray.addAll(
             new BasicPlayerData(5, "Test")
         );
+    }
+
+    @Override
+    protected void handleClickOnDataTable(int id) {
+        screenManager.showPlayerInfo(id);
     }
 }

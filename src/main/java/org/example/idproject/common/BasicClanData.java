@@ -1,6 +1,6 @@
 package org.example.idproject.common;
 
-public record BasicClanData(int ID, String currentName) {
+public record BasicClanData(int ID, String currentName) implements HasID {
     public int getID() {
         return ID;
     }

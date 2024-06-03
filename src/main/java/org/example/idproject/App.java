@@ -12,7 +12,7 @@ import java.io.IOException;
 public class App extends Application {
 
     @Override
-    public void init() throws Exception {
+    public void init() {
     }
 
     @Override

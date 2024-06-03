@@ -4,8 +4,8 @@ import org.example.idproject.common.BasicClanData;
 import org.example.idproject.view.ScreenManager;
 import org.example.idproject.viewmodel.ViewModel;
 
-public class BrowseClansController extends BrowsingScreenController<BasicClanData> {
-    public BrowseClansController(ViewModel viewModel, ScreenManager screenManager) {
+public class BrowseClansControllerAbstract extends AbstractBrowsingScreenController<BasicClanData> {
+    public BrowseClansControllerAbstract(ViewModel viewModel, ScreenManager screenManager) {
         super(viewModel, screenManager);
     }
 
@@ -30,5 +30,10 @@ public class BrowseClansController extends BrowsingScreenController<BasicClanDat
         dataArray.addAll(
                 new BasicClanData(5, "Test")
         );
+    }
+
+    @Override
+    protected void handleClickOnDataTable(int id) {
+
     }
 }
