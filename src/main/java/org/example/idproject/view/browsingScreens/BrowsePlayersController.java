@@ -19,7 +19,8 @@ public class BrowsePlayersController extends BrowsingScreenController<BasicPlaye
         dataArray.addAll(
                 new BasicPlayerData(1, "typsoon"),
                 new BasicPlayerData(2, "RIPer"),
-                new BasicPlayerData(3, "mkdusia")
+                new BasicPlayerData(3, "mkdusia"),
+                new BasicPlayerData(4, "luftwaffel (i love waffles)")
         );
 
         searchField.setPromptText("Browse Players by nickname");
