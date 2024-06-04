@@ -58,8 +58,7 @@ create table Applications
     clan_ID   integer references Clans,
     player_ID integer references Players,
     date_from timestamp,
-    date_to   timestamp CHECK (date_from < date_to AND AGE(date_to, date_from) < INTERVAL '2 weeks'
-),
+    date_to   timestamp CHECK (date_from < date_to AND AGE(date_to, date_from) < INTERVAL '2 weeks'),
     primary key (date_from,clan_ID,player_ID)
 );
 

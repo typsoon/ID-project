@@ -30,6 +30,7 @@ public class ScreenManager {
     private final VBox browsePlayersVBox;
     private final VBox browseClansVBox;
     private final VBox playerInfoVBox;
+    private final VBox clanInfoVBox;
 
     @FXML
     AnchorPane leftAnchorPane;
@@ -64,6 +65,7 @@ public class ScreenManager {
         playerInfoVBox = loadVBox("player-info.fxml", playerInfoController);
 
         clanInfoController = new ClanInfoController(viewModel, this);
+        clanInfoVBox = loadVBox("clan-info.fxml", clanInfoController);
     }
 
     @SuppressWarnings("unused")
@@ -112,10 +114,10 @@ public class ScreenManager {
         leftAnchorPane.getChildren().add(browseClansVBox);
     }
 
-    void showClanInfo(int clanId) {
+    public void showClanInfo(int clanId) {
         clanInfoController.update(clanId);
         rightAnchorPane.getChildren().clear();
-        rightAnchorPane.getChildren().add(playerInfoVBox);
+        rightAnchorPane.getChildren().add(clanInfoVBox);
     }
 
     void showMainScene() {

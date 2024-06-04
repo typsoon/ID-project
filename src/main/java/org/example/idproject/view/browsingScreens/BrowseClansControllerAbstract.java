@@ -34,6 +34,6 @@ public class BrowseClansControllerAbstract extends AbstractBrowsingScreenControl
 
     @Override
     protected void handleClickOnDataTable(int id) {
-
+        screenManager.showClanInfo(id);
     }
 }
