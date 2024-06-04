@@ -50,6 +50,11 @@ public class SimpleViewModel implements ViewModel{
     }
 
     @Override
+    public boolean insertPlayer(String login, String password, String nickName) {
+        return false;
+    }
+
+    @Override
     public FullPlayerData getFullPlayerData(int playerId) {
         return null;
     }

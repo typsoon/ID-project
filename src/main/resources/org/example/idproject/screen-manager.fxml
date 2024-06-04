@@ -5,7 +5,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<SplitPane dividerPositions="0.09812108559498957" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="637.0" prefWidth="1074.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<SplitPane dividerPositions="0.09812108559498957" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="673.0" prefWidth="1138.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
   <items>
     <AnchorPane minHeight="0.0" minWidth="0.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="65.0" prefWidth="716.0" style="-fx-background-color: #F0F0F0;">
          <children>
@@ -19,9 +19,9 @@
               </buttons>
             </ButtonBar>
          </children></AnchorPane>
-      <SplitPane dividerPositions="0.41697761194029853" prefHeight="351.0" prefWidth="600.0">
+      <SplitPane dividerPositions="0.4630281690140845" prefHeight="351.0" prefWidth="600.0">
          <items>
-            <AnchorPane fx:id="leftAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="512.0" prefWidth="441.0" />
+            <AnchorPane fx:id="leftAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="602.0" prefWidth="491.0" />
             <AnchorPane fx:id="rightAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="570.0" prefWidth="654.0" />
          </items>
       </SplitPane>

@@ -13,6 +13,8 @@ import org.example.idproject.view.browsingScreens.BrowsePlayersControllerAbstrac
 import org.example.idproject.view.infoPanes.AbstractInfoController;
 import org.example.idproject.view.infoPanes.ClanInfoController;
 import org.example.idproject.view.infoPanes.PlayerInfoController;
+import org.example.idproject.view.insertDataScreens.AbstractInsertDataController;
+import org.example.idproject.view.insertDataScreens.InsertPlayersController;
 import org.example.idproject.viewmodel.ViewModel;
 
 import java.io.IOException;
@@ -24,6 +26,8 @@ public class ScreenManager {
     private final AbstractInfoController playerInfoController;
     private final AbstractInfoController clanInfoController;
 
+    AbstractInsertDataController playerInsertDataController;
+
     private final Scene mainScene;
     private final Scene browseClans;
 
@@ -31,6 +35,8 @@ public class ScreenManager {
     private final VBox browseClansVBox;
     private final VBox playerInfoVBox;
     private final VBox clanInfoVBox;
+
+    protected final VBox playerInsertVBox;
 
     @FXML
     AnchorPane leftAnchorPane;
@@ -68,6 +74,9 @@ public class ScreenManager {
 
         clanInfoController = new ClanInfoController(viewModel, this);
         clanInfoVBox = loadVBox("clan-info.fxml", clanInfoController);
+
+        playerInsertDataController = new InsertPlayersController(viewModel);
+        playerInsertVBox = loadVBox("player-insert-VBox.fxml", playerInsertDataController);
     }
 
     @SuppressWarnings("unused")
@@ -79,6 +88,8 @@ public class ScreenManager {
     private void setControllers() {
         browsePlayersButton.setOnAction(event -> showBrowsePlayersScreen());
         browseClansButton.setOnAction(event -> showBrowseClansScreen());
+
+        addPlayersButton.setOnAction(actionEvent -> showInsertPlayersScreen());
     }
 
     private static Scene loadScene(String resourceName, Object controller) throws IOException {
@@ -120,5 +131,12 @@ public class ScreenManager {
         clanInfoController.update(clanId);
         rightAnchorPane.getChildren().clear();
         rightAnchorPane.getChildren().add(clanInfoVBox);
+    }
+
+    public void showInsertPlayersScreen() {
+        primaryStage.setTitle("Insert Players");
+
+        leftAnchorPane.getChildren().clear();
+        leftAnchorPane.getChildren().add(playerInsertVBox);
     }
 }
