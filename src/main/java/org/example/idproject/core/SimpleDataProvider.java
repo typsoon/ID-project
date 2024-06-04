@@ -1,6 +1,7 @@
-package org.example.idproject.viewmodel;
+package org.example.idproject.core;
 
 import org.example.idproject.common.*;
+import org.example.idproject.viewmodel.DataProvider;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,9 +9,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
-public class SimpleViewModel implements ViewModel{
+public class SimpleDataProvider implements DataProvider {
     private String url;
     private Credentials credentials;
     private static final String urlBase = "jdbc:postgresql://localhost:5432/";
@@ -129,7 +129,7 @@ public class SimpleViewModel implements ViewModel{
     }
 
     public static void main(String[] args) {
-        SimpleViewModel simpleViewModel = new SimpleViewModel();
+        SimpleDataProvider simpleViewModel = new SimpleDataProvider();
         simpleViewModel.tryLogIn(new Credentials("riper", "aaa"));
         Collection<BasicClanData> clanData = simpleViewModel.browseClans("clan1");
 

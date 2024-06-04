@@ -18,4 +18,5 @@ module org.example.idproject {
     exports org.example.idproject.view;
     exports org.example.idproject.viewmodel;
     exports org.example.idproject.common;
+    exports org.example.idproject.core;
 }

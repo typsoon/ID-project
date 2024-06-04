@@ -8,23 +8,23 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.idproject.common.Credentials;
-import org.example.idproject.viewmodel.SimpleViewModel;
-import org.example.idproject.viewmodel.ViewModel;
+import org.example.idproject.viewmodel.DataProvider;
+import org.example.idproject.core.SimpleDataProvider;
 import org.example.idproject.App;
 
 import java.io.IOException;
 
 public class LoginSceneController {
     private final Stage primaryStage;
-    private final ViewModel viewModel;
+    private final DataProvider dataProvider;
 
     public LoginSceneController(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        viewModel = new SimpleViewModel();
+        dataProvider = new SimpleDataProvider();
     }
 
     private void displayMainStage() throws IOException {
-        ScreenManager screenManager = new ScreenManager(viewModel, primaryStage);
+        ScreenManager screenManager = new ScreenManager(dataProvider, primaryStage);
 
         FXMLLoader managerLoader = new FXMLLoader(App.class.getResource("screen-manager.fxml"));
         managerLoader.setController(screenManager);
@@ -34,7 +34,7 @@ public class LoginSceneController {
     }
 
     private boolean captureDataAndTryToLogIn() {
-        return viewModel.tryLogIn(new Credentials(usernameField.getText(), passwordField.getText()));
+        return dataProvider.tryLogIn(new Credentials(usernameField.getText(), passwordField.getText()));
     }
 
     @SuppressWarnings("unused")

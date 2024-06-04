@@ -49,4 +49,3 @@ ClanChat
 	
 Duels 
 	player1 != player2
-

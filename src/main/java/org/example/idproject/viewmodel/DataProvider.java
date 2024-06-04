@@ -4,7 +4,7 @@ import org.example.idproject.common.*;
 
 import java.util.Collection;
 
-public interface ViewModel {
+public interface DataProvider {
 //    Returns data to be displayed in searchView after nickName is searched
     Collection<BasicPlayerData> browsePlayers(String nickName);
     FullPlayerData getFullPlayerData(int playerId);

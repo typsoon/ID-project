@@ -2,11 +2,11 @@ package org.example.idproject.view.browsingScreens;
 
 import org.example.idproject.common.BasicPlayerData;
 import org.example.idproject.view.ScreenManager;
-import org.example.idproject.viewmodel.ViewModel;
+import org.example.idproject.viewmodel.DataProvider;
 
 public class BrowsePlayersControllerAbstract extends AbstractBrowsingScreenController<BasicPlayerData> {
-    public BrowsePlayersControllerAbstract(ViewModel viewModel, ScreenManager screenManager) {
-        super(viewModel, screenManager);
+    public BrowsePlayersControllerAbstract(DataProvider dataProvider, ScreenManager screenManager) {
+        super(dataProvider, screenManager);
     }
 
     @Override
@@ -25,14 +25,14 @@ public class BrowsePlayersControllerAbstract extends AbstractBrowsingScreenContr
     protected void handleSearch() {
         dataArray.clear();
         dataArray.addAll(
-           viewModel.browsePlayers(searchField.getText())
+           dataProvider.browsePlayers(searchField.getText())
         );
     }
 
     @Override
     protected void displayAll() {
         dataArray.clear();
-        dataArray.addAll(viewModel.getAllPlayers());
+        dataArray.addAll(dataProvider.getAllPlayers());
     }
 
     @Override
