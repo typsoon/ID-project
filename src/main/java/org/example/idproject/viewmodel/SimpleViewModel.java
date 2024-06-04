@@ -23,6 +23,7 @@ public class SimpleViewModel implements ViewModel{
             ResultSet rs = stmt.executeQuery( "select * from SearchPlayers(\'" + nickName + "\');");
             while (rs.next()) {
                 players.add(new BasicPlayerData(Integer.parseInt(rs.getString(1)),rs.getString(2)));
+               // System.out.println(rs.getString(1) + " " + rs.getString(2) );
             }
         }
         catch (Exception e) {
@@ -39,6 +40,7 @@ public class SimpleViewModel implements ViewModel{
             ResultSet rs = stmt.executeQuery("select player_ID, PlayerNickname(player_ID) from players");
             while (rs.next()) {
                 players.add(new BasicPlayerData(Integer.parseInt(rs.getString(1)),rs.getString(2)));
+                //System.out.println(rs.getString(1) + " " + rs.getString(2) );
             }
         }
         catch (Exception e) {
@@ -49,35 +51,12 @@ public class SimpleViewModel implements ViewModel{
 
     @Override
     public FullPlayerData getFullPlayerData(int playerId) {
-        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from FullPlayerData where player_ID = " + playerId + ";");
-            if (rs.next()) {
-                return new FullPlayerData( rs.getLong(1),rs.getString(2),rs.getString(3),
-                        new BasicPlayerData(rs.getInt(4),rs.getString(5))
-                                );
-            }
-        }
-        catch (Exception e) {
-            throw new RuntimeException(e);
-        }
         return null;
     }
 
     @Override
     public Collection<BasicClanData> browseClans(String name) {
-        Collection<BasicClanData> clans = new ArrayList<>();
-        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery( "select * from searchclans(\'" + name + "\');");
-            while (rs.next()) {
-                clans.add(new BasicClanData(Integer.parseInt(rs.getString(1)),rs.getString(2)));
-            }
-        }
-        catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return clans;
+        return List.of();
     }
 
     @Override

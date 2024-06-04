@@ -23,9 +23,14 @@ public abstract class AbstractBrowsingScreenController<T extends HasID> {
     protected Button searchButton;
     ObservableList<T> dataArray = FXCollections.observableArrayList();
 
+    @FXML
+    protected Button showAllButton;
+
     protected final ViewModel viewModel;
 
     protected abstract void handleSearch();
+
+    protected abstract void displayAll();
 
     protected abstract void handleClickOnDataTable(int id);
 
@@ -35,7 +40,7 @@ public abstract class AbstractBrowsingScreenController<T extends HasID> {
         searchButton.setOnAction(event -> handleSearch());
 
         dataTable.setRowFactory(tv -> {
-            TableRow<T> tableRow = new TableRow<T>();
+            TableRow<T> tableRow = new TableRow<>();
 
             tableRow.setOnMouseClicked(mouseEvent -> {
                 if (mouseEvent.getClickCount() == 2 && !tableRow.isEmpty()) {
@@ -53,6 +58,8 @@ public abstract class AbstractBrowsingScreenController<T extends HasID> {
                 handleClickOnDataTable(selectedData.getID());
             }
         });
+
+        showAllButton.setOnAction(event -> displayAll());
     }
 
     private int addedCount = 0;
