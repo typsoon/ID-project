@@ -9,9 +9,11 @@
   <items>
     <AnchorPane minHeight="0.0" minWidth="0.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="65.0" prefWidth="716.0" style="-fx-background-color: #F0F0F0;">
          <children>
-            <ButtonBar layoutY="-6.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="51.0" prefWidth="598.0" AnchorPane.leftAnchor="10.0">
+            <ButtonBar layoutY="-6.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="51.0" prefWidth="800.0" AnchorPane.leftAnchor="10.0">
               <buttons>
-                <Button mnemonicParsing="false" text="Button" />
+                  <Button mnemonicParsing="false" text="Add duels" />
+                  <Button mnemonicParsing="false" text="Add clans" />
+                <Button fx:id="addPlayersButton" mnemonicParsing="false" text="Add players" />
                   <Button fx:id="browseClansButton" mnemonicParsing="false" text="Browse clans" />
                   <Button fx:id="browsePlayersButton" mnemonicParsing="false" prefWidth="118.0" text="Browse players" />
               </buttons>

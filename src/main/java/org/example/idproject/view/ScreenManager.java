@@ -44,6 +44,8 @@ public class ScreenManager {
     @FXML
     Button browsePlayersButton;
 
+    @FXML
+    Button addPlayersButton;
 
     public ScreenManager(ViewModel viewModel, Stage primaryStage) throws IOException {
 //        FXMLLoader managerLoader = new FXMLLoader(getClass().getResource("screen-manager.fxml"));
