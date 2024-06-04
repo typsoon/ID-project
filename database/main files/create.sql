@@ -64,7 +64,7 @@ create table Applications
 
 create table PlayerClan
 (
-    date_from  timestamp,
+    date_from  timestamp default CURRENT_DATE,
     clan_ID    integer references Clans,
     player_ID  integer references Players,
     date_to    timestamp,
