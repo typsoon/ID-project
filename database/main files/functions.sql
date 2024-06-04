@@ -51,3 +51,20 @@ begin
     ;
 end
 $$language plpgsql;
+
+create or replace function SearchClans(Name varchar)
+    returns table(
+                     clanID int,
+                     current_name varchar
+                 ) as
+$$
+begin
+    return query
+        select c.clan_ID, ClanName(c.clan_id) from clans c
+        where c.clan_id in (
+            select clan_id from clanname cn
+            where lower(cn.cl_name) = lower(Name)
+        )
+    ;
+end
+$$language plpgsql;
