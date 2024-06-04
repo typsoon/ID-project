@@ -34,9 +34,15 @@ create table Duels
     sender    integer references Players not null,
     receiver  integer references Players not null,
     date_from timestamp                  not null,
+    date_to timestamp,
     outcome   boolean,
-    primary key (duel_ID)
+    primary key (duel_ID),
+    CHECK ( AGE(COALESCE(date_to, NOW()), date_from) < interval '10 minutes')
 );
+
+create table ArchivedDuels AS SELECT * FROM duels
+WHERE duel_ID IS NULL;
+
 create table WarDuels
 (
     duel_ID     integer references Duels,
@@ -44,13 +50,16 @@ create table WarDuels
     primary key (duel_ID, clan_war_ID)
 );
 
-create table ClanInvites
+create table ArchivedWarDuels AS SELECT * FROM WarDuels
+WHERE duel_ID IS NULL;
+
+create table Applications
 (
     clan_ID   integer references Clans,
     player_ID integer references Players,
     date_from timestamp,
     date_to   timestamp CHECK (date_from < date_to AND AGE(date_to, date_from) < INTERVAL '2 weeks'
-) ,
+),
     primary key (date_from,clan_ID,player_ID)
 );
 
@@ -61,6 +70,7 @@ create table PlayerClan
     player_ID  integer references Players,
     date_to    timestamp,
     who_kicked integer references Players,
+    who_accepted integer references Players,
     primary key (date_from, clan_ID, player_ID)
 );
 CREATE TABLE FriendsChat
@@ -108,7 +118,6 @@ CREATE TABLE ClanName
     PRIMARY KEY (clan_ID, date_from)
 );
 
-
 CREATE TABLE Logos
 (
     logo_ID       SERIAL PRIMARY KEY,
@@ -130,12 +139,35 @@ CREATE TABLE Roles
 CREATE TABLE PlayerRole
 (
     date_from timestamp,
-    clan_ID   INTEGER REFERENCES Clans,
     player_ID INTEGER REFERENCES Players,
     rank_ID   integer REFERENCES Roles not null,
-    primary key (clan_ID, player_ID, date_from)
+    primary key (player_ID, date_from)
 );
 
+CREATE TABLE Tournaments
+(
+    tournament_id INTEGER,
+    duel_id integer unique references Duels,
+    left_child integer unique references Duels,
+    right_child integer unique references Duels,
+    CHECK ( (left_child IS NULL AND right_child IS NULL) OR (left_child IS NOT NULL AND right_child IS NOT NULL) ),
+    PRIMARY KEY (tournament_id, duel_id)
+);
+
+CREATE TABLE Challenges
+(
+    challenge_id SERIAL PRIMARY KEY,
+    date_from TIMESTAMP NOT NULL,
+    date_to TIMESTAMP NOT NULL,
+    objective INTEGER NOT NULL CHECK ( objective > 0 ),
+    description VARCHAR(200) NOT NULL
+);
+CREATE TABLE PlayerChallenge
+(
+    player_id INTEGER REFERENCES Players,
+    challenge_id INTEGER REFERENCES Challenges,
+    PRIMARY KEY (player_id, challenge_id)
+);
 ---------------------------------------------WSTAWIANIE PRZYKŁADOWYCH DANYCH-----------------------------------------------
 INSERT INTO Clans DEFAULT
 VALUES;
@@ -159,25 +191,25 @@ VALUES ('2024-04-01 1:30:12', 1, 1, 'Hello from clan 1!'),
        ('2024-04-02 2:17:09', 2, 2, 'Greetings from clan 2!'),
        ('2024-04-03 16:20:12', 3, 3, 'Hey clan 3, how are you?');
 
-INSERT INTO Duels (sender, receiver, date_from, outcome)
-VALUES (1, 2, '2024-04-01 11:30:12', true),
-       (2, 3, '2024-04-10 9:21:12', false),
-       (3, 1, '2024-04-20 12:10:12', true);
+INSERT INTO Duels (sender, receiver, date_from, date_to, outcome)
+VALUES (1, 2, '2024-04-01 11:30:12', '2024-04-01 11:35:12', true),
+       (2, 3, '2024-04-10 9:21:12', '2024-04-10 9:23:12', false),
+       (3, 1, '2024-04-20 12:10:12', '2024-04-20 12:10:18', true);
 
 INSERT INTO WarDuels (duel_ID, clan_war_ID)
 VALUES (1, 1),
        (2, 2),
        (3, 3);
 
-INSERT INTO ClanInvites (clan_ID, player_ID, date_from, date_to)
+INSERT INTO Applications (clan_ID, player_ID, date_from, date_to)
 VALUES (1, 2, '2024-03-20', '2024-04-01 10:00:00'),
        (2, 3, '2024-04-02', '2024-04-10 11:30:12'),
        (3, 1, '2024-04-15 10:00:00', '2024-04-20 10:00:00');
 
-INSERT INTO PlayerClan (date_from, clan_ID, player_ID, date_to)
-VALUES ('2024-04-01 10:00:00', 1, 1, '2024-04-15 10:00:00'),
-       ('2024-04-10 11:30:12', 2, 3, '2024-04-25 10:00:00'),
-       ('2024-04-20 10:00:00', 3, 2, '2024-05-05 10:00:00');
+INSERT INTO PlayerClan (date_from, clan_ID, player_ID, date_to, who_accepted)
+VALUES ('2024-04-01 10:00:00', 1, 1, '2024-04-15 10:00:00', null),
+       ('2024-04-10 11:30:12', 2, 3, '2024-04-25 10:00:00', null),
+       ('2024-04-20 10:00:00', 3, 2, '2024-05-05 10:00:00', null);
 
 INSERT INTO FriendsChat (sent_date, sender_ID, receiver_ID, msg_text)
 VALUES ('2024-04-02', 1, 2, 'modelki'),
@@ -215,11 +247,11 @@ VALUES (1, '2024-04-01 12:45:12', 1),
        (3, '2024-04-20 12:45:12', 3);
 
 INSERT INTO Roles (rank_name)
-VALUES ('Rank1'),
-       ('Rank2'),
-       ('Rank3');
+VALUES ('Leader'),
+       ('Elder'),
+       ('Member');
 
-INSERT INTO PlayerRole (date_from, clan_ID, player_ID, rank_ID)
-VALUES ('2024-04-01 13:34:56', 1, 1, 1),
-       ('2024-04-10 13:34:56', 2, 2, 2),
-       ('2024-04-20 18:09:13', 3, 3, 3);
+INSERT INTO PlayerRole (date_from, player_ID, rank_ID)
+VALUES ('2024-04-01 13:34:56', 1, 1),
+       ('2024-04-10 13:34:56', 2, 1),
+       ('2024-04-20 18:09:13', 3, 1);

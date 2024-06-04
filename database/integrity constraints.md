@@ -16,6 +16,8 @@ Friends chat
 Player clan
 	A player can have only one clan, who_kicked must point to a player who is a member of the clan and has appropriate role (member, elder - kick and add, leader - superuser)
 	
+	Whenever a player joins a clan a record should be inserted here
+
 Clans
 	Under no circumstances should we update data about a clan with no leader (such clan does no longer exist)
 	
