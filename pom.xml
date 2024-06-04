@@ -15,6 +15,31 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq</artifactId>
+            <version>3.19.9</version>
+        </dependency>
+
+        <!-- These may not be required, unless you use the GenerationTool manually for code generation -->
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-meta</artifactId>
+            <version>3.19.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-codegen</artifactId>
+            <version>3.19.9</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-postgres-extensions</artifactId>
+            <version>3.19.9</version>
+        </dependency>
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
