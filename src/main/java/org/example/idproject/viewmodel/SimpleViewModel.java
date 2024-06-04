@@ -33,7 +33,7 @@ public class SimpleViewModel implements ViewModel{
     }
 
     @Override
-    public Collection<BasicPlayerData> getPlayers() {
+    public Collection<BasicPlayerData> getAllPlayers() {
         Collection<BasicPlayerData> players = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Statement stmt = conn.createStatement();
@@ -66,6 +66,11 @@ public class SimpleViewModel implements ViewModel{
     }
 
     @Override
+    public Collection<BasicClanData> getAllClans() {
+        return List.of();
+    }
+
+    @Override
     public boolean tryLogIn(Credentials credentials) {
         this.credentials = credentials;
         url=urlBase+credentials.username();
@@ -80,6 +85,6 @@ public class SimpleViewModel implements ViewModel{
     public static void main(String[] args) {
         SimpleViewModel simpleViewModel = new SimpleViewModel();
         simpleViewModel.tryLogIn(new Credentials("riper", "aaa"));
-        Collection<BasicPlayerData> players = simpleViewModel.getPlayers();
+        Collection<BasicPlayerData> players = simpleViewModel.getAllPlayers();
     }
 }

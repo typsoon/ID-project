@@ -5,6 +5,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox alignment="CENTER" prefHeight="280.0" prefWidth="424.0" spacing="12.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
@@ -13,7 +14,12 @@
          <VBox.margin>
             <Insets />
          </VBox.margin></TextField>
-      <Button fx:id="searchButton" text="Search" />
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+         <children>
+            <Button fx:id="searchButton" alignment="CENTER" text="Search" />
+            <Button fx:id="showAllButton" mnemonicParsing="false" text="Show All" />
+         </children>
+      </HBox>
       <TableView fx:id="dataTable" prefHeight="231.0" prefWidth="424.0">
          <columns>
             <TableColumn prefWidth="91.0" />

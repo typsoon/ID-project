@@ -16,9 +16,7 @@ public class BrowsePlayersControllerAbstract extends AbstractBrowsingScreenContr
         addDataColumn("ID", "ID");
         addDataColumn("Nickname", "currentNickname");
 
-        dataArray.addAll(
-               viewModel.getPlayers()
-        );
+        displayAll();
 
         searchField.setPromptText("Browse Players by nickname");
     }
@@ -29,6 +27,12 @@ public class BrowsePlayersControllerAbstract extends AbstractBrowsingScreenContr
         dataArray.addAll(
            viewModel.browsePlayers(searchField.getText())
         );
+    }
+
+    @Override
+    protected void displayAll() {
+        dataArray.clear();
+        dataArray.addAll(viewModel.getAllPlayers());
     }
 
     @Override

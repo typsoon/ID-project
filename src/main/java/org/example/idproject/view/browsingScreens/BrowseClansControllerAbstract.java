@@ -16,11 +16,7 @@ public class BrowseClansControllerAbstract extends AbstractBrowsingScreenControl
         addDataColumn("ID", "ID");
         addDataColumn("Nickname", "currentName");
 
-        dataArray.addAll(
-                new BasicClanData(1, "typsoonClan"),
-                new BasicClanData(2, "RIPerClan"),
-                new BasicClanData(3, "mkdusiaClan")
-        );
+        displayAll();
 
         searchField.setPromptText("Browse Clans by name");
     }
@@ -30,6 +26,12 @@ public class BrowseClansControllerAbstract extends AbstractBrowsingScreenControl
         dataArray.addAll(
                 new BasicClanData(5, "Test")
         );
+    }
+
+    @Override
+    protected void displayAll() {
+        dataArray.clear();
+        dataArray.addAll(viewModel.getAllClans());
     }
 
     @Override

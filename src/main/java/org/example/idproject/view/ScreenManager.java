@@ -121,10 +121,4 @@ public class ScreenManager {
         rightAnchorPane.getChildren().clear();
         rightAnchorPane.getChildren().add(clanInfoVBox);
     }
-
-    void showMainScene() {
-        primaryStage.setTitle("Welcome to IDProject");
-        primaryStage.setScene(mainScene);
-        primaryStage.show();
-    }
 }
