@@ -2,13 +2,13 @@ package org.example.idproject.view.insertDataScreens;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import org.example.idproject.viewmodel.DataProvider;
+import org.example.idproject.viewmodel.DatabaseService;
 
 public abstract class AbstractInsertDataController {
-    protected final DataProvider dataProvider;
+    protected final DatabaseService databaseService;
 
-    protected AbstractInsertDataController(DataProvider dataProvider) {
-        this.dataProvider = dataProvider;
+    protected AbstractInsertDataController(DatabaseService databaseService) {
+        this.databaseService = databaseService;
     }
 
     @FXML

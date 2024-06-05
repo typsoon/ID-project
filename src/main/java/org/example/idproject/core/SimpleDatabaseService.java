@@ -1,7 +1,7 @@
 package org.example.idproject.core;
 
 import org.example.idproject.common.*;
-import org.example.idproject.viewmodel.DataProvider;
+import org.example.idproject.viewmodel.DatabaseService;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class SimpleDataProvider implements DataProvider {
+public class SimpleDatabaseService implements DatabaseService {
     private String url;
     private Credentials credentials;
     private static final String urlBase = "jdbc:postgresql://localhost:5432/";
@@ -129,7 +129,7 @@ public class SimpleDataProvider implements DataProvider {
     }
 
     public static void main(String[] args) {
-        SimpleDataProvider simpleViewModel = new SimpleDataProvider();
+        SimpleDatabaseService simpleViewModel = new SimpleDatabaseService();
         simpleViewModel.tryLogIn(new Credentials("riper", "aaa"));
         Collection<BasicClanData> clanData = simpleViewModel.browseClans("clan1");
 

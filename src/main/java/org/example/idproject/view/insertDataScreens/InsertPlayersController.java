@@ -3,11 +3,11 @@ package org.example.idproject.view.insertDataScreens;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import org.example.idproject.viewmodel.DataProvider;
+import org.example.idproject.viewmodel.DatabaseService;
 
 public class InsertPlayersController extends AbstractInsertDataController {
-    public InsertPlayersController(DataProvider dataProvider) {
-        super(dataProvider);
+    public InsertPlayersController(DatabaseService databaseService) {
+        super(databaseService);
     }
 
     @FXML
@@ -26,6 +26,6 @@ public class InsertPlayersController extends AbstractInsertDataController {
 
     @Override
     void insertSimpleData() {
-        dataProvider.insertPlayer(loginField.getText(), passwordField.getText(), nicknameField.getText());
+        databaseService.insertPlayer(loginField.getText(), passwordField.getText(), nicknameField.getText());
     }
 }

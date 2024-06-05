@@ -1,14 +1,14 @@
 package org.example.idproject.view.infoPanes;
 
 import org.example.idproject.view.ScreenManager;
-import org.example.idproject.viewmodel.DataProvider;
+import org.example.idproject.viewmodel.DatabaseService;
 
 public abstract class AbstractInfoController {
-    protected final DataProvider dataProvider;
+    protected final DatabaseService databaseService;
     protected final ScreenManager screenManager;
 
-    AbstractInfoController(DataProvider dataProvider, ScreenManager screenManager) {
-        this.dataProvider = dataProvider;
+    AbstractInfoController(DatabaseService databaseService, ScreenManager screenManager) {
+        this.databaseService = databaseService;
         this.screenManager = screenManager;
     }
 

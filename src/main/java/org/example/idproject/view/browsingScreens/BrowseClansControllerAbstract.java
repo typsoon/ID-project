@@ -2,11 +2,11 @@ package org.example.idproject.view.browsingScreens;
 
 import org.example.idproject.common.BasicClanData;
 import org.example.idproject.view.ScreenManager;
-import org.example.idproject.viewmodel.DataProvider;
+import org.example.idproject.viewmodel.DatabaseService;
 
 public class BrowseClansControllerAbstract extends AbstractBrowsingScreenController<BasicClanData> {
-    public BrowseClansControllerAbstract(DataProvider dataProvider, ScreenManager screenManager) {
-        super(dataProvider, screenManager);
+    public BrowseClansControllerAbstract(DatabaseService databaseService, ScreenManager screenManager) {
+        super(databaseService, screenManager);
     }
 
     @Override
@@ -25,14 +25,14 @@ public class BrowseClansControllerAbstract extends AbstractBrowsingScreenControl
     protected void handleSearch() {
         dataArray.clear();
         dataArray.addAll(
-                dataProvider.browseClans(searchField.getText())
+                databaseService.browseClans(searchField.getText())
         );
     }
 
     @Override
     protected void displayAll() {
         dataArray.clear();
-        dataArray.addAll(dataProvider.getAllClans());
+        dataArray.addAll(databaseService.getAllClans());
     }
 
     @Override

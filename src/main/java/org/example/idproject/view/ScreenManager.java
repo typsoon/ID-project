@@ -15,7 +15,7 @@ import org.example.idproject.view.infoPanes.ClanInfoController;
 import org.example.idproject.view.infoPanes.PlayerInfoController;
 import org.example.idproject.view.insertDataScreens.AbstractInsertDataController;
 import org.example.idproject.view.insertDataScreens.InsertPlayersController;
-import org.example.idproject.viewmodel.DataProvider;
+import org.example.idproject.viewmodel.DatabaseService;
 
 import java.io.IOException;
 
@@ -53,7 +53,7 @@ public class ScreenManager {
     @FXML
     Button addPlayersButton;
 
-    public ScreenManager(DataProvider dataProvider, Stage primaryStage) throws IOException {
+    public ScreenManager(DatabaseService databaseService, Stage primaryStage) throws IOException {
 //        FXMLLoader managerLoader = new FXMLLoader(getClass().getResource("screen-manager.fxml"));
 //        managerLoader.setController(this);
 
@@ -62,20 +62,20 @@ public class ScreenManager {
 
         this.primaryStage = primaryStage;
 
-//        browsePlayers = loadScene("browsing-stage.fxml", new BrowsePlayersControllerAbstract(dataProvider, this));
-        browseClans = loadScene("browsing-stage.fxml", new BrowseClansControllerAbstract(dataProvider, this));
+//        browsePlayers = loadScene("browsing-stage.fxml", new BrowsePlayersControllerAbstract(databaseService, this));
+        browseClans = loadScene("browsing-stage.fxml", new BrowseClansControllerAbstract(databaseService, this));
         mainScene = loadScene("main-scene.fxml", new MainSceneController(this));
 
-        browsePlayersVBox = loadVBox("browsing-hbox.fxml", new BrowsePlayersControllerAbstract(dataProvider, this));
-        browseClansVBox = loadVBox("browsing-hbox.fxml", new BrowseClansControllerAbstract(dataProvider, this));
+        browsePlayersVBox = loadVBox("browsing-hbox.fxml", new BrowsePlayersControllerAbstract(databaseService, this));
+        browseClansVBox = loadVBox("browsing-hbox.fxml", new BrowseClansControllerAbstract(databaseService, this));
 
-        playerInfoController = new PlayerInfoController(dataProvider, this);
+        playerInfoController = new PlayerInfoController(databaseService, this);
         playerInfoVBox = loadVBox("player-info.fxml", playerInfoController);
 
-        clanInfoController = new ClanInfoController(dataProvider, this);
+        clanInfoController = new ClanInfoController(databaseService, this);
         clanInfoVBox = loadVBox("clan-info.fxml", clanInfoController);
 
-        playerInsertDataController = new InsertPlayersController(dataProvider);
+        playerInsertDataController = new InsertPlayersController(databaseService);
         playerInsertVBox = loadVBox("player-insert-VBox.fxml", playerInsertDataController);
     }
 

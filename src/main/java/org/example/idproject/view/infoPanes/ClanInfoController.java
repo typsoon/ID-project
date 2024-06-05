@@ -1,11 +1,11 @@
 package org.example.idproject.view.infoPanes;
 
 import org.example.idproject.view.ScreenManager;
-import org.example.idproject.viewmodel.DataProvider;
+import org.example.idproject.viewmodel.DatabaseService;
 
 public class ClanInfoController extends AbstractInfoController {
-    public ClanInfoController(DataProvider dataProvider, ScreenManager screenManager) {
-        super(dataProvider, screenManager);
+    public ClanInfoController(DatabaseService databaseService, ScreenManager screenManager) {
+        super(databaseService, screenManager);
     }
 
     @Override

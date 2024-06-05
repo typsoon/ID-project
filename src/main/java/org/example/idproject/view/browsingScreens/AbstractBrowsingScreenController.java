@@ -8,7 +8,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import org.example.idproject.common.HasID;
 import org.example.idproject.view.ScreenManager;
-import org.example.idproject.viewmodel.DataProvider;
+import org.example.idproject.viewmodel.DatabaseService;
 
 public abstract class AbstractBrowsingScreenController<T extends HasID> {
     protected final ScreenManager screenManager;
@@ -26,7 +26,7 @@ public abstract class AbstractBrowsingScreenController<T extends HasID> {
     @FXML
     protected Button showAllButton;
 
-    protected final DataProvider dataProvider;
+    protected final DatabaseService databaseService;
 
     protected abstract void handleSearch();
 
@@ -81,8 +81,8 @@ public abstract class AbstractBrowsingScreenController<T extends HasID> {
         addedCount++;
     }
 
-    AbstractBrowsingScreenController(DataProvider dataProvider, ScreenManager screenManager) {
+    AbstractBrowsingScreenController(DatabaseService databaseService, ScreenManager screenManager) {
         this.screenManager = screenManager;
-        this.dataProvider = dataProvider;
+        this.databaseService = databaseService;
     }
 }
