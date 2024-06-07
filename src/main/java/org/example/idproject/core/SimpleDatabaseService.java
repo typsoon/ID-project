@@ -1,5 +1,7 @@
 package org.example.idproject.core;
 
+
+import org.example.idproject.common.BasicPlayerData;
 import org.example.idproject.common.*;
 import org.example.idproject.viewmodel.DatabaseService;
 
@@ -75,7 +77,14 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public boolean insertPlayer(String login, String password, String nickName) {
-        return false;
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            stmt.execute( "insert into fullplayerdata (password_hash, login, playernickname) values (" + password.hashCode() + ",'" + login + "','" + nickName + "');" );
+            return true;
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -155,7 +164,7 @@ public class SimpleDatabaseService implements DatabaseService {
         SimpleDatabaseService simpleViewModel = new SimpleDatabaseService();
         simpleViewModel.tryLogIn(new Credentials("riper", "aaa"));
         Collection<BasicClanData> clanData = simpleViewModel.browseClans("clan1");
-
+        simpleViewModel.insertPlayer("asdasw13","asdas","asdasss");
         return;
     }
 }

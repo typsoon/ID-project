@@ -9,7 +9,7 @@ create table ClanWars
     clan_war_ID serial,
     clan1_ID    integer references Clans not null,
     clan2_ID    integer references Clans not null,
-    date_from   timestamp                not null,
+    date_from   timestamp   default  current_timestamp not null,
     outcome     boolean,
     primary key (clan_war_ID)
 );
@@ -33,7 +33,7 @@ create table Duels
     duel_ID   serial,
     sender    integer references Players not null,
     receiver  integer references Players not null,
-    date_from timestamp                  not null,
+    date_from timestamp  default CURRENT_TIMESTAMP not null,
     date_to timestamp,
     outcome   boolean,
     primary key (duel_ID),
@@ -57,14 +57,14 @@ create table Applications
 (
     clan_ID   integer references Clans,
     player_ID integer references Players,
-    date_from timestamp,
+    date_from timestamp default CURRENT_TIMESTAMP ,
     date_to   timestamp CHECK (date_from < date_to AND AGE(date_to, date_from) < INTERVAL '2 weeks'),
     primary key (date_from,clan_ID,player_ID)
 );
 
 create table PlayerClan
 (
-    date_from  timestamp default CURRENT_DATE,
+    date_from  timestamp default CURRENT_TIMESTAMP ,
     clan_ID    integer references Clans,
     player_ID  integer references Players,
     date_to    timestamp,
@@ -85,7 +85,7 @@ CREATE TABLE Friends
 (
     player1_ID INTEGER REFERENCES Players (player_ID),
     player2_ID INTEGER REFERENCES Players (player_ID),
-    date_from  timestamp,
+    date_from  timestamp default CURRENT_TIMESTAMP ,
     date_to    timestamp CHECK (date_from < date_to),
     PRIMARY KEY (player1_ID, player2_ID, date_from)
 );
@@ -94,7 +94,7 @@ CREATE TABLE FriendsInvites
 (
     player1_ID INTEGER REFERENCES Players (player_ID),
     player2_ID INTEGER REFERENCES Players (player_ID),
-    date_from  timestamp,
+    date_from  timestamp default CURRENT_TIMESTAMP ,
     date_to    timestamp CHECK (date_from < date_to AND AGE(date_to, date_from) < INTERVAL '2 weeks'
 ) ,
     PRIMARY KEY (player1_ID, player2_ID, date_from)
@@ -104,7 +104,7 @@ CREATE TABLE FriendsInvites
 CREATE TABLE PlayerNickname
 (
     player_ID INTEGER REFERENCES Players (player_ID),
-    date_from timestamp,
+    date_from timestamp default CURRENT_TIMESTAMP ,
     nickname  varchar(20) not null,
     PRIMARY KEY (player_ID, date_from)
 );
@@ -112,7 +112,7 @@ CREATE TABLE PlayerNickname
 CREATE TABLE ClanName
 (
     clan_ID   INTEGER REFERENCES Clans,
-    date_from timestamp,
+    date_from timestamp default CURRENT_TIMESTAMP ,
     cl_name   varchar(20) not null,
     PRIMARY KEY (clan_ID, date_from)
 );
@@ -126,7 +126,7 @@ CREATE TABLE Logos
 CREATE TABLE ClanLogos
 (
     clan_ID   INTEGER REFERENCES Clans,
-    date_from timestamp,
+    date_from timestamp default CURRENT_TIMESTAMP ,
     logo_ID   integer REFERENCES Logos not null,
     primary key (clan_ID, date_from)
 );
@@ -137,7 +137,7 @@ CREATE TABLE Roles
 );
 CREATE TABLE PlayerRole
 (
-    date_from timestamp,
+    date_from timestamp default CURRENT_TIMESTAMP ,
     player_ID INTEGER REFERENCES Players,
     rank_ID   integer REFERENCES Roles not null,
     primary key (player_ID, date_from)
@@ -156,7 +156,7 @@ CREATE TABLE Tournaments
 CREATE TABLE Challenges
 (
     challenge_id SERIAL PRIMARY KEY,
-    date_from TIMESTAMP NOT NULL,
+    date_from TIMESTAMP default CURRENT_TIMESTAMP  NOT NULL,
     date_to TIMESTAMP NOT NULL,
     objective INTEGER NOT NULL CHECK ( objective > 0 ),
     description VARCHAR(200) NOT NULL
