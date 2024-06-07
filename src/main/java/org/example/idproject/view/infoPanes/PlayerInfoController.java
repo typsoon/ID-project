@@ -29,7 +29,7 @@ public class PlayerInfoController extends AbstractInfoController {
             currentNickname.setText(fullPlayerData.basicPlayerData().currentNickname());
         }
         catch (Exception e) {
-            screenManager.displayAllert(e);
+            screenManager.displayAlert(e);
         }
     }
 }

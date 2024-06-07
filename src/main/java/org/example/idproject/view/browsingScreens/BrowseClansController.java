@@ -33,7 +33,7 @@ public class BrowseClansController extends AbstractBrowsingScreenController<Basi
             );
         }
         catch (SQLException e) {
-            screenManager.displayAllert(e);
+            screenManager.displayAlert(e);
         }
     }
 
@@ -44,7 +44,7 @@ public class BrowseClansController extends AbstractBrowsingScreenController<Basi
             dataArray.addAll(databaseService.getAllClans());
         }
         catch (SQLException e) {
-            screenManager.displayAllert(e);
+            screenManager.displayAlert(e);
         }
     }
 

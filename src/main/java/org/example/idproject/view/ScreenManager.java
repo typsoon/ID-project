@@ -17,6 +17,7 @@ import org.example.idproject.view.infoPanes.AbstractInfoController;
 import org.example.idproject.view.infoPanes.ClanInfoController;
 import org.example.idproject.view.infoPanes.PlayerInfoController;
 import org.example.idproject.view.insertDataScreens.AbstractInsertDataController;
+import org.example.idproject.view.insertDataScreens.InsertClansController;
 import org.example.idproject.view.insertDataScreens.InsertPlayersController;
 import org.example.idproject.viewmodel.DatabaseService;
 
@@ -30,6 +31,7 @@ public class ScreenManager {
     private final AbstractInfoController clanInfoController;
 
     AbstractInsertDataController playerInsertDataController;
+    AbstractInsertDataController clanInsertDataController;
 
 //    private final Scene mainScene;
 //    private final Scene browseClans;
@@ -43,6 +45,7 @@ public class ScreenManager {
     private final VBox clanInfoVBox;
 
     protected final VBox playerInsertVBox;
+    protected final VBox clanInsertVBox;
 
     @FXML AnchorPane leftAnchorPane;
     @FXML AnchorPane rightAnchorPane;
@@ -53,6 +56,7 @@ public class ScreenManager {
     @FXML Button browseChallengesButton;
 
     @FXML Button addPlayersButton;
+    @FXML Button addClansButton;
 
     public ScreenManager(DatabaseService databaseService, Stage primaryStage) throws IOException {
 //        FXMLLoader managerLoader = new FXMLLoader(getClass().getResource("screen-manager.fxml"));
@@ -80,6 +84,9 @@ public class ScreenManager {
 
         playerInsertDataController = new InsertPlayersController(databaseService, this);
         playerInsertVBox = loadVBox("player-insert-VBox.fxml", playerInsertDataController);
+
+        clanInsertDataController = new InsertClansController(databaseService, this);
+        clanInsertVBox = loadVBox("clan-insert-VBox.fxml", clanInsertDataController);
     }
 
     @SuppressWarnings("unused")
@@ -95,6 +102,7 @@ public class ScreenManager {
         browseChallengesButton.setOnAction(event -> showBrowseChallengesScreen());
 
         addPlayersButton.setOnAction(actionEvent -> showInsertPlayersScreen());
+        addClansButton.setOnAction(actionEvent -> showInsertClansScreen());
     }
 
     private static Scene loadScene(String resourceName, Object controller) throws IOException {
@@ -111,7 +119,7 @@ public class ScreenManager {
         return fxmlLoader.load();
     }
 
-    public void displayAllert(Exception e) {
+    public void displayAlert(Exception e) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
 
         // Set the title of the alert
@@ -168,8 +176,13 @@ public class ScreenManager {
 
     public void showInsertPlayersScreen() {
         primaryStage.setTitle("Insert Players");
-
         leftAnchorPane.getChildren().clear();
         leftAnchorPane.getChildren().add(playerInsertVBox);
+    }
+
+    public void showInsertClansScreen() {
+        primaryStage.setTitle("Insert Clans");
+        leftAnchorPane.getChildren().clear();
+        leftAnchorPane.getChildren().add(clanInsertVBox);
     }
 }

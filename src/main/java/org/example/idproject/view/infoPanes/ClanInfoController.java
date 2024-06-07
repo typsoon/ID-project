@@ -16,8 +16,9 @@ public class ClanInfoController extends AbstractInfoController {
         super(databaseService, screenManager);
     }
 
+    @SuppressWarnings("unused")
     @FXML
-    private ImageView imageView;
+    private ImageView clanLogo;
 
     @Override
     protected void initialize() {
@@ -27,7 +28,10 @@ public class ClanInfoController extends AbstractInfoController {
 
     @Override
     public void update(int id) {
-       // FullClanData fullClanData = databaseService.getFullClanData(id);
-        //imageView.setImage(new Image(Objects.requireNonNull(App.class.getResourceAsStream(fullClanData.imageAddress()))));
+        try {
+            FullClanData fullClanData = databaseService.getFullClanData(id);
+            clanLogo.setImage(new Image(Objects.requireNonNull(App.class.getResourceAsStream(fullClanData.imageAddress()))));
+        }
+        catch (Exception e) {screenManager.displayAlert(e);}
     }
 }

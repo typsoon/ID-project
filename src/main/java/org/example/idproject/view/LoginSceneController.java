@@ -51,7 +51,9 @@ public class LoginSceneController {
                 return true;
             }
         }
-        catch (Exception ignored) {};
+        catch (Exception ignored) {
+            throw new RuntimeException(ignored);
+        };
 
         return false;
     }
