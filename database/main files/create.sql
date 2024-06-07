@@ -236,9 +236,9 @@ VALUES (1, '2024-04-01', 'Clan1'),
        (3, '2024-04-20', 'Clan3');
 
 INSERT INTO Logos (image_address)
-VALUES ('logo1.jpg'),
-       ('logo2.jpg'),
-       ('logo3.jpg');
+VALUES ('clanLogos/red-logo.png'),
+       ('clanLogos/blue-logo.png'),
+       ('clanLogos/green-logo.png');
 
 INSERT INTO ClanLogos (clan_ID, date_from, logo_ID)
 VALUES (1, '2024-04-01 12:45:12', 1),

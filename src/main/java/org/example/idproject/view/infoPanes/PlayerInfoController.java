@@ -9,6 +9,11 @@ public class PlayerInfoController extends AbstractInfoController {
     }
 
     @Override
+    protected void initialize() {
+
+    }
+
+    @Override
     public void update(int id) {
 
     }
