@@ -103,15 +103,20 @@ public class SimpleDatabaseService implements DatabaseService {
     }
 
     @Override
-    public FullClanData getFullClanData(int clanId) {
+    public FullClanData getFullClanData(int clanId) throws SQLException {
 
+        Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password());
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from fullclandata where clan_ID = (\'" + clanId + "\');");
+        if(rs.next())
+            return new FullClanData(rs.getString(1), new BasicClanData(rs.getInt(2),rs.getString(3)));
         return null;
     }
 
     @Override
     public Collection<BasicClanData> getAllClans() throws SQLException {
         Collection<BasicClanData> clans = new ArrayList<>();
-        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+        Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password());
 
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("select clan_id, clanname(clan_id) from clans");
@@ -119,7 +124,6 @@ public class SimpleDatabaseService implements DatabaseService {
                 clans.add(new BasicClanData(rs.getInt(1),rs.getString(2)));
                 //System.out.println(rs.getString(1) + " " + rs.getString(2) );
             }
-        }
 //        catch (Exception e) {
 //            throw new RuntimeException(e);
 //        }
@@ -162,8 +166,15 @@ public class SimpleDatabaseService implements DatabaseService {
     public static void main(String[] args) {
         SimpleDatabaseService simpleViewModel = new SimpleDatabaseService();
         simpleViewModel.tryLogIn(new Credentials("riper", "aaa"));
-//        Collection<BasicClanData> clanData = simpleViewModel.browseClans("clan1");
-//        simpleViewModel.insertPlayer("asdasw13","asdas","asdasss");
-        return;
+        try
+        {
+           FullClanData CL = simpleViewModel.getFullClanData(1);
+
+           return;
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 }

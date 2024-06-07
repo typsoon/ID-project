@@ -4,7 +4,7 @@ create or replace rule add_player as on insert
     (
     insert into Players (password_hash,login) values (new.password_hash,new.login);
     insert into PlayerNickname (player_ID,nickname) values
-        ( (select max(player_ID) from Players),
+        ( (select player_ID from Players where Players.login = new.login),
           new.playernickname
         )
 

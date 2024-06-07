@@ -27,7 +27,7 @@ public class ClanInfoController extends AbstractInfoController {
 
     @Override
     public void update(int id) {
-        FullClanData fullClanData = databaseService.getFullClanData(id);
-        imageView.setImage(new Image(Objects.requireNonNull(App.class.getResourceAsStream(fullClanData.imageAddress()))));
+       // FullClanData fullClanData = databaseService.getFullClanData(id);
+        //imageView.setImage(new Image(Objects.requireNonNull(App.class.getResourceAsStream(fullClanData.imageAddress()))));
     }
 }

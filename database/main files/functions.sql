@@ -35,6 +35,20 @@ begin
 end
 $$language plpgsql;
 
+create or replace function ClanImage(ClanID int)
+    returns varchar as
+$$
+begin
+    return (
+        select image_address from clanlogos
+        join Logos on Logos.logo_ID = clanlogos.logo_ID
+        where clan_ID = ClanID
+        order by date_from desc
+        limit 1
+    );
+end
+$$language plpgsql;
+
 create or replace function SearchPlayers(Nick varchar)
     returns table(
                      playerID int,
@@ -68,3 +82,4 @@ begin
     ;
 end
 $$language plpgsql;
+
