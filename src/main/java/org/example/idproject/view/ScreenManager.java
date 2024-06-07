@@ -3,6 +3,7 @@ package org.example.idproject.view;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -77,7 +78,7 @@ public class ScreenManager {
         clanInfoController = new ClanInfoController(databaseService, this);
         clanInfoVBox = loadVBox("clan-info.fxml", clanInfoController);
 
-        playerInsertDataController = new InsertPlayersController(databaseService);
+        playerInsertDataController = new InsertPlayersController(databaseService, this);
         playerInsertVBox = loadVBox("player-insert-VBox.fxml", playerInsertDataController);
     }
 
@@ -108,6 +109,22 @@ public class ScreenManager {
         fxmlLoader.setController(controller);
 
         return fxmlLoader.load();
+    }
+
+    public void displayAllert(Exception e) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+
+        // Set the title of the alert
+        alert.setTitle("Unsuccessful Operation");
+
+        // Set the header text (null if no header text)
+        alert.setHeaderText(null);
+
+        // Set the content text
+        alert.setContentText(e.getMessage());
+
+        // Show the alert and wait for the user to respond
+        alert.showAndWait();
     }
 
     void showBrowsePlayersScreen() {

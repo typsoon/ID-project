@@ -1,27 +1,29 @@
 package org.example.idproject.viewmodel;
 
 import org.example.idproject.common.*;
+import org.postgresql.util.PSQLException;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Collection;
 
 public interface DatabaseService {
 //    Returns data to be displayed in searchView after nickName is searched
-    Collection<BasicPlayerData> browsePlayers(String nickName);
-    FullPlayerData getFullPlayerData(int playerId);
-    Collection<BasicPlayerData> getAllPlayers();
+    Collection<BasicPlayerData> browsePlayers(String nickName) throws SQLException;
+    FullPlayerData getFullPlayerData(int playerId) throws SQLException;
+    Collection<BasicPlayerData> getAllPlayers() throws SQLException;
 
-    boolean insertPlayer(String login, String password, String nickName);
+    boolean insertPlayer(String login, String password, String nickName) throws SQLException;
 
-    Collection<BasicClanData> browseClans(String name);
+    Collection<BasicClanData> browseClans(String name) throws SQLException;
     FullClanData getFullClanData(int clanId);
-    Collection<BasicClanData> getAllClans();
+    Collection<BasicClanData> getAllClans() throws SQLException;
 
     Collection<BasicDuelData> browseDuels(String tookPart, LocalDate dateFrom, LocalDate dateTo);
     Collection<BasicDuelData> getAllDuels();
 
     Collection<BasicChallengeData> browseChallenges(String objective, LocalDate dateFrom, LocalDate dateTo);
-    Collection<BasicChallengeData> getAllChallenges();
+    Collection<BasicChallengeData> getAllChallenges() throws SQLException;
 
     boolean tryLogIn(Credentials credentials);
 }

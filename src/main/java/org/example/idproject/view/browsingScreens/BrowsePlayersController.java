@@ -24,15 +24,25 @@ public class BrowsePlayersController extends AbstractBrowsingScreenController<Ba
     @Override
     protected void handleSearch() {
         dataArray.clear();
-        dataArray.addAll(
-           databaseService.browsePlayers(searchField.getText())
-        );
+
+        try {
+            dataArray.addAll(
+                    databaseService.browsePlayers(searchField.getText())
+            );
+        }
+        catch (Exception e) {
+            screenManager.displayAllert(e);
+        }
     }
 
     @Override
     protected void displayAll() {
         dataArray.clear();
-        dataArray.addAll(databaseService.getAllPlayers());
+
+        try {
+            dataArray.addAll(databaseService.getAllPlayers());
+        }
+        catch (Exception e) {screenManager.displayAllert(e);}
     }
 
     @Override

@@ -1,0 +1,6 @@
+#!/bin/bash
+psql < 'main files'/clear.sql;
+psql < 'main files'/create.sql;
+psql < 'main files'/functions.sql;
+psql < 'main files'/views.sql;
+psql < 'main files'/rules.sql;

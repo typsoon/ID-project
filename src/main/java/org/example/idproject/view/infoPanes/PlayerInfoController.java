@@ -22,9 +22,14 @@ public class PlayerInfoController extends AbstractInfoController {
 
     @Override
     public void update(int id) {
-        FullPlayerData fullPlayerData = databaseService.getFullPlayerData(id);
+        try {
+            FullPlayerData fullPlayerData = databaseService.getFullPlayerData(id);
 
-        currentClanName.setText(fullPlayerData.currentClanName() == null ? "" : fullPlayerData.currentClanName());
-        currentNickname.setText(fullPlayerData.basicPlayerData().currentNickname());
+            currentClanName.setText(fullPlayerData.currentClanName() == null ? "" : fullPlayerData.currentClanName());
+            currentNickname.setText(fullPlayerData.basicPlayerData().currentNickname());
+        }
+        catch (Exception e) {
+            screenManager.displayAllert(e);
+        }
     }
 }

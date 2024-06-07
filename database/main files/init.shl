@@ -1,5 +1,0 @@
-#!/bin/bash
-psql < clear.sql;
-psql < create.sql;
-psql < functions.sql;
-psql < views.sql;

@@ -17,8 +17,10 @@ public class App extends Application {
         FXMLLoader loginScreenLoader = new FXMLLoader(getClass().getResource("login-screen.fxml"));
         loginScreenLoader.setController(loginSceneController);
 
-        stage.setScene(new Scene(loginScreenLoader.load()));
-        stage.show();
+        if (!loginSceneController.loggedInWithSavedCredentials()) {
+            stage.setScene(new Scene(loginScreenLoader.load()));
+            stage.show();
+        }
     }
 
     public static void main(String[] args) {

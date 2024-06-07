@@ -4,6 +4,8 @@ import org.example.idproject.common.BasicClanData;
 import org.example.idproject.view.ScreenManager;
 import org.example.idproject.viewmodel.DatabaseService;
 
+import java.sql.SQLException;
+
 public class BrowseClansController extends AbstractBrowsingScreenController<BasicClanData> {
     public BrowseClansController(DatabaseService databaseService, ScreenManager screenManager) {
         super(databaseService, screenManager);
@@ -24,15 +26,26 @@ public class BrowseClansController extends AbstractBrowsingScreenController<Basi
     @Override
     protected void handleSearch() {
         dataArray.clear();
-        dataArray.addAll(
-                databaseService.browseClans(searchField.getText())
-        );
+
+        try {
+            dataArray.addAll(
+                    databaseService.browseClans(searchField.getText())
+            );
+        }
+        catch (SQLException e) {
+            screenManager.displayAllert(e);
+        }
     }
 
     @Override
     protected void displayAll() {
         dataArray.clear();
-        dataArray.addAll(databaseService.getAllClans());
+        try {
+            dataArray.addAll(databaseService.getAllClans());
+        }
+        catch (SQLException e) {
+            screenManager.displayAllert(e);
+        }
     }
 
     @Override

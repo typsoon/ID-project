@@ -7,6 +7,7 @@ module org.example.idproject {
     requires org.kordamp.bootstrapfx.core;
     requires java.desktop;
     requires java.sql;
+    requires org.postgresql.jdbc;
 
     opens org.example.idproject.view to javafx.fxml;
     opens org.example.idproject.common to javafx.base;

@@ -4,11 +4,9 @@ package org.example.idproject.core;
 import org.example.idproject.common.BasicPlayerData;
 import org.example.idproject.common.*;
 import org.example.idproject.viewmodel.DatabaseService;
+import org.postgresql.util.PSQLException;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,7 +17,7 @@ public class SimpleDatabaseService implements DatabaseService {
     private Credentials credentials;
     private static final String urlBase = "jdbc:postgresql://localhost:5432/";
     @Override
-    public Collection<BasicPlayerData> browsePlayers(String nickName) {
+    public Collection<BasicPlayerData> browsePlayers(String nickName) throws SQLException {
 
         Collection<BasicPlayerData> players = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
@@ -30,16 +28,16 @@ public class SimpleDatabaseService implements DatabaseService {
                // System.out.println(rs.getString(1) + " " + rs.getString(2) );
             }
         }
-        catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
         return players;
     }
 
 
 
     @Override
-    public FullPlayerData getFullPlayerData(int playerId) {
+    public FullPlayerData getFullPlayerData(int playerId) throws SQLException {
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery( "select * from FullPlayerData where player_ID = (\'" + playerId + "\');");
@@ -52,14 +50,14 @@ public class SimpleDatabaseService implements DatabaseService {
                 // System.out.println(rs.getString(1) + " " + rs.getString(2) );
             }
         }
-        catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
         return null;
     }
 
     @Override
-    public Collection<BasicPlayerData> getAllPlayers() {
+    public Collection<BasicPlayerData> getAllPlayers() throws SQLException {
         Collection<BasicPlayerData> players = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Statement stmt = conn.createStatement();
@@ -69,26 +67,26 @@ public class SimpleDatabaseService implements DatabaseService {
                 //System.out.println(rs.getString(1) + " " + rs.getString(2) );
             }
         }
-        catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
         return players;
     }
 
     @Override
-    public boolean insertPlayer(String login, String password, String nickName) {
+    public boolean insertPlayer(String login, String password, String nickName) throws SQLException {
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Statement stmt = conn.createStatement();
             stmt.execute( "insert into fullplayerdata (password_hash, login, playernickname) values (" + password.hashCode() + ",'" + login + "','" + nickName + "');" );
             return true;
         }
-        catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     @Override
-    public Collection<BasicClanData> browseClans(String name) {
+    public Collection<BasicClanData> browseClans(String name) throws SQLException {
         Collection<BasicClanData> clans = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Statement stmt = conn.createStatement();
@@ -98,9 +96,9 @@ public class SimpleDatabaseService implements DatabaseService {
                 //System.out.println(rs.getString(1) + " " + rs.getString(2) );
             }
         }
-        catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
         return clans;
     }
 
@@ -111,9 +109,10 @@ public class SimpleDatabaseService implements DatabaseService {
     }
 
     @Override
-    public Collection<BasicClanData> getAllClans() {
+    public Collection<BasicClanData> getAllClans() throws SQLException {
         Collection<BasicClanData> clans = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("select clan_id, clanname(clan_id) from clans");
             while (rs.next()) {
@@ -121,9 +120,9 @@ public class SimpleDatabaseService implements DatabaseService {
                 //System.out.println(rs.getString(1) + " " + rs.getString(2) );
             }
         }
-        catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
         return clans;
     }
 
@@ -163,8 +162,8 @@ public class SimpleDatabaseService implements DatabaseService {
     public static void main(String[] args) {
         SimpleDatabaseService simpleViewModel = new SimpleDatabaseService();
         simpleViewModel.tryLogIn(new Credentials("riper", "aaa"));
-        Collection<BasicClanData> clanData = simpleViewModel.browseClans("clan1");
-        simpleViewModel.insertPlayer("asdasw13","asdas","asdasss");
+//        Collection<BasicClanData> clanData = simpleViewModel.browseClans("clan1");
+//        simpleViewModel.insertPlayer("asdasw13","asdas","asdasss");
         return;
     }
 }

@@ -6,6 +6,9 @@ import javafx.scene.control.TextField;
 import org.example.idproject.common.BasicChallengeData;
 import org.example.idproject.view.ScreenManager;
 import org.example.idproject.viewmodel.DatabaseService;
+import org.postgresql.util.PSQLException;
+
+import java.sql.SQLException;
 
 public class BrowseChallengesController extends AbstractBrowsingScreenController<BasicChallengeData> {
     public BrowseChallengesController(DatabaseService databaseService, ScreenManager screenManager) {
@@ -41,7 +44,13 @@ public class BrowseChallengesController extends AbstractBrowsingScreenController
     @Override
     protected void displayAll() {
         dataArray.clear();
-        dataArray.addAll(databaseService.getAllChallenges());
+
+        try {
+            dataArray.addAll(databaseService.getAllChallenges());
+        }
+        catch (SQLException e) {
+            screenManager.displayAllert(e);
+        }
     }
 
     @Override

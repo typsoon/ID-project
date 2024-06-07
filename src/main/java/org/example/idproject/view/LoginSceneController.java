@@ -13,6 +13,8 @@ import org.example.idproject.core.SimpleDatabaseService;
 import org.example.idproject.App;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 public class LoginSceneController {
     private final Stage primaryStage;
@@ -35,6 +37,23 @@ public class LoginSceneController {
 
     private boolean captureDataAndTryToLogIn() {
         return databaseService.tryLogIn(new Credentials(usernameField.getText(), passwordField.getText()));
+    }
+
+    public boolean loggedInWithSavedCredentials() {
+        try {
+            Properties credentials = new Properties();
+            InputStream stream = App.class.getResourceAsStream("localData/credentials.properties");
+
+            credentials.load(stream);
+//            System.out.println(new Credentials(credentials.getProperty("username"), credentials.getProperty("password")));
+            if (databaseService.tryLogIn(new Credentials(credentials.getProperty("username"), credentials.getProperty("password")))) {
+                displayMainStage();
+                return true;
+            }
+        }
+        catch (Exception ignored) {};
+
+        return false;
     }
 
     @SuppressWarnings("unused")
