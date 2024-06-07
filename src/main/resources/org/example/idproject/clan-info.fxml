@@ -13,7 +13,7 @@
 
 <!--suppress JavaFxDefaultTag -->
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="562.0" prefWidth="646.0" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
 <!--   xmlns:fx="http://javafx.com/fxml/1"-->
    <children>
       <HBox alignment="CENTER" prefHeight="51.0" prefWidth="600.0" spacing="10.0">
@@ -92,6 +92,9 @@
                                 </buttons>
                               </ButtonBar>
                            </children>
+                           <VBox.margin>
+                              <Insets top="15.0" />
+                           </VBox.margin>
                         </VBox>
                      </children>
                   </VBox>
@@ -99,7 +102,7 @@
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <VBox alignment="CENTER" prefHeight="201.0" prefWidth="200.0">
+                  <VBox alignment="CENTER" prefHeight="201.0" prefWidth="200.0" spacing="20.0">
                      <children>
                         <Label text="Current logo">
                            <font>

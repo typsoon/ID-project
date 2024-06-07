@@ -31,7 +31,7 @@ public class BrowsePlayersController extends AbstractBrowsingScreenController<Ba
             );
         }
         catch (Exception e) {
-            screenManager.displayAllert(e);
+            screenManager.displayAlert(e);
         }
     }
 
@@ -42,7 +42,7 @@ public class BrowsePlayersController extends AbstractBrowsingScreenController<Ba
         try {
             dataArray.addAll(databaseService.getAllPlayers());
         }
-        catch (Exception e) {screenManager.displayAllert(e);}
+        catch (Exception e) {screenManager.displayAlert(e);}
     }
 
     @Override

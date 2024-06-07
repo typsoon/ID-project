@@ -14,7 +14,8 @@ public interface DatabaseService {
     Collection<BasicPlayerData> getAllPlayers() throws SQLException;
 
     boolean insertPlayer(String login, String password, String nickName) throws SQLException;
-
+    boolean insertClan(int leaderID, LocalDate dateFrom, String clanName, String logoFilePath) throws SQLException;
+    
     Collection<BasicClanData> browseClans(String name) throws SQLException;
     FullClanData getFullClanData(int clanId) throws SQLException;
     Collection<BasicClanData> getAllClans() throws SQLException;

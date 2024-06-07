@@ -86,6 +86,11 @@ public class SimpleDatabaseService implements DatabaseService {
     }
 
     @Override
+    public boolean insertClan(int leaderID, LocalDate dateFrom, String clanName, String logoFilePath) throws SQLException {
+        return false;
+    }
+
+    @Override
     public Collection<BasicClanData> browseClans(String name) throws SQLException {
         Collection<BasicClanData> clans = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {

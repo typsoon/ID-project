@@ -12,7 +12,7 @@
             <ButtonBar layoutY="-6.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="51.0" prefWidth="1100.0" AnchorPane.leftAnchor="10.0">
               <buttons>
                   <Button mnemonicParsing="false" text="Add duels" />
-                  <Button mnemonicParsing="false" text="Add clans" />
+                  <Button fx:id="addClansButton" mnemonicParsing="false" text="Add clans" />
                 <Button fx:id="addPlayersButton" mnemonicParsing="false" text="Add players" />
                   <Button fx:id="browseChallengesButton" mnemonicParsing="false" text="Browse challenges" />
                   <Button fx:id="browseDuelsButton" mnemonicParsing="false" text="Browse duels" />

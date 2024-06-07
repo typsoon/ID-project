@@ -32,7 +32,7 @@ public class InsertPlayersController extends AbstractInsertDataController {
             databaseService.insertPlayer(loginField.getText(), passwordField.getText(), nicknameField.getText());
         }
         catch (Exception e) {
-            screenManager.displayAllert(e);
+            screenManager.displayAlert(e);
         }
     }
 }
