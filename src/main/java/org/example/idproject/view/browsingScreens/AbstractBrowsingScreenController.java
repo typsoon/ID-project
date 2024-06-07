@@ -13,18 +13,14 @@ import org.example.idproject.viewmodel.DatabaseService;
 public abstract class AbstractBrowsingScreenController<T extends HasID> {
     protected final ScreenManager screenManager;
 
-    @FXML
-    protected TextField searchField;
+    @FXML protected TextField searchField;
 
-    @FXML
-    protected TableView<T> dataTable = new TableView<>();
+    @FXML protected TableView<T> dataTable = new TableView<>();
 
-    @FXML
-    protected Button searchButton;
+    @FXML protected Button searchButton;
     ObservableList<T> dataArray = FXCollections.observableArrayList();
 
-    @FXML
-    protected Button showAllButton;
+    @FXML protected Button showAllButton;
 
     protected final DatabaseService databaseService;
 
@@ -64,11 +60,12 @@ public abstract class AbstractBrowsingScreenController<T extends HasID> {
 
     private int addedCount = 0;
 
-    protected void addDataColumn(String columnName, String dataVariableName) {
+    protected TableColumn<T, String> addDataColumn(String columnName, String dataVariableName) {
         TableColumn<T, ?> dataColumn;
 
         if (addedCount < dataTable.getColumns().size()) {
             dataColumn = dataTable.getColumns().get(addedCount);
+//            dataColumn = dataTable.getColumns().get(addedCount);
         }
         else {
             dataColumn = new TableColumn<>();
@@ -79,6 +76,8 @@ public abstract class AbstractBrowsingScreenController<T extends HasID> {
         dataColumn.setCellValueFactory(new PropertyValueFactory<>(dataVariableName));
 
         addedCount++;
+
+        return (TableColumn<T, String>) dataColumn;
     }
 
     AbstractBrowsingScreenController(DatabaseService databaseService, ScreenManager screenManager) {

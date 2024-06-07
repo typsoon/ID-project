@@ -20,5 +20,8 @@ public interface DatabaseService {
     Collection<BasicDuelData> browseDuels(String tookPart, LocalDate dateFrom, LocalDate dateTo);
     Collection<BasicDuelData> getAllDuels();
 
+    Collection<BasicChallengeData> browseChallenges(String objective, LocalDate dateFrom, LocalDate dateTo);
+    Collection<BasicChallengeData> getAllChallenges();
+
     boolean tryLogIn(Credentials credentials);
 }

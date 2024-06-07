@@ -130,6 +130,16 @@ public class SimpleDatabaseService implements DatabaseService {
     }
 
     @Override
+    public Collection<BasicChallengeData> browseChallenges(String objective, LocalDate dateFrom, LocalDate dateTo) {
+        return List.of();
+    }
+
+    @Override
+    public Collection<BasicChallengeData> getAllChallenges() {
+        return List.of();
+    }
+
+    @Override
     public boolean tryLogIn(Credentials credentials) {
         this.credentials = credentials;
         url=urlBase+credentials.username();

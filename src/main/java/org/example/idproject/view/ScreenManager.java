@@ -8,6 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.idproject.App;
+import org.example.idproject.view.browsingScreens.BrowseChallengesController;
 import org.example.idproject.view.browsingScreens.BrowseClansController;
 import org.example.idproject.view.browsingScreens.BrowseDuelsController;
 import org.example.idproject.view.browsingScreens.BrowsePlayersController;
@@ -35,6 +36,7 @@ public class ScreenManager {
     private final VBox browsePlayersVBox;
     private final VBox browseClansVBox;
     private final VBox browseDuelsVBox;
+    private final VBox browseChallengesVBox;
 
     private final VBox playerInfoVBox;
     private final VBox clanInfoVBox;
@@ -47,6 +49,7 @@ public class ScreenManager {
     @FXML Button browseClansButton;
     @FXML Button browsePlayersButton;
     @FXML Button browseDuelsButton;
+    @FXML Button browseChallengesButton;
 
     @FXML Button addPlayersButton;
 
@@ -65,7 +68,8 @@ public class ScreenManager {
 
         browsePlayersVBox = loadVBox("browsing-hbox.fxml", new BrowsePlayersController(databaseService, this));
         browseClansVBox = loadVBox("browsing-hbox.fxml", new BrowseClansController(databaseService, this));
-        browseDuelsVBox = loadVBox("browsing-duels.fxml", new BrowseDuelsController(databaseService, this));
+        browseDuelsVBox = loadVBox("browsing-with-date.fxml", new BrowseDuelsController(databaseService, this));
+        browseChallengesVBox = loadVBox("browsing-with-date.fxml", new BrowseChallengesController(databaseService, this));
 
         playerInfoController = new PlayerInfoController(databaseService, this);
         playerInfoVBox = loadVBox("player-info.fxml", playerInfoController);
@@ -87,6 +91,7 @@ public class ScreenManager {
         browsePlayersButton.setOnAction(event -> showBrowsePlayersScreen());
         browseClansButton.setOnAction(event -> showBrowseClansScreen());
         browseDuelsButton.setOnAction(event -> showBrowseDuelsScreen());
+        browseChallengesButton.setOnAction(event -> showBrowseChallengesScreen());
 
         addPlayersButton.setOnAction(actionEvent -> showInsertPlayersScreen());
     }
@@ -136,6 +141,12 @@ public class ScreenManager {
         primaryStage.setTitle("Browse Duels");
         leftAnchorPane.getChildren().clear();
         leftAnchorPane.getChildren().add(browseDuelsVBox);
+    }
+
+    public void showBrowseChallengesScreen() {
+        primaryStage.setTitle("Browse Challenges");
+        leftAnchorPane.getChildren().clear();
+        leftAnchorPane.getChildren().add(browseChallengesVBox);
     }
 
     public void showInsertPlayersScreen() {
