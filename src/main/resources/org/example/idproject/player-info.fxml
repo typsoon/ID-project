@@ -36,7 +36,7 @@
                      <children>
                         <Pane prefHeight="24.0" prefWidth="115.0">
                            <children>
-                              <Text layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                              <Text fx:id="currentClanName" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
                            </children>
                         </Pane>
                         <Button alignment="CENTER" mnemonicParsing="false" prefHeight="28.0" prefWidth="106.0" text="See clan" />
@@ -60,7 +60,7 @@
                      <children>
                         <Pane prefHeight="24.0" prefWidth="116.0">
                            <children>
-                              <Text layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RIPer" />
+                              <Text fx:id="currentNickname" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RIPer" />
                            </children>
                         </Pane>
                         <Button alignment="CENTER" mnemonicParsing="false" prefHeight="24.0" prefWidth="146.0" text="Past Nicknames" />
