@@ -7,8 +7,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class SimpleDatabaseService implements DatabaseService {
     private String url;
@@ -114,6 +116,17 @@ public class SimpleDatabaseService implements DatabaseService {
             throw new RuntimeException(e);
         }
         return clans;
+    }
+
+    @Override
+    public Collection<BasicDuelData> browseDuels(String tookPart, LocalDate dateFrom, LocalDate dateTo) {
+        return List.of();
+    }
+
+
+    @Override
+    public Collection<BasicDuelData> getAllDuels() {
+        return List.of();
     }
 
     @Override

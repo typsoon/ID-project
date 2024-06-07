@@ -106,7 +106,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="clanLogo" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </VBox>
                   <Pane prefHeight="200.0" prefWidth="200.0">

@@ -14,6 +14,7 @@
                   <Button mnemonicParsing="false" text="Add duels" />
                   <Button mnemonicParsing="false" text="Add clans" />
                 <Button fx:id="addPlayersButton" mnemonicParsing="false" text="Add players" />
+                  <Button fx:id="browseDuelsButton" mnemonicParsing="false" text="Browse duels" />
                   <Button fx:id="browseClansButton" mnemonicParsing="false" text="Browse clans" />
                   <Button fx:id="browsePlayersButton" mnemonicParsing="false" prefWidth="118.0" text="Browse players" />
               </buttons>

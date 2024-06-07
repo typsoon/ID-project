@@ -8,8 +8,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.idproject.App;
-import org.example.idproject.view.browsingScreens.BrowseClansControllerAbstract;
-import org.example.idproject.view.browsingScreens.BrowsePlayersControllerAbstract;
+import org.example.idproject.view.browsingScreens.BrowseClansController;
+import org.example.idproject.view.browsingScreens.BrowseDuelsController;
+import org.example.idproject.view.browsingScreens.BrowsePlayersController;
 import org.example.idproject.view.infoPanes.AbstractInfoController;
 import org.example.idproject.view.infoPanes.ClanInfoController;
 import org.example.idproject.view.infoPanes.PlayerInfoController;
@@ -28,30 +29,26 @@ public class ScreenManager {
 
     AbstractInsertDataController playerInsertDataController;
 
-    private final Scene mainScene;
-    private final Scene browseClans;
+//    private final Scene mainScene;
+//    private final Scene browseClans;
 
     private final VBox browsePlayersVBox;
     private final VBox browseClansVBox;
+    private final VBox browseDuelsVBox;
+
     private final VBox playerInfoVBox;
     private final VBox clanInfoVBox;
 
     protected final VBox playerInsertVBox;
 
-    @FXML
-    AnchorPane leftAnchorPane;
+    @FXML AnchorPane leftAnchorPane;
+    @FXML AnchorPane rightAnchorPane;
 
-    @FXML
-    AnchorPane rightAnchorPane;
+    @FXML Button browseClansButton;
+    @FXML Button browsePlayersButton;
+    @FXML Button browseDuelsButton;
 
-    @FXML
-    Button browseClansButton;
-
-    @FXML
-    Button browsePlayersButton;
-
-    @FXML
-    Button addPlayersButton;
+    @FXML Button addPlayersButton;
 
     public ScreenManager(DatabaseService databaseService, Stage primaryStage) throws IOException {
 //        FXMLLoader managerLoader = new FXMLLoader(getClass().getResource("screen-manager.fxml"));
@@ -62,12 +59,13 @@ public class ScreenManager {
 
         this.primaryStage = primaryStage;
 
-//        browsePlayers = loadScene("browsing-stage.fxml", new BrowsePlayersControllerAbstract(databaseService, this));
-        browseClans = loadScene("browsing-stage.fxml", new BrowseClansControllerAbstract(databaseService, this));
-        mainScene = loadScene("main-scene.fxml", new MainSceneController(this));
+//        browsePlayers = loadScene("browsing-stage.fxml", new BrowsePlayersController(databaseService, this));
+//        browseClans = loadScene("browsing-stage.fxml", new BrowseClansController(databaseService, this));
+//        mainScene = loadScene("main-scene.fxml", new MainSceneController(this));
 
-        browsePlayersVBox = loadVBox("browsing-hbox.fxml", new BrowsePlayersControllerAbstract(databaseService, this));
-        browseClansVBox = loadVBox("browsing-hbox.fxml", new BrowseClansControllerAbstract(databaseService, this));
+        browsePlayersVBox = loadVBox("browsing-hbox.fxml", new BrowsePlayersController(databaseService, this));
+        browseClansVBox = loadVBox("browsing-hbox.fxml", new BrowseClansController(databaseService, this));
+        browseDuelsVBox = loadVBox("browsing-duels.fxml", new BrowseDuelsController(databaseService, this));
 
         playerInfoController = new PlayerInfoController(databaseService, this);
         playerInfoVBox = loadVBox("player-info.fxml", playerInfoController);
@@ -88,6 +86,7 @@ public class ScreenManager {
     private void setControllers() {
         browsePlayersButton.setOnAction(event -> showBrowsePlayersScreen());
         browseClansButton.setOnAction(event -> showBrowseClansScreen());
+        browseDuelsButton.setOnAction(event -> showBrowseDuelsScreen());
 
         addPlayersButton.setOnAction(actionEvent -> showInsertPlayersScreen());
     }
@@ -131,6 +130,12 @@ public class ScreenManager {
         clanInfoController.update(clanId);
         rightAnchorPane.getChildren().clear();
         rightAnchorPane.getChildren().add(clanInfoVBox);
+    }
+
+    public void showBrowseDuelsScreen() {
+        primaryStage.setTitle("Browse Duels");
+        leftAnchorPane.getChildren().clear();
+        leftAnchorPane.getChildren().add(browseDuelsVBox);
     }
 
     public void showInsertPlayersScreen() {

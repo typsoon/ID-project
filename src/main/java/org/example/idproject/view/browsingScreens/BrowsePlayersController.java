@@ -1,11 +1,11 @@
 package org.example.idproject.view.browsingScreens;
 
-import org.example.idproject.common.BasicClanData;
+import org.example.idproject.common.BasicPlayerData;
 import org.example.idproject.view.ScreenManager;
 import org.example.idproject.viewmodel.DatabaseService;
 
-public class BrowseClansControllerAbstract extends AbstractBrowsingScreenController<BasicClanData> {
-    public BrowseClansControllerAbstract(DatabaseService databaseService, ScreenManager screenManager) {
+public class BrowsePlayersController extends AbstractBrowsingScreenController<BasicPlayerData> {
+    public BrowsePlayersController(DatabaseService databaseService, ScreenManager screenManager) {
         super(databaseService, screenManager);
     }
 
@@ -14,29 +14,29 @@ public class BrowseClansControllerAbstract extends AbstractBrowsingScreenControl
         super.initialize();
 
         addDataColumn("ID", "ID");
-        addDataColumn("Nickname", "currentName");
+        addDataColumn("Nickname", "currentNickname");
 
         displayAll();
 
-        searchField.setPromptText("Browse Clans by name");
+        searchField.setPromptText("Browse Players by nickname");
     }
 
     @Override
     protected void handleSearch() {
         dataArray.clear();
         dataArray.addAll(
-                databaseService.browseClans(searchField.getText())
+           databaseService.browsePlayers(searchField.getText())
         );
     }
 
     @Override
     protected void displayAll() {
         dataArray.clear();
-        dataArray.addAll(databaseService.getAllClans());
+        dataArray.addAll(databaseService.getAllPlayers());
     }
 
     @Override
     protected void handleClickOnDataTable(int id) {
-        screenManager.showClanInfo(id);
+        screenManager.showPlayerInfo(id);
     }
 }

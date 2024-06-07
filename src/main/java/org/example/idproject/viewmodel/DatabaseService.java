@@ -2,6 +2,7 @@ package org.example.idproject.viewmodel;
 
 import org.example.idproject.common.*;
 
+import java.time.LocalDate;
 import java.util.Collection;
 
 public interface DatabaseService {
@@ -15,6 +16,9 @@ public interface DatabaseService {
     Collection<BasicClanData> browseClans(String name);
     FullClanData getFullClanData(int clanId);
     Collection<BasicClanData> getAllClans();
+
+    Collection<BasicDuelData> browseDuels(String tookPart, LocalDate dateFrom, LocalDate dateTo);
+    Collection<BasicDuelData> getAllDuels();
 
     boolean tryLogIn(Credentials credentials);
 }
