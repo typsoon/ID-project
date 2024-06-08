@@ -20,7 +20,12 @@ psql < 'main files'/duels.sql;
 psql < 'main files'/clanWars.sql;
 psql < 'main files'/warDuel.sql;
 
+psql < 'main files'/challanges.sql;
+psql < 'main files'/playerChallanges.sql
+psql < 'main files'/clanMessege.sql;
 psql < 'main files'/clanInvites.sql;
 psql < 'main files'/friendInvites.sql;
+
+
 
 
