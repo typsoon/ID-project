@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Locale;
 
 @SuppressWarnings("unused")
-public record BasicDuelData(int ID, int player1ID, int player2ID, Date dateFrom, Date dateTo, boolean outcome) implements HasID {
+public record BasicDuelData(int ID, int player1ID, int player2ID, String dateFrom, String dateTo, boolean outcome) implements HasID {
 
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("EEEE, d MMMM yyyy", Locale.of("pl", "PL"));
 
@@ -23,11 +23,11 @@ public record BasicDuelData(int ID, int player1ID, int player2ID, Date dateFrom,
     }
 
     public String getDateFrom() {
-        return DATE_FORMAT.format(dateFrom);
+        return dateFrom;
     }
 
     public String getDateTo() {
-        return DATE_FORMAT.format(dateTo);
+        return dateTo;
     }
 
     public String getOutcome() {

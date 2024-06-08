@@ -38,7 +38,13 @@ public class BrowseChallengesController extends AbstractBrowsingScreenController
     protected void handleSearch() {
         dataArray.clear();
         //TODO commented
-        //dataArray.addAll(databaseService.browseChallenges(tookPart.getText(), laterThan.getValue(), earlierThan.getValue()));
+        try {
+            dataArray.addAll(databaseService.browseChallenges(tookPart.getText(), laterThan.getValue(), earlierThan.getValue()));
+        }
+        catch (SQLException e) {
+            screenManager.displayAlert(e);
+        }
+
     }
 
     @Override

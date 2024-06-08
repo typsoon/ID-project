@@ -139,6 +139,11 @@ public class SimpleDatabaseService implements DatabaseService {
     }
 
     @Override
+    public Collection<ClanMessage> getClanMessages(int clanId) throws SQLException {
+        return List.of();
+    }
+
+    @Override
     public Collection<BasicDuelData> browseDuels(String tookPart, LocalDate dateFrom, LocalDate dateTo) throws SQLException {
         int tookPartID = Integer.parseInt(tookPart);
         Collection<BasicDuelData> duels = new ArrayList<>();
@@ -148,7 +153,7 @@ public class SimpleDatabaseService implements DatabaseService {
         ResultSet rs = stmt.executeQuery("select * from Getduels(" + tookPartID +",\'" + dateFrom + "\',\'" +  dateTo +"\');");
         while (rs.next()) {
             duels.add(new BasicDuelData(rs.getInt(1),rs.getInt(2),rs.getInt(3),
-            rs.getTimestamp(4),rs.getTimestamp(5),rs.getBoolean(6)));
+            rs.getTimestamp(4).toString(),rs.getTimestamp(5).toString(),rs.getBoolean(6)));
             //System.out.println(rs.getString(1) + " " + rs.getString(2) );
         }
 //        catch (Exception e) {
@@ -165,7 +170,7 @@ public class SimpleDatabaseService implements DatabaseService {
         ResultSet rs = stmt.executeQuery("select * from duels");
         while (rs.next()) {
             duels.add(new BasicDuelData(rs.getInt(1),rs.getInt(2),rs.getInt(3),
-                    rs.getTimestamp(4),rs.getTimestamp(5),rs.getBoolean(6)));
+                    rs.getTimestamp(4).toString(),rs.getTimestamp(5).toString(),rs.getBoolean(6)));
             //System.out.println(rs.getString(1) + " " + rs.getString(2) );
         }
 //        catch (Exception e) {
@@ -182,7 +187,7 @@ public class SimpleDatabaseService implements DatabaseService {
         ResultSet rs = stmt.executeQuery("select * from GetChallenges(\'" + objective +"\',\'" + dateFrom + "\',\'" +  dateTo +"\');");
         while (rs.next()) {
             challenges.add(new BasicChallengeData( rs.getInt(1),rs.getTimestamp(2),
-                    rs.getTimestamp(3),rs.getString(4)
+                    rs.getTimestamp(3), 0, rs.getString(4)
             ));
             //System.out.println(rs.getString(1) + " " + rs.getString(2) );
         }
@@ -200,7 +205,7 @@ public class SimpleDatabaseService implements DatabaseService {
         ResultSet rs = stmt.executeQuery("select * from challenges");
         while (rs.next()) {
             challenges.add(new BasicChallengeData( rs.getInt(1),rs.getTimestamp(2),
-                    rs.getTimestamp(3),rs.getString(4)
+                    rs.getTimestamp(3), 0, rs.getString(4)
             ));
             //System.out.println(rs.getString(1) + " " + rs.getString(2) );
         }
@@ -208,6 +213,36 @@ public class SimpleDatabaseService implements DatabaseService {
 //            throw new RuntimeException(e);
 //        }
         return challenges;
+    }
+
+    @Override
+    public Collection<FriendData> getFriends(int playerID) throws SQLException {
+        return List.of();
+    }
+
+    @Override
+    public Collection<NicknameData> getNicknames(int playerID) throws SQLException {
+        return List.of();
+    }
+
+    @Override
+    public Collection<FriendData> getAllFriendInvites(int playerID) throws SQLException {
+        return List.of();
+    }
+
+    @Override
+    public Collection<FriendData> getActiveFriendInvites(int playerID) throws SQLException {
+        return List.of();
+    }
+
+    @Override
+    public Collection<ClanMemberData> getCurrentMembers(int clanID) throws SQLException {
+        return List.of();
+    }
+
+    @Override
+    public Collection<ClanMemberData> getCurrentAndPastMembers(int clanID) throws SQLException {
+        return List.of();
     }
 
     @Override

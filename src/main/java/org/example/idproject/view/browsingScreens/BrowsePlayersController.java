@@ -16,9 +16,6 @@ public class BrowsePlayersController extends AbstractBrowsingScreenController<Ba
 
     @Override
     protected void initialize() throws IOException {
-
-        System.out.println(dataTable.getColumns().getLast().getText());
-
         displayAll();
 
         searchField.setPromptText("Browse Players by nickname");

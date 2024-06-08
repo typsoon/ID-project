@@ -18,12 +18,27 @@ public interface DatabaseService {
     Collection<BasicClanData> browseClans(String name) throws SQLException;
     FullClanData getFullClanData(int clanId) throws SQLException;
     Collection<BasicClanData> getAllClans() throws SQLException;
+    Collection<ClanMessage> getClanMessages(int clanId) throws SQLException;
 
     Collection<BasicDuelData> browseDuels(String tookPart, LocalDate dateFrom, LocalDate dateTo) throws SQLException;
+
     Collection<BasicDuelData> getAllDuels() throws SQLException;
 
     Collection<BasicChallengeData> browseChallenges(String objective, LocalDate dateFrom, LocalDate dateTo) throws SQLException;
     Collection<BasicChallengeData> getAllChallenges() throws SQLException;
+
+    Collection<FriendData> getFriends(int playerID) throws SQLException;
+
+    Collection<NicknameData> getNicknames(int playerID) throws SQLException;
+
+    Collection<FriendData> getAllFriendInvites(int playerID) throws SQLException;
+    Collection<FriendData> getActiveFriendInvites(int playerID) throws SQLException;
+
+//    only one role displayed
+    Collection<ClanMemberData> getCurrentMembers(int clanID) throws SQLException;
+
+//  all changes in roles displayed - multiple records for each player
+    Collection<ClanMemberData> getCurrentAndPastMembers(int clanID) throws SQLException;
 
     boolean tryLogIn(Credentials credentials);
 }

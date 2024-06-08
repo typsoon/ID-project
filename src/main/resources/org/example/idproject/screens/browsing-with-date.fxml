@@ -45,7 +45,7 @@
             </HBox>
          </children>
       </HBox>
-      <AnchorPane fx:id="tablePane" prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane fx:id="tablePane" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
          <children>
             <TableView fx:id="dataTable" prefHeight="231.0" prefWidth="540.0">
                <columns>

@@ -61,7 +61,7 @@
                               <Text fx:id="currentNickname" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RIPer" />
                            </children>
                         </Pane>
-                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="24.0" prefWidth="146.0" text="Past Nicknames" />
+                        <Button fx:id="pastNicknames" alignment="CENTER" mnemonicParsing="false" prefHeight="24.0" prefWidth="146.0" text="Past Nicknames" />
                      </children>
                   </HBox>
                </children>
@@ -89,7 +89,7 @@
             <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="128.0" text="Add Duel" />
          </children>
       </HBox>
-      <AnchorPane prefHeight="334.0" prefWidth="600.0">
+      <AnchorPane fx:id="tablePane" prefHeight="334.0" prefWidth="600.0">
          <children>
             <TableView fx:id="dataTable" layoutX="88.0" layoutY="14.0" prefHeight="231.0" prefWidth="424.0">
                <columns>

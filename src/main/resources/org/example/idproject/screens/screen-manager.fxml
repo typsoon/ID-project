@@ -5,9 +5,9 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<SplitPane dividerPositions="0.09812108559498957" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="673.0" prefWidth="1138.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<SplitPane dividerPositions="0.09812108559498957" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="848.0" prefWidth="1138.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
   <items>
-    <AnchorPane minHeight="0.0" minWidth="0.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="65.0" prefWidth="716.0" style="-fx-background-color: #F0F0F0;">
+    <AnchorPane maxHeight="40.0" minHeight="0.0" minWidth="0.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="22.0" prefWidth="1136.0" style="-fx-background-color: #F0F0F0;">
          <children>
             <ButtonBar layoutY="-6.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="51.0" prefWidth="1100.0" AnchorPane.leftAnchor="10.0">
               <buttons>

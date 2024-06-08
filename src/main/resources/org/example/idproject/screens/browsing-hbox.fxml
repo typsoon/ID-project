@@ -21,9 +21,9 @@
             <Button fx:id="showAllButton" mnemonicParsing="false" text="Show All" />
          </children>
       </HBox>
-      <AnchorPane fx:id="tablePane" prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane fx:id="tablePane" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
          <children>
-            <TableView fx:id="dataTable" prefHeight="231.0" prefWidth="424.0">
+            <TableView AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" fx:id="dataTable" prefHeight="231.0" prefWidth="424.0">
                <columns>
                   <TableColumn prefWidth="91.0" />
                   <TableColumn prefWidth="343.0" />

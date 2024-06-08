@@ -16,5 +16,6 @@ public class BasicChallengeDataTable extends CustomDataTable<BasicChallengeData>
         addDataColumn("Date from", "dateFrom");
         addDataColumn("Date to", "dateTo");
         addDataColumn("Objective", "objective");
+        addDataColumn("Description", "description");
     }
 }
