@@ -13,6 +13,21 @@ create table ClanWars
     outcome     boolean,
     primary key (clan_war_ID)
 );
+
+ALTER TABLE ClanWars
+ADD CONSTRAINT check_clan_ids
+CHECK (clan1_ID != clan2_ID);
+
+ALTER TABLE ClanWars
+ADD CONSTRAINT unique_active_war_for_clan
+UNIQUE (clan1_ID)
+WHERE outcome IS NULL;
+
+ALTER TABLE ClanWars
+ADD CONSTRAINT unique_active_war_for_clan2
+UNIQUE (clan2_ID)
+WHERE outcome IS NULL;
+
 CREATE TABLE Players
 (
     player_ID     SERIAL PRIMARY KEY,
@@ -39,6 +54,10 @@ create table Duels
     primary key (duel_ID),
     CHECK ( AGE(COALESCE(date_to, NOW()), date_from) < interval '10 minutes')
 );
+
+ALTER TABLE Duels
+ADD CONSTRAINT check_players
+CHECK (sender_ID_ID != receiver_ID);
 
 create table ArchivedDuels AS SELECT * FROM duels
 WHERE duel_ID IS NULL;
