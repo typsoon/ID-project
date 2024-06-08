@@ -4,6 +4,7 @@ CREATE TABLE Clans
     clan_ID      SERIAL PRIMARY KEY,
     ranking_base integer
 );
+
 create table ClanWars
 (
     clan_war_ID serial,
@@ -13,6 +14,21 @@ create table ClanWars
     outcome     boolean,
     primary key (clan_war_ID)
 );
+
+ALTER TABLE ClanWars
+ADD CONSTRAINT check_clan_ids
+CHECK (clan1_ID != clan2_ID);
+
+ALTER TABLE ClanWars
+ADD CONSTRAINT unique_active_war_for_clan
+UNIQUE (clan1_ID)
+WHERE outcome IS NULL;
+
+ALTER TABLE ClanWars
+ADD CONSTRAINT unique_active_war_for_clan2
+UNIQUE (clan2_ID)
+WHERE outcome IS NULL;
+
 CREATE TABLE Players
 (
     player_ID     SERIAL PRIMARY KEY,
@@ -20,6 +36,7 @@ CREATE TABLE Players
     login         VARCHAR(40) not null unique,
     ranking_base  integer
 );
+
 create table ClanChat
 (
     sent_date timestamp,
@@ -28,6 +45,7 @@ create table ClanChat
     msg_text  VARCHAR(300) not null,
     primary key (sent_date, clan_ID, sender_ID)
 );
+
 create table Duels
 (
     duel_ID   serial,
@@ -39,6 +57,10 @@ create table Duels
     primary key (duel_ID),
     CHECK ( AGE(COALESCE(date_to, NOW()), date_from) < interval '10 minutes')
 );
+
+ALTER TABLE Duels
+ADD CONSTRAINT check_players
+CHECK (sender_ID_ID != receiver_ID);
 
 create table ArchivedDuels AS SELECT * FROM duels
 WHERE duel_ID IS NULL;
@@ -72,6 +94,7 @@ create table PlayerClan
     who_accepted integer references Players,
     primary key (date_from, clan_ID, player_ID)
 );
+
 CREATE TABLE FriendsChat
 (
     msg_text    varchar(300) not null,
@@ -87,7 +110,8 @@ CREATE TABLE Friends
     player2_ID INTEGER REFERENCES Players (player_ID),
     date_from  timestamp default CURRENT_TIMESTAMP ,
     date_to    timestamp CHECK (date_from < date_to),
-    PRIMARY KEY (player1_ID, player2_ID, date_from)
+    PRIMARY KEY (player1_ID, player2_ID, date_from),
+    CHECK ( player1_ID != player2_ID )
 );
 
 CREATE TABLE FriendsInvites
@@ -99,7 +123,6 @@ CREATE TABLE FriendsInvites
 ) ,
     PRIMARY KEY (player1_ID, player2_ID, date_from)
 );
-
 
 CREATE TABLE PlayerNickname
 (
@@ -168,6 +191,7 @@ CREATE TABLE PlayerChallenge
     challenge_id INTEGER REFERENCES Challenges,
     PRIMARY KEY (player_id, challenge_id)
 );
+
 ---------------------------------------------WSTAWIANIE PRZYKŁADOWYCH DANYCH-----------------------------------------------
 -- INSERT INTO Clans DEFAULT
 -- VALUES;
@@ -231,7 +255,7 @@ CREATE TABLE PlayerChallenge
 --        (2, '2024-04-10', 'Player2Nick'),
 --        (3, '2024-04-20', 'Player3Nick');
 --
--- INSERT INTO ClanName (clan_ID, date_from, cl_name)
+-- INSERT INTO ClanNameData (clan_ID, date_from, cl_name)
 -- VALUES (1, '2024-04-01', 'Clan1'),
 --        (2, '2024-04-10', 'Clan2'),
 --        (3, '2024-04-20', 'Clan3');

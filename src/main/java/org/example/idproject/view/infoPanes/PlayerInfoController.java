@@ -21,6 +21,13 @@ public class PlayerInfoController extends AbstractInfoController {
         super(databaseService, screenManager);
     }
 
+    @FXML private Button sendClanMessage;
+    @FXML private TextField message;
+
+    @FXML private Button sendFriendMessage;
+    @FXML private TextField receiverIDField;
+    @FXML private TextField friendMessage;
+
     @FXML private Text currentClanName;
 
     @FXML private Text currentNickname;
@@ -28,8 +35,6 @@ public class PlayerInfoController extends AbstractInfoController {
     @FXML private Button seeClan;
 
     @FXML private Button addDuel;
-
-//    @FXML private AnchorPane tablePane;
 
     @FXML private Button pastNicknames;
 
@@ -47,24 +52,6 @@ public class PlayerInfoController extends AbstractInfoController {
 
     private FullPlayerData fullPlayerData;
 
-//    protected  <T extends HasID> EventHandler<ActionEvent> getEventHandler(CheckedSupplier<Collection<T>> supplier, CustomDataTable<T> dataTableCreator) {
-//        return event -> {
-////            if (fullPlayerData != null) {
-//                tablePane.getChildren().clear();
-//
-//                try {
-//                    TableView<T> table = dataTableCreator.getTableView();
-//                    ObservableList<T> tableData = FXCollections.observableArrayList();
-//
-//                    tableData.addAll(supplier.get());
-//                    table.setItems(tableData);
-//                } catch (SQLException e) {
-//                    screenManager.displayAlert(e);
-//                }
-////            }
-//        };
-//    };
-
     @Override
     protected void initialize() throws IOException {
         seeClan.setOnAction(event -> {
@@ -77,16 +64,46 @@ public class PlayerInfoController extends AbstractInfoController {
 
         showAllFriends.setOnAction(getEventHandler(()->databaseService.getAllFriends(fullPlayerData.getID()), new FriendDataTable()));
 
+        seeClan.setOnAction(actionEvent -> {
+            try {
+//                if (fullPlayerData.currentClanId() == null)
+//                    return;
+
+                screenManager.showClanInfo(fullPlayerData.currentClanId());
+            }
+            catch (Exception e) {
+                screenManager.displayAlert(e);
+            }
+        });
+
         addDuel.setOnAction(actionEvent -> {
             Date resultDateFrom = MyDateParser.parseFrom(dateFrom.getValue(), dateFromTimestamp.getText());
 
             Date resultDateTo = MyDateParser.parseFrom(dateTo.getValue(), dateToTimestamp.getText());
 
-            int opponentID = Integer.parseInt(addedID.getText());
-
             try {
+                int opponentID = Integer.parseInt(addedID.getText());
                 databaseService.insertDuel(fullPlayerData.getID(), opponentID, resultDateFrom, resultDateTo);
+            } catch (Exception e) {
+                screenManager.displayAlert(e);
+            }
+        });
+
+        sendClanMessage.setOnAction(actionEvent -> {
+            try {
+                databaseService.sendClanMessage(fullPlayerData.getID(), message.getText());
             } catch (SQLException e) {
+                screenManager.displayAlert(e);
+            }
+        });
+
+        sendFriendMessage.setOnAction(actionEvent -> {
+            try {
+                int receiverID = Integer.parseInt(receiverIDField.getText());
+
+                databaseService.sendFriendMessage(fullPlayerData.getID(), receiverID, friendMessage.getText());
+            }
+            catch (Exception e) {
                 screenManager.displayAlert(e);
             }
         });

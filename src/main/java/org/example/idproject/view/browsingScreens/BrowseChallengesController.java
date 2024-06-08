@@ -52,6 +52,7 @@ public class BrowseChallengesController extends AbstractBrowsingScreenController
         dataArray.clear();
 
         try {
+//            System.out.println(databaseService.getAllChallenges());
             dataArray.addAll(databaseService.getAllChallenges());
         }
         catch (SQLException e) {

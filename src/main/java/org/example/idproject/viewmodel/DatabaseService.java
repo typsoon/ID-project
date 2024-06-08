@@ -21,6 +21,9 @@ public interface DatabaseService {
     FullClanData getFullClanData(int clanId) throws SQLException;
     Collection<BasicClanData> getAllClans() throws SQLException;
     Collection<ClanMessage> getClanMessages(int clanId) throws SQLException;
+    Collection<ClanNameData> getClanNames(int clanID) throws SQLException;
+
+    boolean sendClanMessage(int playerID, String message) throws SQLException;
 
     Collection<BasicDuelData> browseDuels(String tookPart, LocalDate dateFrom, LocalDate dateTo) throws SQLException;
 
@@ -31,6 +34,7 @@ public interface DatabaseService {
 
     Collection<FriendData> getCurrentFriends(int playerID) throws SQLException;
     Collection<FriendData> getAllFriends(int playerID) throws SQLException;
+    void sendFriendMessage(int senderID, int receiverID, String message) throws SQLException;
 
     Collection<NicknameData> getNicknames(int playerID) throws SQLException;
 

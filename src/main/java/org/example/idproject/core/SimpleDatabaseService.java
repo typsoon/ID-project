@@ -166,6 +166,16 @@ public class SimpleDatabaseService implements DatabaseService {
     }
 
     @Override
+    public Collection<ClanNameData> getClanNames(int clanID) throws SQLException {
+        return List.of();
+    }
+
+    @Override
+    public boolean sendClanMessage(int playerID, String message) throws SQLException {
+        return false;
+    }
+
+    @Override
     public Collection<BasicDuelData> browseDuels(String tookPart, LocalDate dateFrom, LocalDate dateTo) throws SQLException {
         int tookPartID = Integer.parseInt(tookPart);
         Collection<BasicDuelData> duels = new ArrayList<>();
