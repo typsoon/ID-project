@@ -5,7 +5,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import org.example.idproject.common.BasicChallengeData;
 import org.example.idproject.view.ScreenManager;
-import org.example.idproject.view.utils.BasicChallengeDataTable;
+import org.example.idproject.view.dataTables.BasicChallengeDataTable;
 import org.example.idproject.viewmodel.DatabaseService;
 
 import java.io.IOException;

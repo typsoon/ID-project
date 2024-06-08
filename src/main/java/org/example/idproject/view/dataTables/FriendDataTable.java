@@ -1,4 +1,4 @@
-package org.example.idproject.view.utils;
+package org.example.idproject.view.dataTables;
 
 import org.example.idproject.common.FriendData;
 import org.example.idproject.view.FXMLAddresses;
@@ -12,6 +12,11 @@ public class FriendDataTable extends CustomDataTable<FriendData> {
 
     @Override
     protected void initialize() {
+        FriendData friendData;
 
+        addDataColumn("Date From", "timestampFromAsStr");
+        addDataColumn("Date From", "timestampToAsStr");
+        addDataColumn("ID", "ID");
+        addDataColumn("Nickname", "nickname");
     }
 }

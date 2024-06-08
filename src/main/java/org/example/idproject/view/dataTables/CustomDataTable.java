@@ -1,4 +1,4 @@
-package org.example.idproject.view.utils;
+package org.example.idproject.view.dataTables;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

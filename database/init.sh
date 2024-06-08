@@ -5,7 +5,6 @@ psql < 'main files'/functions.sql;
 psql < 'main files'/views.sql;
 psql < 'main files'/rules.sql;
 
-
 psql < 'main files'/players.sql;
 psql < 'main files'/playerNickname.sql;
 psql < 'main files'/friends.sql;

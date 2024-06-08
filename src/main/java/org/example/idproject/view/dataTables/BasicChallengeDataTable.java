@@ -1,4 +1,4 @@
-package org.example.idproject.view.utils;
+package org.example.idproject.view.dataTables;
 
 import org.example.idproject.common.BasicChallengeData;
 import org.example.idproject.view.FXMLAddresses;

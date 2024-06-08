@@ -239,6 +239,7 @@ CREATE TABLE PlayerChallenge
 INSERT INTO Logos (image_address)
 VALUES ('clanLogos/red-logo.png'),
        ('clanLogos/blue-logo.png'),
+       ('clanLogos/yellow-logo.png'),
        ('clanLogos/green-logo.png');
 
 -- INSERT INTO ClanLogos (clan_ID, date_from, logo_ID)

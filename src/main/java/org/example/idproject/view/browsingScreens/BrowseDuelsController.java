@@ -2,13 +2,10 @@ package org.example.idproject.view.browsingScreens;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
-import javafx.util.Callback;
 import org.example.idproject.common.BasicDuelData;
 import org.example.idproject.view.ScreenManager;
-import org.example.idproject.view.utils.BasicDuelsDataTable;
+import org.example.idproject.view.dataTables.BasicDuelsDataTable;
 import org.example.idproject.viewmodel.DatabaseService;
 
 import java.io.IOException;

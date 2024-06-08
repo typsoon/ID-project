@@ -8,7 +8,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import org.example.idproject.common.HasID;
 import org.example.idproject.view.ScreenManager;
-import org.example.idproject.view.utils.BasicPlayerDataTable;
 import org.example.idproject.viewmodel.DatabaseService;
 
 import java.io.IOException;

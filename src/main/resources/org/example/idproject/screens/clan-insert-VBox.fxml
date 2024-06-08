@@ -24,6 +24,7 @@
         <rowConstraints>
           <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="35.0" minHeight="0.0" prefHeight="31.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Date from" GridPane.columnIndex="1" />
@@ -44,6 +45,7 @@
             <TextField fx:id="nicknameField1" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <ChoiceBox fx:id="clanLogos" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <DatePicker fx:id="dateFrom" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="dateFromTimestamp" alignment="CENTER" promptText="hh:mm:ss" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>

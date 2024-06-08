@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -14,7 +17,7 @@
 
 <!--suppress JavaFxDefaultTag -->
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="609.0" prefWidth="600.0" spacing="30.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="655.0" spacing="30.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
 <!--   xmlns:fx="http://javafx.com/fxml/1"-->
    <children>
       <HBox alignment="CENTER" prefHeight="51.0" prefWidth="600.0" spacing="20.0">
@@ -47,7 +50,7 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox prefHeight="73.0" prefWidth="217.0" spacing="5.0">
+            <VBox prefHeight="71.0" prefWidth="341.0" spacing="5.0">
                <children>
                   <Label text="Current nickname">
                      <font>
@@ -56,9 +59,9 @@
                   </Label>
                   <HBox alignment="CENTER_RIGHT" prefHeight="24.0" prefWidth="246.0">
                      <children>
-                        <Pane prefHeight="24.0" prefWidth="116.0">
+                        <Pane prefHeight="24.0" prefWidth="197.0">
                            <children>
-                              <Text fx:id="currentNickname" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RIPer" />
+                              <Text fx:id="currentNickname" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RIPer" wrappingWidth="210.0" />
                            </children>
                         </Pane>
                         <Button fx:id="pastNicknames" alignment="CENTER" mnemonicParsing="false" prefHeight="24.0" prefWidth="146.0" text="Past Nicknames" />
@@ -79,19 +82,43 @@
                   </Label>
                   <ButtonBar prefHeight="40.0" prefWidth="200.0">
                     <buttons>
-                      <Button mnemonicParsing="false" text="Friends" />
-                        <Button mnemonicParsing="false" text="Invites" />
-                        <Button mnemonicParsing="false" text="All friends" />
+                      <Button fx:id="showFriends" mnemonicParsing="false" text="Friends" />
+                        <Button fx:id="showInvites" mnemonicParsing="false" text="Invites" />
+                        <Button fx:id="showAllFriends" mnemonicParsing="false" text="All friends" />
                     </buttons>
                   </ButtonBar>
                </children>
             </VBox>
-            <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="128.0" text="Add Duel" />
+            <VBox alignment="CENTER" prefHeight="75.0" prefWidth="290.0" spacing="5.0">
+               <children>
+                  <Button fx:id="addDuel" mnemonicParsing="false" prefHeight="29.0" prefWidth="101.0" text="Add Duel" />
+                  <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                     <buttons>
+                        <TextField fx:id="addedID" alignment="CENTER" minWidth="58.0" prefHeight="24.0" promptText="ID" />
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <DatePicker fx:id="dateFrom" />
+                              <TextField fx:id="dateFromTimestamp" promptText="hh:mm:ss" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <DatePicker fx:id="dateTo" />
+                              <TextField fx:id="dateToTimestamp" promptText="hh:mm:ss" />
+                           </children>
+                        </VBox>
+                     </buttons>
+                  </ButtonBar>
+               </children>
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </VBox>
          </children>
       </HBox>
-      <AnchorPane fx:id="tablePane" prefHeight="334.0" prefWidth="600.0">
+      <AnchorPane fx:id="tablePane" prefHeight="332.0" prefWidth="562.0">
          <children>
-            <TableView fx:id="dataTable" layoutX="88.0" layoutY="14.0" prefHeight="231.0" prefWidth="424.0">
+            <TableView fx:id="dataTable" layoutX="84.0" layoutY="14.0" prefHeight="233.0" prefWidth="487.0">
                <columns>
                   <TableColumn prefWidth="91.0" />
                   <TableColumn prefWidth="343.0" />
