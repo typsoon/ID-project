@@ -11,6 +11,7 @@ begin
 end
 $$language plpgsql;
 
+
 create or replace function PlayerClanID(PlayerID int)
     returns int as
 $$
@@ -119,5 +120,22 @@ begin
         where c.description = obj
           AND c.date_from between dateFrom AND dateTo
     ;
+end
+$$language plpgsql;
+
+create or replace function GetClanLeader (clanID int)
+    returns int as
+$$
+begin
+    return
+        (
+            select pc.player_ID from playerclan pc
+                              join playerrole pr on pc.player_ID = pr.player_ID
+                              join roles r on r.rank_ID = pr.rank_ID
+            where pc.date_to IS NULL AND pc.clan_ID = clanID AND
+                rank_name = 'Leader'
+            order by pr.date_from desc
+            limit 1
+        );
 end
 $$language plpgsql;

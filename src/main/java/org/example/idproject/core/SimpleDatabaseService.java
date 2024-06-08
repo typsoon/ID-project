@@ -85,7 +85,12 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public boolean insertClan(int leaderID, LocalDate dateFrom, String clanName, String logoFilePath) throws SQLException {
-        return false;
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            stmt.execute( "insert into fullclandata (clanimage, clanname, leaderx) values (\'" + logoFilePath + "\',\'" + clanName +"\'," + leaderID + ")"
+            );
+            return true;
+        }
     }
 
     @Override
@@ -151,7 +156,6 @@ public class SimpleDatabaseService implements DatabaseService {
 //        }
         return duels;
     }
-
 
     @Override
     public Collection<BasicDuelData> getAllDuels() throws SQLException {
@@ -226,7 +230,9 @@ public class SimpleDatabaseService implements DatabaseService {
            Collection<BasicChallengeData> CL = simpleViewModel.getAllChallenges();
 //                   "asda",LocalDate.of(2020,1,1),LocalDate.of(2020,1,1)
 //           );
-
+            simpleViewModel.insertClan(
+                    1,LocalDate.parse("2030-01-01"),"modelki","clanLogos/red-logo.png"
+            );
            return;
         }
         catch (Exception e)
