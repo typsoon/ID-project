@@ -148,7 +148,7 @@ public class SimpleDatabaseService implements DatabaseService {
         ResultSet rs = stmt.executeQuery("select * from Getduels(" + tookPartID +",\'" + dateFrom + "\',\'" +  dateTo +"\');");
         while (rs.next()) {
             duels.add(new BasicDuelData(rs.getInt(1),rs.getInt(2),rs.getInt(3),
-            rs.getTimestamp(4),rs.getTimestamp(5),rs.getBoolean(6)));
+            rs.getTimestamp(4).toString(),rs.getTimestamp(5).toString(),rs.getBoolean(6)));
             //System.out.println(rs.getString(1) + " " + rs.getString(2) );
         }
 //        catch (Exception e) {
@@ -165,7 +165,7 @@ public class SimpleDatabaseService implements DatabaseService {
         ResultSet rs = stmt.executeQuery("select * from duels");
         while (rs.next()) {
             duels.add(new BasicDuelData(rs.getInt(1),rs.getInt(2),rs.getInt(3),
-                    rs.getTimestamp(4),rs.getTimestamp(5),rs.getBoolean(6)));
+                    rs.getTimestamp(4).toString(),rs.getTimestamp(5).toString(),rs.getBoolean(6)));
             //System.out.println(rs.getString(1) + " " + rs.getString(2) );
         }
 //        catch (Exception e) {
@@ -182,7 +182,7 @@ public class SimpleDatabaseService implements DatabaseService {
         ResultSet rs = stmt.executeQuery("select * from GetChallenges(\'" + objective +"\',\'" + dateFrom + "\',\'" +  dateTo +"\');");
         while (rs.next()) {
             challenges.add(new BasicChallengeData( rs.getInt(1),rs.getTimestamp(2),
-                    rs.getTimestamp(3),rs.getString(4)
+                    rs.getTimestamp(3), 0, rs.getString(4)
             ));
             //System.out.println(rs.getString(1) + " " + rs.getString(2) );
         }
@@ -200,7 +200,7 @@ public class SimpleDatabaseService implements DatabaseService {
         ResultSet rs = stmt.executeQuery("select * from challenges");
         while (rs.next()) {
             challenges.add(new BasicChallengeData( rs.getInt(1),rs.getTimestamp(2),
-                    rs.getTimestamp(3),rs.getString(4)
+                    rs.getTimestamp(3), 0, rs.getString(4)
             ));
             //System.out.println(rs.getString(1) + " " + rs.getString(2) );
         }

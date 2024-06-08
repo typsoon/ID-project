@@ -2,7 +2,7 @@ package org.example.idproject.view.infoPanes;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import org.example.idproject.common.FullPlayerData;
 import org.example.idproject.view.ScreenManager;
@@ -20,8 +20,9 @@ public class PlayerInfoController extends AbstractInfoController {
 
     @FXML private Button seeClan;
 
-    @FXML private TableView<?> dataTable;
+    @FXML private AnchorPane tablePane;
 
+    @FXML private Button pastNicknames;
 
     private FullPlayerData fullPlayerData;
 
@@ -30,6 +31,13 @@ public class PlayerInfoController extends AbstractInfoController {
         seeClan.setOnAction(event -> {
             if (fullPlayerData != null && fullPlayerData.currentClanId() != null) {
                 screenManager.showClanInfo(fullPlayerData.currentClanId());
+            }
+        });
+
+        pastNicknames.setOnAction(event -> {
+            if (fullPlayerData != null) {
+                tablePane.getChildren().clear();
+
             }
         });
     }

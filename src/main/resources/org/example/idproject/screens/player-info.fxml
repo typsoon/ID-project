@@ -61,7 +61,7 @@
                               <Text fx:id="currentNickname" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RIPer" />
                            </children>
                         </Pane>
-                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="24.0" prefWidth="146.0" text="Past Nicknames" />
+                        <Button fx:id="pastNicknames" alignment="CENTER" mnemonicParsing="false" prefHeight="24.0" prefWidth="146.0" text="Past Nicknames" />
                      </children>
                   </HBox>
                </children>

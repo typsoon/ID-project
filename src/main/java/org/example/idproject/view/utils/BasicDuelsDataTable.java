@@ -27,8 +27,8 @@ public class BasicDuelsDataTable extends CustomDataTable<BasicDuelData> {
         addDataColumn("Date to", "dateTo");
         addDataColumn("Outcome", "outcome");
 
-        firstPlayerColumn.setCellFactory(new PlayerIDColumnCellFactory(screenManager));
-        secondPlayerColumn.setCellFactory(new PlayerIDColumnCellFactory(screenManager));
+//        firstPlayerColumn.setCellFactory(new PlayerIDColumnCellFactory(screenManager));
+//        secondPlayerColumn.setCellFactory(new PlayerIDColumnCellFactory(screenManager));
     }
 }
 
@@ -51,12 +51,13 @@ class PlayerIDColumnCellFactory implements Callback<TableColumn<BasicDuelData, S
                     setText(item);
                 }
             }
+
         };
 
         cell.setOnMouseClicked(event -> {
             if (!cell.isEmpty()) {
-                String lastName = cell.getItem();
-                System.out.println("Last Name clicked: " + lastName);
+//                String lastName = cell.getItem();
+                System.out.println("Last Name clicked: " + cell.getItem());
                 // Add your handling logic here
             }
         });

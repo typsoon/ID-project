@@ -130,18 +130,22 @@ public class ScreenManager {
             if (itemData.title != null)
                 primaryStage.setTitle(itemData.title);
 
-            itemData.pane.getChildren().clear();
-            itemData.pane.getChildren().add(itemData.vBox);
+            itemData.anchorPane.getChildren().clear();
+            itemData.anchorPane.getChildren().add(itemData.vBox);
+//            AnchorPane.setBottomAnchor(itemData.vBox, 0.0);
+//            AnchorPane.setLeftAnchor(itemData.vBox, 0.0);
+//            AnchorPane.setRightAnchor(itemData.vBox, 0.0);
+//            AnchorPane.setTopAnchor(itemData.vBox, 0.0);
         }
 
-        private record ItemData(VBox vBox, Button button, String title, Pane pane) {}
+        private record ItemData(VBox vBox, Button button, String title, AnchorPane anchorPane) {}
 
-        MyItemWrapper(String vboxAddress, Button button, Object controller, String title, Pane pane) throws IOException {
+        MyItemWrapper(String vboxAddress, Button button, Object controller, String title, AnchorPane anchorPane) throws IOException {
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(vboxAddress));
             fxmlLoader.setController(controller);
 
             VBox vBox = fxmlLoader.load();
-            itemData = new ItemData(vBox, button, title, pane);
+            itemData = new ItemData(vBox, button, title, anchorPane);
 
             initialize();
         }

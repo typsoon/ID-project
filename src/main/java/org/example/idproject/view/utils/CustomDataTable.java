@@ -43,8 +43,6 @@ public abstract class CustomDataTable<T extends HasID> {
         return dataTable;
     }
 
-    public CustomDataTable() throws IOException {}
-
     protected CustomDataTable(String resourcePath) throws IOException {
         FXMLLoader loader = new FXMLLoader(App.class.getResource(resourcePath));
         loader.setController(this);
