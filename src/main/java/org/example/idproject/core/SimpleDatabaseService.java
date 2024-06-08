@@ -44,8 +44,9 @@ public class SimpleDatabaseService implements DatabaseService {
             if (rs.next()) {
                 return
                 new FullPlayerData(
-                        rs.getLong(1),rs.getString(2),rs.getString(3), rs.getInt(4),
-                        new BasicPlayerData(rs.getInt(5),rs.getString(6))
+                        rs.getLong(1),rs.getString(2),rs.getString(3),
+                        rs.getInt(3),
+                        new BasicPlayerData(rs.getInt(4),rs.getString(5))
                 );
                 // System.out.println(rs.getString(1) + " " + rs.getString(2) );
             }
@@ -171,6 +172,16 @@ public class SimpleDatabaseService implements DatabaseService {
     }
 
     @Override
+    public void passLeader(int clanID, int newLeaderID) throws SQLException {
+
+    }
+
+    @Override
+    public void removeMember(int clanID, int memberID, Integer whoKicked) throws SQLException {
+
+    }
+
+    @Override
     public boolean sendClanMessage(int playerID, String message) throws SQLException {
         return false;
     }
@@ -272,6 +283,11 @@ public class SimpleDatabaseService implements DatabaseService {
     }
 
     @Override
+    public void sendFriendMessage(int senderID, int receiverID, String message) throws SQLException {
+
+    }
+
+    @Override
     public Collection<NicknameData> getNicknames(int playerID) throws SQLException {
         Collection<NicknameData> nicks = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
@@ -362,6 +378,11 @@ public class SimpleDatabaseService implements DatabaseService {
 //            throw new RuntimeException(e);
 //        }
         return memberData;
+    }
+
+    @Override
+    public void moveDuelsToArchive() throws SQLException {
+
     }
 
     @Override

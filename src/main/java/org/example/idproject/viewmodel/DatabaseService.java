@@ -22,7 +22,8 @@ public interface DatabaseService {
     Collection<BasicClanData> getAllClans() throws SQLException;
     Collection<ClanMessage> getClanMessages(int clanId) throws SQLException;
     Collection<ClanNameData> getClanNames(int clanID) throws SQLException;
-
+    void passLeader(int clanID, int newLeaderID) throws SQLException;
+    void removeMember(int clanID, int memberID, Integer whoKicked) throws SQLException;
 
     boolean sendClanMessage(int playerID, String message) throws SQLException;
 
@@ -47,6 +48,8 @@ public interface DatabaseService {
 
 //  all changes in roles displayed - multiple records for each player
     Collection<ClanMemberData> getCurrentAndPastMembers(int clanID) throws SQLException;
+
+    void moveDuelsToArchive() throws SQLException;
 
     boolean tryLogIn(Credentials credentials);
 }

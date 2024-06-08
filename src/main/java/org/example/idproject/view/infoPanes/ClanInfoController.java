@@ -2,6 +2,7 @@ package org.example.idproject.view.infoPanes;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
@@ -13,6 +14,7 @@ import org.example.idproject.view.dataTables.ClanNameDataTable;
 import org.example.idproject.view.dataTables.MemberDataTable;
 import org.example.idproject.viewmodel.DatabaseService;
 
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class ClanInfoController extends AbstractInfoController {
@@ -40,6 +42,16 @@ public class ClanInfoController extends AbstractInfoController {
 
     @FXML private Button pastNames;
 
+    @FXML private Button passLeaderButton;
+
+    @FXML private Button removeMemberButton;
+
+    @FXML private TextField newLeader;
+
+    @FXML private TextField removedID;
+
+    @FXML private TextField whoKicked;
+
     private FullClanData fullClanData;
 
     @Override
@@ -52,6 +64,32 @@ public class ClanInfoController extends AbstractInfoController {
             currentAndPastMembers.setOnAction(getEventHandler(()->databaseService.getCurrentAndPastMembers(fullClanData.getID()), new MemberDataTable()));
 
             pastNames.setOnAction(getEventHandler(() -> databaseService.getClanNames(fullClanData.getID()), new ClanNameDataTable()));
+
+            passLeaderButton.setOnAction(actionEvent -> {
+                try {
+                    databaseService.passLeader(fullClanData.getID(), Integer.parseInt(newLeader.getText()));
+                }
+            catch (Exception e) {
+                    screenManager.displayAlert(e);
+            }
+            });
+
+            removeMemberButton.setOnAction(actionEvent -> {
+                try {
+                    Integer whoKickedID;
+                    try {
+                        whoKickedID = Integer.getInteger(whoKicked.getText());
+                    }
+                    catch (Exception ignored) {
+                        whoKickedID = null;
+                    }
+
+                    databaseService.removeMember(fullClanData.getID(), Integer.parseInt(removedID.getText()), whoKickedID);
+                }
+            catch (Exception e) {
+                    screenManager.displayAlert(e);
+            }
+            });
         }
         catch (Exception e) {
             throw new RuntimeException(e);

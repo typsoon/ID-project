@@ -69,6 +69,7 @@ public class PlayerInfoController extends AbstractInfoController {
                 if (fullPlayerData.currentClanId() == null)
                     return;
 
+                System.out.println(fullPlayerData.currentClanId());
                 screenManager.showClanInfo(fullPlayerData.currentClanId());
             }
             catch (Exception e) {
@@ -118,6 +119,7 @@ public class PlayerInfoController extends AbstractInfoController {
             currentNickname.setText(fullPlayerData.basicPlayerData().currentNickname());
         }
         catch (Exception e) {
+//            throw new RuntimeException(e);
             screenManager.displayAlert(e);
         }
     }
