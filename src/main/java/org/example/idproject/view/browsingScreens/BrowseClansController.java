@@ -2,7 +2,7 @@ package org.example.idproject.view.browsingScreens;
 
 import org.example.idproject.common.BasicClanData;
 import org.example.idproject.view.ScreenManager;
-import org.example.idproject.view.utils.BasicClanDataTable;
+import org.example.idproject.view.dataTables.BasicClanDataTable;
 import org.example.idproject.viewmodel.DatabaseService;
 
 import java.io.IOException;

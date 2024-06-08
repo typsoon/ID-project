@@ -5,6 +5,7 @@ import org.example.idproject.common.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Date;
 
 public interface DatabaseService {
 //    Returns data to be displayed in searchView after nickName is searched
@@ -13,8 +14,9 @@ public interface DatabaseService {
     Collection<BasicPlayerData> getAllPlayers() throws SQLException;
 
     boolean insertPlayer(String login, String password, String nickName) throws SQLException;
-    boolean insertClan(int leaderID, LocalDate dateFrom, String clanName, String logoFilePath) throws SQLException;
-    
+    boolean insertClan(int leaderID, Date dateFrom, String clanName, String logoFilePath) throws SQLException;
+    boolean insertDuel(int player1ID, int player2ID, Date dateFrom, Date dateTo) throws SQLException;
+
     Collection<BasicClanData> browseClans(String name) throws SQLException;
     FullClanData getFullClanData(int clanId) throws SQLException;
     Collection<BasicClanData> getAllClans() throws SQLException;
@@ -27,7 +29,8 @@ public interface DatabaseService {
     Collection<BasicChallengeData> browseChallenges(String objective, LocalDate dateFrom, LocalDate dateTo) throws SQLException;
     Collection<BasicChallengeData> getAllChallenges() throws SQLException;
 
-    Collection<FriendData> getFriends(int playerID) throws SQLException;
+    Collection<FriendData> getCurrentFriends(int playerID) throws SQLException;
+    Collection<FriendData> getAllFriends(int playerID) throws SQLException;
 
     Collection<NicknameData> getNicknames(int playerID) throws SQLException;
 

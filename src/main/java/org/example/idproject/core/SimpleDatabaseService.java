@@ -10,6 +10,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 public class SimpleDatabaseService implements DatabaseService {
@@ -84,13 +85,18 @@ public class SimpleDatabaseService implements DatabaseService {
     }
 
     @Override
-    public boolean insertClan(int leaderID, LocalDate dateFrom, String clanName, String logoFilePath) throws SQLException {
+    public boolean insertClan(int leaderID, java.util.Date dateFrom, String clanName, String logoFilePath) throws SQLException {
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Statement stmt = conn.createStatement();
             stmt.execute( "insert into fullclandata (clanimage, clanname, leader) values (\'" + logoFilePath + "\',\'" + clanName +"\'," + leaderID + ")"
             );
             return true;
         }
+    }
+
+    @Override
+    public boolean insertDuel(int player1ID, int player2ID, Date dateFrom, Date dateTo) throws SQLException {
+        return false;
     }
 
     @Override
@@ -230,7 +236,7 @@ public class SimpleDatabaseService implements DatabaseService {
     }
 
     @Override
-    public Collection<FriendData> getFriends(int playerID) throws SQLException {
+    public Collection<FriendData> getCurrentFriends(int playerID) throws SQLException {
         Collection<FriendData> friends = new ArrayList<>();
         Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password());
         Statement stmt = conn.createStatement();
@@ -246,6 +252,11 @@ public class SimpleDatabaseService implements DatabaseService {
 //            throw new RuntimeException(e);
 //        }
         return friends;
+    }
+
+    @Override
+    public Collection<FriendData> getAllFriends(int playerID) throws SQLException {
+        return List.of();
     }
 
     @Override
@@ -358,7 +369,7 @@ public class SimpleDatabaseService implements DatabaseService {
         simpleViewModel.tryLogIn(new Credentials("riper", "aaa"));
         try
         {
-           Collection<FriendData> memberData = simpleViewModel.getFriends(8);
+           Collection<FriendData> memberData = simpleViewModel.getAllFriends(8);
            return;
         }
         catch (Exception e)

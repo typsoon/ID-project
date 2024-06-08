@@ -5,4 +5,16 @@ public record FriendData(String timestampFromAsStr, String timestampToAsStr, Bas
     public int getID() {
         return basicPlayerData.getID();
     }
+
+    public String getTimestampFromAsStr() {
+        return timestampFromAsStr;
+    }
+
+    public String getTimestampToAsStr() {
+        return timestampToAsStr;
+    }
+
+    public String getNickname() {
+        return basicPlayerData.getCurrentNickname();
+    }
 }

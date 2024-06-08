@@ -5,12 +5,14 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import org.example.idproject.App;
+import org.example.idproject.utils.MyDateParser;
 import org.example.idproject.view.ScreenManager;
 import org.example.idproject.viewmodel.DatabaseService;
 
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.*;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,6 +49,8 @@ public class InsertClansController extends AbstractInsertDataController {
 
     @FXML TextField leaderID;
     @FXML DatePicker dateFrom;
+    @FXML TextField dateFromTimestamp;
+
     @FXML TextField clanName;
     @FXML ChoiceBox<String> clanLogos;
 
@@ -62,7 +66,10 @@ public class InsertClansController extends AbstractInsertDataController {
     @Override
     void insertSimpleData() {
         try {
-            databaseService.insertClan(Integer.parseInt(leaderID.getText()), dateFrom.getValue(),
+            Date result = dateFrom.getValue() == null ? null : MyDateParser.parseFrom(dateFrom.getValue(), dateFromTimestamp.getText());
+//            System.out.println(result);
+
+            databaseService.insertClan(Integer.parseInt(leaderID.getText()), result,
                     clanName.getText(),
                     nameToPathMapping.get(clanLogos.getValue())
             );

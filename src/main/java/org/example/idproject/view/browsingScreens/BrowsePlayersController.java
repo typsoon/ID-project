@@ -2,7 +2,7 @@ package org.example.idproject.view.browsingScreens;
 
 import org.example.idproject.common.BasicPlayerData;
 import org.example.idproject.view.ScreenManager;
-import org.example.idproject.view.utils.BasicPlayerDataTable;
+import org.example.idproject.view.dataTables.BasicPlayerDataTable;
 import org.example.idproject.viewmodel.DatabaseService;
 
 import java.io.IOException;
