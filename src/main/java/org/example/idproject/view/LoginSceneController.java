@@ -28,8 +28,9 @@ public class LoginSceneController {
     private void displayMainStage() throws IOException {
         ScreenManager screenManager = new ScreenManager(databaseService, primaryStage);
 
-        FXMLLoader managerLoader = new FXMLLoader(App.class.getResource("screen-manager.fxml"));
+        FXMLLoader managerLoader = new FXMLLoader(App.class.getResource(FXMLAddresses.SCREEN_MANAGER));
         managerLoader.setController(screenManager);
+
 
         primaryStage.setScene(new Scene(managerLoader.load()));
         primaryStage.show();
@@ -52,8 +53,8 @@ public class LoginSceneController {
             }
         }
         catch (Exception ignored) {
-            throw new RuntimeException(ignored);
-        };
+//            throw new RuntimeException(ignored);
+        }
 
         return false;
     }
@@ -72,12 +73,12 @@ public class LoginSceneController {
         });
     }
 
-    @FXML
-    private TextField usernameField;
+    @SuppressWarnings("unused")
+    @FXML private TextField usernameField;
 
-    @FXML
-    private PasswordField passwordField;
+    @SuppressWarnings("unused")
+    @FXML private PasswordField passwordField;
 
-    @FXML
-    private Button logInButton;
+    @SuppressWarnings("unused")
+    @FXML private Button logInButton;
 }

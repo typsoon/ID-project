@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.idproject.App;
@@ -22,9 +23,14 @@ import org.example.idproject.view.insertDataScreens.InsertPlayersController;
 import org.example.idproject.viewmodel.DatabaseService;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class ScreenManager {
     private final Stage primaryStage;
+    private final DatabaseService databaseService;
+
+    private final Collection<MyItemWrapper> myItemWrappers = new ArrayList<>();
 
 //    public final Scene browsePlayers;
     private final AbstractInfoController playerInfoController;
@@ -59,34 +65,27 @@ public class ScreenManager {
     @FXML Button addClansButton;
 
     public ScreenManager(DatabaseService databaseService, Stage primaryStage) throws IOException {
-//        FXMLLoader managerLoader = new FXMLLoader(getClass().getResource("screen-manager.fxml"));
-//        managerLoader.setController(this);
-
-//        primaryStage.setScene(new Scene(managerLoader.load()));
-//        primaryStage.show();
+        this.databaseService = databaseService;
 
         this.primaryStage = primaryStage;
 
-//        browsePlayers = loadScene("browsing-stage.fxml", new BrowsePlayersController(databaseService, this));
-//        browseClans = loadScene("browsing-stage.fxml", new BrowseClansController(databaseService, this));
-//        mainScene = loadScene("main-scene.fxml", new MainSceneController(this));
 
-        browsePlayersVBox = loadVBox("browsing-hbox.fxml", new BrowsePlayersController(databaseService, this));
-        browseClansVBox = loadVBox("browsing-hbox.fxml", new BrowseClansController(databaseService, this));
-        browseDuelsVBox = loadVBox("browsing-with-date.fxml", new BrowseDuelsController(databaseService, this));
-        browseChallengesVBox = loadVBox("browsing-with-date.fxml", new BrowseChallengesController(databaseService, this));
+        browsePlayersVBox = loadVBox(FXMLAddresses.BROWSING_HBOX, new BrowsePlayersController(databaseService, this));
+        browseClansVBox = loadVBox(FXMLAddresses.BROWSING_HBOX, new BrowseClansController(databaseService, this));
+        browseDuelsVBox = loadVBox(FXMLAddresses.BROWSING_WITH_DATE, new BrowseDuelsController(databaseService, this));
+        browseChallengesVBox = loadVBox(FXMLAddresses.BROWSING_WITH_DATE, new BrowseChallengesController(databaseService, this));
 
         playerInfoController = new PlayerInfoController(databaseService, this);
-        playerInfoVBox = loadVBox("player-info.fxml", playerInfoController);
+        playerInfoVBox = loadVBox(FXMLAddresses.PLAYER_INFO, playerInfoController);
 
         clanInfoController = new ClanInfoController(databaseService, this);
-        clanInfoVBox = loadVBox("clan-info.fxml", clanInfoController);
+        clanInfoVBox = loadVBox(FXMLAddresses.CLAN_INFO, clanInfoController);
 
         playerInsertDataController = new InsertPlayersController(databaseService, this);
-        playerInsertVBox = loadVBox("player-insert-VBox.fxml", playerInsertDataController);
+        playerInsertVBox = loadVBox(FXMLAddresses.PLAYER_INSERT_VBOX, playerInsertDataController);
 
         clanInsertDataController = new InsertClansController(databaseService, this);
-        clanInsertVBox = loadVBox("clan-insert-VBox.fxml", clanInsertDataController);
+        clanInsertVBox = loadVBox(FXMLAddresses.CLAN_INSERT_VBOX, clanInsertDataController);
     }
 
     @SuppressWarnings("unused")
@@ -184,5 +183,25 @@ public class ScreenManager {
         primaryStage.setTitle("Insert Clans");
         leftAnchorPane.getChildren().clear();
         leftAnchorPane.getChildren().add(clanInsertVBox);
+    }
+
+    private class MyItemWrapper {
+        private final ItemData itemData;
+
+        void handleClick() {
+            if (itemData.title != null)
+                primaryStage.setTitle(itemData.title);
+
+            itemData.pane.getChildren().clear();
+            itemData.pane.getChildren().add(itemData.vBox);
+        }
+
+        private record ItemData(VBox vBox, Button button, Object controller, String title, Pane pane) {}
+
+        MyItemWrapper(Button button, Object controller, String title, Pane pane) throws IOException {
+            VBox vBox = loadVBox(FXMLAddresses.CLAN_INSERT_VBOX, clanInsertDataController);
+
+            itemData = new ItemData(vBox, button, controller, title, pane);
+        }
     }
 }
