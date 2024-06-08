@@ -6,7 +6,7 @@ import org.example.idproject.view.FXMLAddresses;
 import java.io.IOException;
 
 public class FriendDataTable extends CustomDataTable<FriendData> {
-    FriendDataTable() throws IOException {
+    public FriendDataTable() throws IOException {
         super(FXMLAddresses.FRIEND_DATA_TABLE);
     }
 

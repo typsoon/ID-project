@@ -87,7 +87,7 @@ public class SimpleDatabaseService implements DatabaseService {
     public boolean insertClan(int leaderID, LocalDate dateFrom, String clanName, String logoFilePath) throws SQLException {
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Statement stmt = conn.createStatement();
-            stmt.execute( "insert into fullclandata (clanimage, clanname, leaderx) values (\'" + logoFilePath + "\',\'" + clanName +"\'," + leaderID + ")"
+            stmt.execute( "insert into fullclandata (clanimage, clanname, leader) values (\'" + logoFilePath + "\',\'" + clanName +"\'," + leaderID + ")"
             );
             return true;
         }
@@ -136,6 +136,11 @@ public class SimpleDatabaseService implements DatabaseService {
 //            throw new RuntimeException(e);
 //        }
         return clans;
+    }
+
+    @Override
+    public Collection<ClanMessage> getClanMessages(int clanId) throws SQLException {
+        return List.of();
     }
 
     @Override
@@ -208,6 +213,36 @@ public class SimpleDatabaseService implements DatabaseService {
 //            throw new RuntimeException(e);
 //        }
         return challenges;
+    }
+
+    @Override
+    public Collection<FriendData> getFriends(int playerID) throws SQLException {
+        return List.of();
+    }
+
+    @Override
+    public Collection<NicknameData> getNicknames(int playerID) throws SQLException {
+        return List.of();
+    }
+
+    @Override
+    public Collection<FriendData> getAllFriendInvites(int playerID) throws SQLException {
+        return List.of();
+    }
+
+    @Override
+    public Collection<FriendData> getActiveFriendInvites(int playerID) throws SQLException {
+        return List.of();
+    }
+
+    @Override
+    public Collection<ClanMemberData> getCurrentMembers(int clanID) throws SQLException {
+        return List.of();
+    }
+
+    @Override
+    public Collection<ClanMemberData> getCurrentAndPastMembers(int clanID) throws SQLException {
+        return List.of();
     }
 
     @Override
