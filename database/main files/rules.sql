@@ -15,8 +15,8 @@ create or replace rule add_clan as on insert
     do instead
     (
     insert into clans (ranking_base) values(200);
-    insert into playerclan (clan_ID,player_ID) values((select max(clan_ID) from clans),new.leader);
-    insert into playerRole (player_ID,rank_ID) values (new.leader,(select rank_ID from roles where rank_name='Leader' limit 1));
-    insert into clanlogos (clan_ID,logo_ID) values ((select max(clan_ID) from clans),(select logo_ID from logos where image_address = new.clanimage limit 1));
-    insert into clanname (clan_ID,cl_name) values ((select max(clan_ID) from clans),new.clanname);
+    insert into playerclan (clan_ID,player_ID,date_from) values((select max(clan_ID) from clans),new.leader,new.time);
+    insert into playerRole (player_ID,rank_ID,date_from) values (new.leader,(select rank_ID from roles where rank_name='Leader' limit 1),new.time);
+    insert into clanlogos (clan_ID,logo_ID,date_from) values ((select max(clan_ID) from clans),(select logo_ID from logos where image_address = new.clanimage limit 1),new.time);
+    insert into clanname (clan_ID,cl_name,date_from) values ((select max(clan_ID) from clans),new.clanname,new.time);
     );

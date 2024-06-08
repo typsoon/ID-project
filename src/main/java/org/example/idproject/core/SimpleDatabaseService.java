@@ -7,6 +7,7 @@ import org.example.idproject.viewmodel.DatabaseService;
 import org.postgresql.util.PSQLException;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -43,8 +44,8 @@ public class SimpleDatabaseService implements DatabaseService {
             if (rs.next()) {
                 return
                 new FullPlayerData(
-                        rs.getLong(1),rs.getString(2),rs.getString(3), null,
-                        new BasicPlayerData(rs.getInt(4),rs.getString(5))
+                        rs.getLong(1),rs.getString(2),rs.getString(3), rs.getInt(4),
+                        new BasicPlayerData(rs.getInt(5),rs.getString(6))
                 );
                 // System.out.println(rs.getString(1) + " " + rs.getString(2) );
             }
@@ -88,7 +89,8 @@ public class SimpleDatabaseService implements DatabaseService {
     public boolean insertClan(int leaderID, java.util.Date dateFrom, String clanName, String logoFilePath) throws SQLException {
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Statement stmt = conn.createStatement();
-            stmt.execute( "insert into fullclandata (clanimage, clanname, leader) values (\'" + logoFilePath + "\',\'" + clanName +"\'," + leaderID + ")"
+            stmt.execute( "insert into fullclandata (clanimage, clanname, leader,time) values (\'" +
+                    logoFilePath + "\',\'" + clanName +"\',\'" + leaderID +  "\',\'" + dateFrom + "\')"
             );
             return true;
         }
@@ -369,7 +371,11 @@ public class SimpleDatabaseService implements DatabaseService {
         simpleViewModel.tryLogIn(new Credentials("riper", "aaa"));
         try
         {
-           Collection<FriendData> memberData = simpleViewModel.getAllFriends(8);
+            //  Collection<FriendData> memberData = simpleViewModel.getAllFriends(8);
+           FullPlayerData fullPlayerData = simpleViewModel.getFullPlayerData(1);
+           SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+           Date date = format.parse("2024-12-12 00:00:00");
+           simpleViewModel.insertClan(1, date, "asdasd","clanLogos/green-logo.png");
            return;
         }
         catch (Exception e)
