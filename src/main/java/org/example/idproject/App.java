@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.example.idproject.view.FXMLAddresses;
 import org.example.idproject.view.LoginSceneController;
-import org.example.idproject.view.FXMLAddresses;
 
 import java.io.IOException;
 

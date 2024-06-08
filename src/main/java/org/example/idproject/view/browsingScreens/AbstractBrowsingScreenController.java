@@ -8,6 +8,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import org.example.idproject.common.HasID;
 import org.example.idproject.view.ScreenManager;
+import org.example.idproject.view.utils.CustomDataTable;
 import org.example.idproject.viewmodel.DatabaseService;
 
 public abstract class AbstractBrowsingScreenController<T extends HasID> {
@@ -21,6 +22,8 @@ public abstract class AbstractBrowsingScreenController<T extends HasID> {
     ObservableList<T> dataArray = FXCollections.observableArrayList();
 
     @FXML protected Button showAllButton;
+
+//    protected CustomDataTable<?> customDataTable;
 
     protected final DatabaseService databaseService;
 

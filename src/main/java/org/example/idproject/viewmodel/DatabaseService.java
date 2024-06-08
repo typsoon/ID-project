@@ -1,7 +1,6 @@
 package org.example.idproject.viewmodel;
 
 import org.example.idproject.common.*;
-import org.postgresql.util.PSQLException;
 
 import java.sql.SQLException;
 import java.time.LocalDate;

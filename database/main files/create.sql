@@ -146,6 +146,7 @@ CREATE TABLE PlayerRole
 CREATE TABLE Tournaments
 (
     tournament_id INTEGER,
+    tournament_name varchar(20),
     duel_id integer unique references Duels,
     left_child integer unique references Duels,
     right_child integer unique references Duels,
