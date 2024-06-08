@@ -4,6 +4,7 @@ CREATE TABLE Clans
     clan_ID      SERIAL PRIMARY KEY,
     ranking_base integer
 );
+
 create table ClanWars
 (
     clan_war_ID serial,
@@ -35,6 +36,7 @@ CREATE TABLE Players
     login         VARCHAR(40) not null unique,
     ranking_base  integer
 );
+
 create table ClanChat
 (
     sent_date timestamp,
@@ -43,6 +45,7 @@ create table ClanChat
     msg_text  VARCHAR(300) not null,
     primary key (sent_date, clan_ID, sender_ID)
 );
+
 create table Duels
 (
     duel_ID   serial,
@@ -91,6 +94,7 @@ create table PlayerClan
     who_accepted integer references Players,
     primary key (date_from, clan_ID, player_ID)
 );
+
 CREATE TABLE FriendsChat
 (
     msg_text    varchar(300) not null,
@@ -118,7 +122,6 @@ CREATE TABLE FriendsInvites
 ) ,
     PRIMARY KEY (player1_ID, player2_ID, date_from)
 );
-
 
 CREATE TABLE PlayerNickname
 (
@@ -187,6 +190,7 @@ CREATE TABLE PlayerChallenge
     challenge_id INTEGER REFERENCES Challenges,
     PRIMARY KEY (player_id, challenge_id)
 );
+
 ---------------------------------------------WSTAWIANIE PRZYKŁADOWYCH DANYCH-----------------------------------------------
 -- INSERT INTO Clans DEFAULT
 -- VALUES;
