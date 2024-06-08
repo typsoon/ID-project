@@ -83,3 +83,41 @@ begin
 end
 $$language plpgsql;
 
+create or replace function GetDuels(playerID int, dateFrom timestamp,dateTo timestamp)
+    returns table(
+                     duel_ID int,
+                     fp_ID int,
+                     sd_ID int,
+                     date_from timestamp,
+                     date_to timestamp,
+                     outcome bool
+                 ) as
+$$
+begin
+    return query
+        select * from duels d
+        where (sender = playerID OR receiver = playerID)
+          AND d.date_from between dateFrom AND dateTo
+    ;
+end
+$$language plpgsql;
+
+
+create or replace function GetChallenges
+(obj varchar, dateFrom timestamp,dateTo timestamp)
+    returns table(
+                     challenge_id int ,
+                     date_from TIMESTAMP ,
+                     date_to TIMESTAMP ,
+                     objective INTEGER ,
+                     description VARCHAR(200)
+                 ) as
+$$
+begin
+    return query
+        select * from challenges c
+        where c.description = obj
+          AND c.date_from between dateFrom AND dateTo
+    ;
+end
+$$language plpgsql;

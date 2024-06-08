@@ -37,7 +37,8 @@ public class BrowseChallengesController extends AbstractBrowsingScreenController
     @Override
     protected void handleSearch() {
         dataArray.clear();
-        dataArray.addAll(databaseService.browseChallenges(tookPart.getText(), laterThan.getValue(), earlierThan.getValue()));
+        //TODO commented
+        //dataArray.addAll(databaseService.browseChallenges(tookPart.getText(), laterThan.getValue(), earlierThan.getValue()));
     }
 
     @Override

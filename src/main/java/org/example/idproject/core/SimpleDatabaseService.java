@@ -34,8 +34,6 @@ public class SimpleDatabaseService implements DatabaseService {
         return players;
     }
 
-
-
     @Override
     public FullPlayerData getFullPlayerData(int playerId) throws SQLException {
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
@@ -136,24 +134,76 @@ public class SimpleDatabaseService implements DatabaseService {
     }
 
     @Override
-    public Collection<BasicDuelData> browseDuels(String tookPart, LocalDate dateFrom, LocalDate dateTo) {
-        return List.of();
+    public Collection<BasicDuelData> browseDuels(String tookPart, LocalDate dateFrom, LocalDate dateTo) throws SQLException {
+        int tookPartID = Integer.parseInt(tookPart);
+        Collection<BasicDuelData> duels = new ArrayList<>();
+        Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password());
+        Statement stmt = conn.createStatement();
+       // System.out.println("select * from Getduels(" + tookPartID +",\'" + dateFrom + "\',\'" +  dateTo +"\');");
+        ResultSet rs = stmt.executeQuery("select * from Getduels(" + tookPartID +",\'" + dateFrom + "\',\'" +  dateTo +"\');");
+        while (rs.next()) {
+            duels.add(new BasicDuelData(rs.getInt(1),rs.getInt(2),rs.getInt(3),
+            rs.getTimestamp(4),rs.getTimestamp(5),rs.getBoolean(6)));
+            //System.out.println(rs.getString(1) + " " + rs.getString(2) );
+        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+        return duels;
     }
 
 
     @Override
-    public Collection<BasicDuelData> getAllDuels() {
-        return List.of();
+    public Collection<BasicDuelData> getAllDuels() throws SQLException {
+        Collection<BasicDuelData> duels = new ArrayList<>();
+        Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password());
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from duels");
+        while (rs.next()) {
+            duels.add(new BasicDuelData(rs.getInt(1),rs.getInt(2),rs.getInt(3),
+                    rs.getTimestamp(4),rs.getTimestamp(5),rs.getBoolean(6)));
+            //System.out.println(rs.getString(1) + " " + rs.getString(2) );
+        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+        return duels;
     }
 
     @Override
-    public Collection<BasicChallengeData> browseChallenges(String objective, LocalDate dateFrom, LocalDate dateTo) {
-        return List.of();
+    public Collection<BasicChallengeData> browseChallenges(String objective, LocalDate dateFrom, LocalDate dateTo) throws SQLException {
+        Collection<BasicChallengeData> challenges = new ArrayList<>();
+        Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password());
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from GetChallenges(\'" + objective +"\',\'" + dateFrom + "\',\'" +  dateTo +"\');");
+        while (rs.next()) {
+            challenges.add(new BasicChallengeData( rs.getInt(1),rs.getTimestamp(2),
+                    rs.getTimestamp(3),rs.getString(4)
+            ));
+            //System.out.println(rs.getString(1) + " " + rs.getString(2) );
+        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+        return challenges;
     }
 
     @Override
-    public Collection<BasicChallengeData> getAllChallenges() {
-        return List.of();
+    public Collection<BasicChallengeData> getAllChallenges() throws SQLException {
+        Collection<BasicChallengeData> challenges = new ArrayList<>();
+        Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password());
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from challenges");
+        while (rs.next()) {
+            challenges.add(new BasicChallengeData( rs.getInt(1),rs.getTimestamp(2),
+                    rs.getTimestamp(3),rs.getString(4)
+            ));
+            //System.out.println(rs.getString(1) + " " + rs.getString(2) );
+        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+        return challenges;
     }
 
     @Override
@@ -173,7 +223,9 @@ public class SimpleDatabaseService implements DatabaseService {
         simpleViewModel.tryLogIn(new Credentials("riper", "aaa"));
         try
         {
-           FullClanData CL = simpleViewModel.getFullClanData(1);
+           Collection<BasicChallengeData> CL = simpleViewModel.getAllChallenges();
+//                   "asda",LocalDate.of(2020,1,1),LocalDate.of(2020,1,1)
+//           );
 
            return;
         }

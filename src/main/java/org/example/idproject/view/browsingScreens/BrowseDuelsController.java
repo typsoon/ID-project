@@ -44,13 +44,15 @@ public class BrowseDuelsController extends AbstractBrowsingScreenController<Basi
     @Override
     protected void handleSearch() {
         dataArray.clear();
-        dataArray.addAll(databaseService.browseDuels(tookPart.getText(), laterThan.getValue(), earlierThan.getValue()));
+        //TODO commented
+        //dataArray.addAll(databaseService.browseDuels(tookPart.getText(), laterThan.getValue(), earlierThan.getValue()));
     }
 
     @Override
     protected void displayAll() {
         dataArray.clear();
-        dataArray.addAll(databaseService.getAllDuels());
+       //TODO commented
+        // dataArray.addAll(databaseService.getAllDuels());
     }
 
     @Override
