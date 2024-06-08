@@ -19,10 +19,10 @@ public interface DatabaseService {
     FullClanData getFullClanData(int clanId) throws SQLException;
     Collection<BasicClanData> getAllClans() throws SQLException;
 
-    Collection<BasicDuelData> browseDuels(String tookPart, LocalDate dateFrom, LocalDate dateTo);
-    Collection<BasicDuelData> getAllDuels();
+    Collection<BasicDuelData> browseDuels(String tookPart, LocalDate dateFrom, LocalDate dateTo) throws SQLException;
+    Collection<BasicDuelData> getAllDuels() throws SQLException;
 
-    Collection<BasicChallengeData> browseChallenges(String objective, LocalDate dateFrom, LocalDate dateTo);
+    Collection<BasicChallengeData> browseChallenges(String objective, LocalDate dateFrom, LocalDate dateTo) throws SQLException;
     Collection<BasicChallengeData> getAllChallenges() throws SQLException;
 
     boolean tryLogIn(Credentials credentials);
