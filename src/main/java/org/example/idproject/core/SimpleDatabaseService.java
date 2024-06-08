@@ -42,7 +42,7 @@ public class SimpleDatabaseService implements DatabaseService {
             if (rs.next()) {
                 return
                 new FullPlayerData(
-                        rs.getLong(1),rs.getString(2),rs.getString(3),
+                        rs.getLong(1),rs.getString(2),rs.getString(3), null,
                         new BasicPlayerData(rs.getInt(4),rs.getString(5))
                 );
                 // System.out.println(rs.getString(1) + " " + rs.getString(2) );

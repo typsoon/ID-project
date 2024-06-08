@@ -4,25 +4,31 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 import org.example.idproject.common.HasID;
 import org.example.idproject.view.ScreenManager;
+import org.example.idproject.view.utils.BasicPlayerDataTable;
 import org.example.idproject.viewmodel.DatabaseService;
+
+import java.io.IOException;
 
 public abstract class AbstractBrowsingScreenController<T extends HasID> {
     protected final ScreenManager screenManager;
+    protected final DatabaseService databaseService;
 
     @FXML protected TextField searchField;
 
-    @FXML protected TableView<T> dataTable = new TableView<>();
+    @FXML protected AnchorPane tablePane;
+
+    protected TableView<T> dataTable;
 
     @FXML protected Button searchButton;
     ObservableList<T> dataArray = FXCollections.observableArrayList();
 
     @FXML protected Button showAllButton;
 
-    protected final DatabaseService databaseService;
+//    protected CustomDataTable<?> customDataTable;
 
     protected abstract void handleSearch();
 
@@ -31,7 +37,12 @@ public abstract class AbstractBrowsingScreenController<T extends HasID> {
     protected abstract void handleClickOnDataTable(int id);
 
     @FXML
-    protected void initialize() {
+    protected void initialize() throws IOException {
+        assert dataTable != null : "this can't be null";
+
+        tablePane.getChildren().clear();
+        tablePane.getChildren().add(dataTable);
+
         dataTable.setItems(dataArray);
         searchButton.setOnAction(event -> handleSearch());
 
@@ -56,28 +67,6 @@ public abstract class AbstractBrowsingScreenController<T extends HasID> {
         });
 
         showAllButton.setOnAction(event -> displayAll());
-    }
-
-    private int addedCount = 0;
-
-    protected TableColumn<T, String> addDataColumn(String columnName, String dataVariableName) {
-        TableColumn<T, ?> dataColumn;
-
-        if (addedCount < dataTable.getColumns().size()) {
-            dataColumn = dataTable.getColumns().get(addedCount);
-//            dataColumn = dataTable.getColumns().get(addedCount);
-        }
-        else {
-            dataColumn = new TableColumn<>();
-            dataTable.getColumns().add(dataColumn);
-        }
-
-        dataColumn.setText(columnName);
-        dataColumn.setCellValueFactory(new PropertyValueFactory<>(dataVariableName));
-
-        addedCount++;
-
-        return (TableColumn<T, String>) dataColumn;
     }
 
     AbstractBrowsingScreenController(DatabaseService databaseService, ScreenManager screenManager) {

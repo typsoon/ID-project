@@ -2,23 +2,28 @@ package org.example.idproject.view.browsingScreens;
 
 import org.example.idproject.common.BasicPlayerData;
 import org.example.idproject.view.ScreenManager;
+import org.example.idproject.view.utils.BasicPlayerDataTable;
 import org.example.idproject.viewmodel.DatabaseService;
 
+import java.io.IOException;
+
 public class BrowsePlayersController extends AbstractBrowsingScreenController<BasicPlayerData> {
-    public BrowsePlayersController(DatabaseService databaseService, ScreenManager screenManager) {
+    public BrowsePlayersController(DatabaseService databaseService, ScreenManager screenManager) throws IOException {
         super(databaseService, screenManager);
+
+        dataTable = new BasicPlayerDataTable().getTableView();
     }
 
     @Override
-    protected void initialize() {
-        super.initialize();
+    protected void initialize() throws IOException {
 
-        addDataColumn("ID", "ID");
-        addDataColumn("Nickname", "currentNickname");
+        System.out.println(dataTable.getColumns().getLast().getText());
 
         displayAll();
 
         searchField.setPromptText("Browse Players by nickname");
+
+        super.initialize();
     }
 
     @Override
