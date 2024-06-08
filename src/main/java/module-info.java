@@ -9,14 +9,16 @@ module org.example.idproject {
     requires java.sql;
     requires org.postgresql.jdbc;
 
-    opens org.example.idproject.view to javafx.fxml;
     opens org.example.idproject.common to javafx.base;
     exports org.example.idproject;
 
 
+    opens org.example.idproject.view to javafx.fxml;
     opens org.example.idproject.view.browsingScreens to javafx.fxml;
     opens org.example.idproject.view.insertDataScreens to javafx.fxml;
     opens org.example.idproject.view.infoPanes to javafx.fxml;
+    opens org.example.idproject.view.utils to javafx.fxml;
+
     exports org.example.idproject.view;
     exports org.example.idproject.viewmodel;
     exports org.example.idproject.common;

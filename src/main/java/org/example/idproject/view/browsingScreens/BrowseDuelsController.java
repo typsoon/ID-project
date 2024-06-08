@@ -8,12 +8,17 @@ import javafx.scene.control.TextField;
 import javafx.util.Callback;
 import org.example.idproject.common.BasicDuelData;
 import org.example.idproject.view.ScreenManager;
+import org.example.idproject.view.utils.BasicDuelsDataTable;
 import org.example.idproject.viewmodel.DatabaseService;
+
+import java.io.IOException;
 
 
 public class BrowseDuelsController extends AbstractBrowsingScreenController<BasicDuelData> {
-    public BrowseDuelsController(DatabaseService databaseService, ScreenManager screenManager) {
+    public BrowseDuelsController(DatabaseService databaseService, ScreenManager screenManager) throws IOException {
         super(databaseService, screenManager);
+
+        dataTable = new BasicDuelsDataTable(screenManager).getTableView();
     }
 
     private final TextField tookPart = searchField;
@@ -27,18 +32,11 @@ public class BrowseDuelsController extends AbstractBrowsingScreenController<Basi
     private DatePicker earlierThan;
 
     @Override
-    protected void initialize() {
+    protected void initialize() throws IOException {
         super.initialize();
 
-        addDataColumn("ID", "ID");
-        var firstPlayerColumn = addDataColumn("First player ID", "firstPlayerID");
-        var secondPlayerColumn = addDataColumn("Second player ID", "secondPlayerID");
-        addDataColumn("Date from", "dateFrom");
-        addDataColumn("Date to", "dateTo");
-        addDataColumn("Outcome", "outcome");
-
-        firstPlayerColumn.setCellFactory(new PlayerIDColumnCellFactory(screenManager));
-        secondPlayerColumn.setCellFactory(new PlayerIDColumnCellFactory(screenManager));
+//        firstPlayerColumn.setCellFactory(new PlayerIDColumnCellFactory(screenManager));
+//        secondPlayerColumn.setCellFactory(new PlayerIDColumnCellFactory(screenManager));
     }
 
     @Override
@@ -56,38 +54,5 @@ public class BrowseDuelsController extends AbstractBrowsingScreenController<Basi
     @Override
     protected void handleClickOnDataTable(int id) {
 
-    }
-}
-
-class PlayerIDColumnCellFactory implements Callback<TableColumn<BasicDuelData, String>, TableCell<BasicDuelData, String>> {
-    private final ScreenManager screenManager;
-
-    PlayerIDColumnCellFactory(ScreenManager screenManager) {
-        this.screenManager = screenManager;
-    }
-
-    @Override
-    public TableCell<BasicDuelData, String> call(TableColumn<BasicDuelData, String> basicDuelDataStringTableColumn) {
-        TableCell<BasicDuelData, String> cell = new TableCell<BasicDuelData, String>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(item);
-                }
-            }
-        };
-
-        cell.setOnMouseClicked(event -> {
-            if (!cell.isEmpty()) {
-                String lastName = cell.getItem();
-                System.out.println("Last Name clicked: " + lastName);
-                // Add your handling logic here
-            }
-        });
-
-        return cell;
     }
 }

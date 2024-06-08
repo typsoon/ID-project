@@ -14,6 +14,10 @@ public class FXMLAddresses {
     static final String SCREEN_MANAGER = screenFolderPath + "screen-manager.fxml";
 
     public static final String BASIC_PLAYER_DATA_TABLE = utilsFolderPath + "basic-player-data-table.fxml";
+    public static final String BASIC_CLAN_DATA_TABLE = utilsFolderPath + "basic-clan-data-table.fxml";
+    public static final String CHALLENGES_DATA_TABLE = utilsFolderPath + "challenges-data-table.fxml";
+    public static final String DUEL_DATA_TABLE = utilsFolderPath + "duels-data-table.fxml";
+    public static final String FRIEND_DATA_TABLE = utilsFolderPath + "friend-data-table.fxml";
 
     private FXMLAddresses() {}
 }

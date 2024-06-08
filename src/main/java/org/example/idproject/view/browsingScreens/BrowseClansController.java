@@ -2,21 +2,22 @@ package org.example.idproject.view.browsingScreens;
 
 import org.example.idproject.common.BasicClanData;
 import org.example.idproject.view.ScreenManager;
+import org.example.idproject.view.utils.BasicClanDataTable;
 import org.example.idproject.viewmodel.DatabaseService;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class BrowseClansController extends AbstractBrowsingScreenController<BasicClanData> {
-    public BrowseClansController(DatabaseService databaseService, ScreenManager screenManager) {
+    public BrowseClansController(DatabaseService databaseService, ScreenManager screenManager) throws IOException {
         super(databaseService, screenManager);
+
+        dataTable = new BasicClanDataTable().getTableView();
     }
 
     @Override
-    protected void initialize() {
+    protected void initialize() throws IOException {
         super.initialize();
-
-        addDataColumn("ID", "ID");
-        addDataColumn("Nickname", "currentName");
 
         displayAll();
 

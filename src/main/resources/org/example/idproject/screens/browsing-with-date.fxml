@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
@@ -44,16 +45,23 @@
             </HBox>
          </children>
       </HBox>
-      <TableView fx:id="dataTable" prefHeight="231.0" prefWidth="424.0">
-         <columns>
-            <TableColumn prefWidth="30.0" />
-            <TableColumn prefWidth="120.0" />
-            <TableColumn prefWidth="120.0" />
-            <TableColumn prefWidth="90.0" />
-            <TableColumn prefWidth="90.0" />
-            <TableColumn prefWidth="83.0" />
-         </columns>
-      </TableView>
+      <AnchorPane fx:id="tablePane" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <TableView fx:id="dataTable" prefHeight="231.0" prefWidth="540.0">
+               <columns>
+                  <TableColumn prefWidth="44.0" />
+                  <TableColumn prefWidth="122.0" />
+                  <TableColumn prefWidth="120.0" />
+                  <TableColumn prefWidth="89.0" />
+                  <TableColumn prefWidth="89.0" />
+                  <TableColumn prefWidth="79.0" />
+               </columns>
+            </TableView>
+         </children>
+         <VBox.margin>
+            <Insets left="10.0" right="10.0" />
+         </VBox.margin>
+      </AnchorPane>
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="15.0" />

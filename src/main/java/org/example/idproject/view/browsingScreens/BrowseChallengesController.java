@@ -5,13 +5,17 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import org.example.idproject.common.BasicChallengeData;
 import org.example.idproject.view.ScreenManager;
+import org.example.idproject.view.utils.BasicChallengeDataTable;
 import org.example.idproject.viewmodel.DatabaseService;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class BrowseChallengesController extends AbstractBrowsingScreenController<BasicChallengeData> {
-    public BrowseChallengesController(DatabaseService databaseService, ScreenManager screenManager) {
+    public BrowseChallengesController(DatabaseService databaseService, ScreenManager screenManager) throws IOException {
         super(databaseService, screenManager);
+
+        dataTable = new BasicChallengeDataTable().getTableView();
     }
 
     private final TextField tookPart = searchField;
@@ -25,13 +29,9 @@ public class BrowseChallengesController extends AbstractBrowsingScreenController
     private DatePicker earlierThan;
 
     @Override
-    protected void initialize() {
+    protected void initialize() throws IOException {
         super.initialize();
 
-        addDataColumn("ID", "ID");
-        addDataColumn("Date from", "dateFrom");
-        addDataColumn("Date to", "dateTo");
-        addDataColumn("Objective", "objective");
     }
 
     @Override
@@ -56,6 +56,4 @@ public class BrowseChallengesController extends AbstractBrowsingScreenController
     protected void handleClickOnDataTable(int id) {
 
     }
-
-
 }

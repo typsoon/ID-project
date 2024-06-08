@@ -53,7 +53,7 @@ public class LoginSceneController {
             }
         }
         catch (Exception ignored) {
-//            throw new RuntimeException(ignored);
+            throw new RuntimeException(ignored);
         }
 
         return false;
