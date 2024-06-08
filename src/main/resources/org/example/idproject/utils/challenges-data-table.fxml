@@ -3,13 +3,12 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 
-<TableView fx:id="dataTable" prefHeight="231.0" prefWidth="424.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<TableView fx:id="dataTable" prefHeight="315.0" prefWidth="474.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <columns>
-      <TableColumn prefWidth="30.0" />
-      <TableColumn prefWidth="120.0" />
-      <TableColumn prefWidth="120.0" />
-      <TableColumn prefWidth="90.0" />
-      <TableColumn prefWidth="90.0" />
-      <TableColumn prefWidth="83.0" />
+      <TableColumn prefWidth="30.0" text="ID" />
+      <TableColumn prefWidth="120.0" text="Date From" />
+      <TableColumn prefWidth="120.0" text="Date To" />
+      <TableColumn prefWidth="90.0" text="Objective" />
+      <TableColumn prefWidth="112.0" text="Description" />
    </columns>
 </TableView>

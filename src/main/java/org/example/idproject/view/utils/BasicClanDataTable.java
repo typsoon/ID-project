@@ -13,6 +13,6 @@ public class BasicClanDataTable extends CustomDataTable<BasicClanData> {
     @Override
     protected void initialize() {
         addDataColumn("ID", "ID");
-        addDataColumn("Nickname", "currentName");
+        addDataColumn("Name", "currentName");
     }
 }

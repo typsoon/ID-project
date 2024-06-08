@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Locale;
 
 @SuppressWarnings("unused")
-public record BasicChallengeData(int ID, Date dateFrom, Date dateTo, String objective) implements HasID {
+public record BasicChallengeData(int ID, Date dateFrom, Date dateTo, int objective, String description) implements HasID {
 
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("EEEE, d MMMM yyyy", Locale.of("pl", "PL"));
 
@@ -22,7 +22,11 @@ public record BasicChallengeData(int ID, Date dateFrom, Date dateTo, String obje
         return DATE_FORMAT.format(dateTo());
     }
 
-    public String getObjective() {
+    public int getObjective() {
         return objective();
+    }
+
+    public String getDescription() {
+        return description();
     }
 }

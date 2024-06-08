@@ -89,7 +89,7 @@
             <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="128.0" text="Add Duel" />
          </children>
       </HBox>
-      <AnchorPane prefHeight="334.0" prefWidth="600.0">
+      <AnchorPane fx:id="tablePane" prefHeight="334.0" prefWidth="600.0">
          <children>
             <TableView fx:id="dataTable" layoutX="88.0" layoutY="14.0" prefHeight="231.0" prefWidth="424.0">
                <columns>
