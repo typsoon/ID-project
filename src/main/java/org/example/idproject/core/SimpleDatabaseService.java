@@ -87,7 +87,7 @@ public class SimpleDatabaseService implements DatabaseService {
     public boolean insertClan(int leaderID, LocalDate dateFrom, String clanName, String logoFilePath) throws SQLException {
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Statement stmt = conn.createStatement();
-            stmt.execute( "insert into fullclandata (clanimage, clanname, leaderx) values (\'" + logoFilePath + "\',\'" + clanName +"\'," + leaderID + ")"
+            stmt.execute( "insert into fullclandata (clanimage, clanname, leader) values (\'" + logoFilePath + "\',\'" + clanName +"\'," + leaderID + ")"
             );
             return true;
         }

@@ -17,7 +17,7 @@ CREATE TABLE Players
 (
     player_ID     SERIAL PRIMARY KEY,
     password_hash NUMERIC(13) not null,
-    login         VARCHAR(13) not null unique,
+    login         VARCHAR(40) not null unique,
     ranking_base  integer
 );
 create table ClanChat
@@ -67,7 +67,7 @@ create table PlayerClan
     date_from  timestamp default CURRENT_TIMESTAMP ,
     clan_ID    integer references Clans,
     player_ID  integer references Players,
-    date_to    timestamp,
+    date_to    timestamp NULL,
     who_kicked integer references Players,
     who_accepted integer references Players,
     primary key (date_from, clan_ID, player_ID)
@@ -105,7 +105,7 @@ CREATE TABLE PlayerNickname
 (
     player_ID INTEGER REFERENCES Players (player_ID),
     date_from timestamp default CURRENT_TIMESTAMP ,
-    nickname  varchar(20) not null,
+    nickname  varchar(40) not null,
     PRIMARY KEY (player_ID, date_from)
 );
 
@@ -113,7 +113,7 @@ CREATE TABLE ClanName
 (
     clan_ID   INTEGER REFERENCES Clans,
     date_from timestamp default CURRENT_TIMESTAMP ,
-    cl_name   varchar(20) not null,
+    cl_name   varchar(40) not null,
     PRIMARY KEY (clan_ID, date_from)
 );
 
@@ -169,89 +169,89 @@ CREATE TABLE PlayerChallenge
     PRIMARY KEY (player_id, challenge_id)
 );
 ---------------------------------------------WSTAWIANIE PRZYKŁADOWYCH DANYCH-----------------------------------------------
-INSERT INTO Clans DEFAULT
-VALUES;
-INSERT INTO Clans DEFAULT
-VALUES;
-INSERT INTO Clans DEFAULT
-VALUES;
-
-INSERT INTO ClanWars (clan1_ID, clan2_ID, date_from, outcome)
-VALUES (1, 2, '2024-04-01 10:30:00', true),
-       (2, 3, '2024-04-10 21:30:00', false),
-       (3, 1, '2024-04-20 8:12:00', true);
-
-INSERT INTO Players (password_hash, login)
-VALUES (1234567890123, 'player1'),
-       (2345678901234, 'player2'),
-       (3456789012345, 'player3');
-
-INSERT INTO ClanChat (sent_date, clan_ID, sender_ID, msg_text)
-VALUES ('2024-04-01 1:30:12', 1, 1, 'Hello from clan 1!'),
-       ('2024-04-02 2:17:09', 2, 2, 'Greetings from clan 2!'),
-       ('2024-04-03 16:20:12', 3, 3, 'Hey clan 3, how are you?');
-
-INSERT INTO Duels (sender, receiver, date_from, date_to, outcome)
-VALUES (1, 2, '2024-04-01 11:30:12', '2024-04-01 11:35:12', true),
-       (2, 3, '2024-04-10 9:21:12', '2024-04-10 9:23:12', false),
-       (3, 1, '2024-04-20 12:10:12', '2024-04-20 12:10:18', true);
-
-INSERT INTO WarDuels (duel_ID, clan_war_ID)
-VALUES (1, 1),
-       (2, 2),
-       (3, 3);
-
-INSERT INTO Applications (clan_ID, player_ID, date_from, date_to)
-VALUES (1, 2, '2024-03-20', '2024-04-01 10:00:00'),
-       (2, 3, '2024-04-02', '2024-04-10 11:30:12'),
-       (3, 1, '2024-04-15 10:00:00', '2024-04-20 10:00:00');
-
-INSERT INTO PlayerClan (date_from, clan_ID, player_ID, date_to, who_accepted)
-VALUES ('2024-04-01 10:00:00', 1, 1, '2024-04-15 10:00:00', null),
-       ('2024-04-10 11:30:12', 2, 3, '2024-04-25 10:00:00', null),
-       ('2024-04-20 10:00:00', 3, 2, '2024-05-05 10:00:00', null);
-
-INSERT INTO FriendsChat (sent_date, sender_ID, receiver_ID, msg_text)
-VALUES ('2024-04-02', 1, 2, 'modelki'),
-       ('2024-04-12', 2, 3, 'on'),
-       ('2024-04-23', 3, 1, 'top');
-
-INSERT INTO Friends (player1_ID, player2_ID, date_from, date_to)
-VALUES (1, 2, '2024-04-11 8:12:32', '2024-04-15 8:12:32'),
-       (2, 3, '2024-04-10 8:12:32', '2024-04-25 8:12:32'),
-       (3, 1, '2024-04-20 8:12:32', '2024-05-05 8:12:32');
-
-INSERT INTO FriendsInvites (player1_ID, player2_ID, date_from, date_to)
-VALUES (1, 2, '2024-04-01 8:12:32', '2024-04-11 8:12:32'),
-       (2, 3, '2024-04-08 8:12:32', '2024-04-10 8:12:32'),
-       (3, 1, '2024-04-08 8:12:32', '2024-04-20 8:12:32');
-
-INSERT INTO PlayerNickname (player_ID, date_from, nickname)
-VALUES (1, '2024-04-01', 'Player1Nick'),
-       (2, '2024-04-10', 'Player2Nick'),
-       (3, '2024-04-20', 'Player3Nick');
-
-INSERT INTO ClanName (clan_ID, date_from, cl_name)
-VALUES (1, '2024-04-01', 'Clan1'),
-       (2, '2024-04-10', 'Clan2'),
-       (3, '2024-04-20', 'Clan3');
+-- INSERT INTO Clans DEFAULT
+-- VALUES;
+-- INSERT INTO Clans DEFAULT
+-- VALUES;
+-- INSERT INTO Clans DEFAULT
+-- VALUES;
+--
+-- INSERT INTO ClanWars (clan1_ID, clan2_ID, date_from, outcome)
+-- VALUES (1, 2, '2024-04-01 10:30:00', true),
+--        (2, 3, '2024-04-10 21:30:00', false),
+--        (3, 1, '2024-04-20 8:12:00', true);
+--
+-- INSERT INTO Players (password_hash, login)
+-- VALUES (1234567890123, 'player1'),
+--        (2345678901234, 'player2'),
+--        (3456789012345, 'player3');
+--
+-- INSERT INTO ClanChat (sent_date, clan_ID, sender_ID, msg_text)
+-- VALUES ('2024-04-01 1:30:12', 1, 1, 'Hello from clan 1!'),
+--        ('2024-04-02 2:17:09', 2, 2, 'Greetings from clan 2!'),
+--        ('2024-04-03 16:20:12', 3, 3, 'Hey clan 3, how are you?');
+--
+-- INSERT INTO Duels (sender, receiver, date_from, date_to, outcome)
+-- VALUES (1, 2, '2024-04-01 11:30:12', '2024-04-01 11:35:12', true),
+--        (2, 3, '2024-04-10 9:21:12', '2024-04-10 9:23:12', false),
+--        (3, 1, '2024-04-20 12:10:12', '2024-04-20 12:10:18', true);
+--
+-- INSERT INTO WarDuels (duel_ID, clan_war_ID)
+-- VALUES (1, 1),
+--        (2, 2),
+--        (3, 3);
+--
+-- INSERT INTO Applications (clan_ID, player_ID, date_from, date_to)
+-- VALUES (1, 2, '2024-03-20', '2024-04-01 10:00:00'),
+--        (2, 3, '2024-04-02', '2024-04-10 11:30:12'),
+--        (3, 1, '2024-04-15 10:00:00', '2024-04-20 10:00:00');
+--
+-- INSERT INTO PlayerClan (date_from, clan_ID, player_ID, date_to, who_accepted)
+-- VALUES ('2024-04-01 10:00:00', 1, 1, '2024-04-15 10:00:00', null),
+--        ('2024-04-10 11:30:12', 2, 3, '2024-04-25 10:00:00', null),
+--        ('2024-04-20 10:00:00', 3, 2, '2024-05-05 10:00:00', null);
+--
+-- INSERT INTO FriendsChat (sent_date, sender_ID, receiver_ID, msg_text)
+-- VALUES ('2024-04-02', 1, 2, 'modelki'),
+--        ('2024-04-12', 2, 3, 'on'),
+--        ('2024-04-23', 3, 1, 'top');
+--
+-- INSERT INTO Friends (player1_ID, player2_ID, date_from, date_to)
+-- VALUES (1, 2, '2024-04-11 8:12:32', '2024-04-15 8:12:32'),
+--        (2, 3, '2024-04-10 8:12:32', '2024-04-25 8:12:32'),
+--        (3, 1, '2024-04-20 8:12:32', '2024-05-05 8:12:32');
+--
+-- INSERT INTO FriendsInvites (player1_ID, player2_ID, date_from, date_to)
+-- VALUES (1, 2, '2024-04-01 8:12:32', '2024-04-11 8:12:32'),
+--        (2, 3, '2024-04-08 8:12:32', '2024-04-10 8:12:32'),
+--        (3, 1, '2024-04-08 8:12:32', '2024-04-20 8:12:32');
+--
+-- INSERT INTO PlayerNickname (player_ID, date_from, nickname)
+-- VALUES (1, '2024-04-01', 'Player1Nick'),
+--        (2, '2024-04-10', 'Player2Nick'),
+--        (3, '2024-04-20', 'Player3Nick');
+--
+-- INSERT INTO ClanName (clan_ID, date_from, cl_name)
+-- VALUES (1, '2024-04-01', 'Clan1'),
+--        (2, '2024-04-10', 'Clan2'),
+--        (3, '2024-04-20', 'Clan3');
 
 INSERT INTO Logos (image_address)
 VALUES ('clanLogos/red-logo.png'),
        ('clanLogos/blue-logo.png'),
        ('clanLogos/green-logo.png');
 
-INSERT INTO ClanLogos (clan_ID, date_from, logo_ID)
-VALUES (1, '2024-04-01 12:45:12', 1),
-       (2, '2024-04-10 12:45:12', 2),
-       (3, '2024-04-20 12:45:12', 3);
+-- INSERT INTO ClanLogos (clan_ID, date_from, logo_ID)
+-- VALUES (1, '2024-04-01 12:45:12', 1),
+--        (2, '2024-04-10 12:45:12', 2),
+--        (3, '2024-04-20 12:45:12', 3);
 
 INSERT INTO Roles (rank_name)
 VALUES ('Leader'),
        ('Elder'),
        ('Member');
 
-INSERT INTO PlayerRole (date_from, player_ID, rank_ID)
-VALUES ('2024-04-01 13:34:56', 1, 1),
-       ('2024-04-10 13:34:56', 2, 1),
-       ('2024-04-20 18:09:13', 3, 1);
+-- INSERT INTO PlayerRole (date_from, player_ID, rank_ID)
+-- VALUES ('2024-04-01 13:34:56', 1, 1),
+--        ('2024-04-10 13:34:56', 2, 1),
+--        ('2024-04-20 18:09:13', 3, 1);
