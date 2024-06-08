@@ -87,7 +87,8 @@ CREATE TABLE Friends
     player2_ID INTEGER REFERENCES Players (player_ID),
     date_from  timestamp default CURRENT_TIMESTAMP ,
     date_to    timestamp CHECK (date_from < date_to),
-    PRIMARY KEY (player1_ID, player2_ID, date_from)
+    PRIMARY KEY (player1_ID, player2_ID, date_from),
+    CHECK ( player1_ID != player2_ID )
 );
 
 CREATE TABLE FriendsInvites
@@ -231,7 +232,7 @@ CREATE TABLE PlayerChallenge
 --        (2, '2024-04-10', 'Player2Nick'),
 --        (3, '2024-04-20', 'Player3Nick');
 --
--- INSERT INTO ClanName (clan_ID, date_from, cl_name)
+-- INSERT INTO ClanNameData (clan_ID, date_from, cl_name)
 -- VALUES (1, '2024-04-01', 'Clan1'),
 --        (2, '2024-04-10', 'Clan2'),
 --        (3, '2024-04-20', 'Clan3');

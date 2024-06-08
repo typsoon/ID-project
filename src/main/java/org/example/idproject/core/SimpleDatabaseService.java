@@ -43,7 +43,7 @@ public class SimpleDatabaseService implements DatabaseService {
             if (rs.next()) {
                 return
                 new FullPlayerData(
-                        rs.getLong(1),rs.getString(2),rs.getString(3), null,
+                        rs.getLong(1),rs.getString(2),rs.getString(3), rs.getInt(3),
                         new BasicPlayerData(rs.getInt(4),rs.getString(5))
                 );
                 // System.out.println(rs.getString(1) + " " + rs.getString(2) );
@@ -164,6 +164,16 @@ public class SimpleDatabaseService implements DatabaseService {
     }
 
     @Override
+    public Collection<ClanNameData> getClanNames(int clanID) throws SQLException {
+        return List.of();
+    }
+
+    @Override
+    public boolean sendClanMessage(int playerID, String message) throws SQLException {
+        return false;
+    }
+
+    @Override
     public Collection<BasicDuelData> browseDuels(String tookPart, LocalDate dateFrom, LocalDate dateTo) throws SQLException {
         int tookPartID = Integer.parseInt(tookPart);
         Collection<BasicDuelData> duels = new ArrayList<>();
@@ -257,6 +267,11 @@ public class SimpleDatabaseService implements DatabaseService {
     @Override
     public Collection<FriendData> getAllFriends(int playerID) throws SQLException {
         return List.of();
+    }
+
+    @Override
+    public void sendFriendMessage(int senderID, int receiverID, String message) throws SQLException {
+
     }
 
     @Override
