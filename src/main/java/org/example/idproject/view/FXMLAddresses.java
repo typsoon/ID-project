@@ -18,6 +18,9 @@ public class FXMLAddresses {
     public static final String CHALLENGES_DATA_TABLE = utilsFolderPath + "challenges-data-table.fxml";
     public static final String DUEL_DATA_TABLE = utilsFolderPath + "duels-data-table.fxml";
     public static final String FRIEND_DATA_TABLE = utilsFolderPath + "friend-data-table.fxml";
+    public static final String CLAN_MESSAGE_DATA_TABLE = utilsFolderPath + "clan-message-data-table.fxml";
+    public static final String MEMBER_DATA_TABLE = utilsFolderPath + "member-data-table.fxml";
+    public static final String CLAN_NAME_DATA_TABLE = utilsFolderPath + "clan-name-data-table.fxml";
 
     private FXMLAddresses() {}
 }

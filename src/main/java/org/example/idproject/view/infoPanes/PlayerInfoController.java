@@ -66,8 +66,8 @@ public class PlayerInfoController extends AbstractInfoController {
 
         seeClan.setOnAction(actionEvent -> {
             try {
-//                if (fullPlayerData.currentClanId() == null)
-//                    return;
+                if (fullPlayerData.currentClanId() == null)
+                    return;
 
                 screenManager.showClanInfo(fullPlayerData.currentClanId());
             }

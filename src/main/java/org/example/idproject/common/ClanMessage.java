@@ -5,4 +5,16 @@ public record ClanMessage(String sentDate, int senderID, String senderNickName, 
     public int getID() {
         return senderID;
     }
+
+    public String getSentDate() {
+        return sentDate;
+    }
+
+    public String getSenderNickname() {
+        return senderNickName;
+    }
+
+    public String getMsgText() {
+        return msgText;
+    }
 }

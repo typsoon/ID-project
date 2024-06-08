@@ -57,7 +57,7 @@ create table Duels
 
 ALTER TABLE Duels
 ADD CONSTRAINT check_players
-CHECK (sender_ID_ID != receiver_ID);
+CHECK (player1_ID != receiver_ID);
 
 create table ArchivedDuels AS SELECT * FROM duels
 WHERE duel_ID IS NULL;

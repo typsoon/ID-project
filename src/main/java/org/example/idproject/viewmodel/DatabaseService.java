@@ -23,6 +23,7 @@ public interface DatabaseService {
     Collection<ClanMessage> getClanMessages(int clanId) throws SQLException;
     Collection<ClanNameData> getClanNames(int clanID) throws SQLException;
 
+
     boolean sendClanMessage(int playerID, String message) throws SQLException;
 
     Collection<BasicDuelData> browseDuels(String tookPart, LocalDate dateFrom, LocalDate dateTo) throws SQLException;

@@ -45,10 +45,10 @@
                            <children>
                               <Pane prefHeight="24.0" prefWidth="114.0">
                                  <children>
-                                    <Text layoutY="16.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                                    <Text fx:id="currentClanName" layoutY="16.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
                                  </children>
                               </Pane>
-                              <Button mnemonicParsing="false" prefHeight="28.0" prefWidth="106.0" text="past names" />
+                              <Button fx:id="pastNames" mnemonicParsing="false" prefHeight="28.0" prefWidth="106.0" text="past names" />
                            </children>
                         </HBox>
                      </children>
@@ -62,8 +62,8 @@
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Button mnemonicParsing="false" text="Current members" />
-                              <Button mnemonicParsing="false" text="Current and past members" />
+                              <Button fx:id="currentMembers" mnemonicParsing="false" text="Current members" />
+                              <Button fx:id="currentAndPastMembers" mnemonicParsing="false" text="Current and past members" />
                            </children>
                         </VBox>
                      </children>
@@ -75,7 +75,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Button mnemonicParsing="false" text="All wars" />
+                        <Button fx:id="clanWars" mnemonicParsing="false" text="All wars" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0">
@@ -89,8 +89,7 @@
                               </Label>
                               <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0">
                                 <buttons>
-                                    <Button mnemonicParsing="false" text="All" />
-                                  <Button mnemonicParsing="false" text="Active" />
+                                  <Button fx:id="activeApplications" mnemonicParsing="false" text="Active" />
                                 </buttons>
                               </ButtonBar>
                            </children>
@@ -125,7 +124,7 @@
                               </Label>
                               <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0">
                                  <buttons>
-                                    <Button mnemonicParsing="false" text="Show" />
+                                    <Button fx:id="showClanChatButton" mnemonicParsing="false" text="Show" />
                                  </buttons>
                               </ButtonBar>
                            </children>
@@ -136,7 +135,7 @@
             </VBox>
          </children>
       </HBox>
-      <AnchorPane prefHeight="341.0" prefWidth="646.0">
+      <AnchorPane fx:id="tablePane" prefHeight="341.0" prefWidth="646.0">
          <children>
             <TableView layoutX="81.0" layoutY="35.0" prefHeight="266.0" prefWidth="484.0" />
          </children>

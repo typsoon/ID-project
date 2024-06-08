@@ -77,7 +77,7 @@
                               <HBox prefHeight="34.0" prefWidth="295.0">
                                  <children>
                                     <Button fx:id="sendFriendMessage" mnemonicParsing="false" prefHeight="24.0" prefWidth="132.0" text="Send message" />
-                                    <TextField fx:id="receiverID" promptText="Receiver ID" />
+                                    <TextField fx:id="receiverIDField" promptText="Receiver ID" />
                                  </children>
                               </HBox>
                            </children>
