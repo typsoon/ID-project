@@ -1,4 +1,4 @@
-COPY playerClan (date_from,clan_ID,player_ID,date_to,who_kicked) FROM stdin with (format csv,delimiter ',' , FORCE_NULL(date_to));
+COPY playerClan (date_from,clan_ID,player_ID,date_to,who_kicked) FROM stdin with (format csv,delimiter ',' , FORCE_NULL(date_to,who_kicked));
 '2017-09-23 00:21:18',1,10000,,
 '2020-07-03 13:55:59',2,10001,,
 '2016-03-16 22:42:54',3,10002,,

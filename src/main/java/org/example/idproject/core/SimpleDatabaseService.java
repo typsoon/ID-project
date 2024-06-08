@@ -140,7 +140,21 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public Collection<ClanMessage> getClanMessages(int clanId) throws SQLException {
-        return List.of();
+        Collection<ClanMessage> massages = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery( "select clanchat.*,playernickname(sender_id) from clanchat where clan_ID = (\'" + clanId + "\');" );
+            while (rs.next()) {
+                massages.add( new ClanMessage(
+                        rs.getString(1),rs.getInt(2),rs.getString(5),rs.getString(4)
+                        ));
+                // System.out.println(rs.getString(1) + " " + rs.getString(2) );
+            }
+        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+        return massages;
     }
 
     @Override
@@ -217,32 +231,114 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public Collection<FriendData> getFriends(int playerID) throws SQLException {
-        return List.of();
+        Collection<FriendData> friends = new ArrayList<>();
+        Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password());
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from friends where (player1_ID  =\'" + playerID + "\' or player2_ID =\'" + playerID + "\');");
+        while (rs.next()) {
+            if(rs.getInt(1)==playerID)
+                friends.add(new FriendData(rs.getString(3),rs.getString(4),getFullPlayerData(rs.getInt(2)).basicPlayerData()));
+            else
+                friends.add(new FriendData(rs.getString(3),rs.getString(4),getFullPlayerData(rs.getInt(1)).basicPlayerData()));
+            //System.out.println(rs.getString(1) + " " + rs.getString(2) );
+        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+        return friends;
     }
 
     @Override
     public Collection<NicknameData> getNicknames(int playerID) throws SQLException {
-        return List.of();
+        Collection<NicknameData> nicks = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery( "select * from playernickname where player_id =\'" + playerID+ "\';");
+            while (rs.next()) {
+                nicks.add(new NicknameData(rs.getInt(1),rs.getString(3),rs.getString(2)));
+                // System.out.println(rs.getString(1) + " " + rs.getString(2) );
+            }
+        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+        return nicks;
     }
 
     @Override
-    public Collection<FriendData> getAllFriendInvites(int playerID) throws SQLException {
-        return List.of();
+    public Collection<FriendInvite> getAllFriendInvites(int playerID) throws SQLException {
+        Collection<FriendInvite> invites = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery( "select * from friendsinvites where player1_ID  =\'"+ playerID+"\' or player2_ID =\'" + playerID+ "\';");
+            while (rs.next()) {
+                invites.add(new FriendInvite(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4))
+                        );
+                // System.out.println(rs.getString(1) + " " + rs.getString(2) );
+            }
+        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+        return invites;
     }
 
     @Override
-    public Collection<FriendData> getActiveFriendInvites(int playerID) throws SQLException {
-        return List.of();
+    public Collection<FriendInvite> getActiveFriendInvites(int playerID) throws SQLException {
+        Collection<FriendInvite> invites = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery( "select * from friendsinvites where date_to is null AND (player1_ID  =\'"+ playerID+"\' or player2_ID =\'" + playerID+ "\');");
+            while (rs.next()) {
+                invites.add(new FriendInvite(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4))
+                );
+                // System.out.println(rs.getString(1) + " " + rs.getString(2) );
+            }
+        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+        return invites;
     }
 
     @Override
     public Collection<ClanMemberData> getCurrentMembers(int clanID) throws SQLException {
-        return List.of();
+        Collection<ClanMemberData> memberData = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery( "select playerclan.*, PlayerNickname(player_ID),getcurrentrole(player_id),PlayerNickname(who_kicked) from playerclan where date_to is null and clan_id =\'" +clanID+"\';");
+            while (rs.next()) {
+                memberData.add(new ClanMemberData(
+                        rs.getString(1),rs.getInt(3),rs.getString(7),rs.getString(8),
+                        rs.getString(4),rs.getInt(5),rs.getString(9)
+                ));
+                // System.out.println(rs.getString(1) + " " + rs.getString(2) );
+            }
+        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+        return memberData;
     }
 
     @Override
     public Collection<ClanMemberData> getCurrentAndPastMembers(int clanID) throws SQLException {
-        return List.of();
+        Collection<ClanMemberData> memberData = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery( "select playerclan.*, PlayerNickname(player_ID),getrole(player_id,date_to),PlayerNickname(who_kicked) from playerclan where clan_id =\'" +clanID+"\';");
+            while (rs.next()) {
+                memberData.add(new ClanMemberData(
+                        rs.getString(1),rs.getInt(3),rs.getString(7),rs.getString(8),
+                        rs.getString(4),rs.getInt(5),rs.getString(9)
+                ));
+                // System.out.println(rs.getString(1) + " " + rs.getString(2) );
+            }
+        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+        return memberData;
     }
 
     @Override
@@ -262,12 +358,7 @@ public class SimpleDatabaseService implements DatabaseService {
         simpleViewModel.tryLogIn(new Credentials("riper", "aaa"));
         try
         {
-           Collection<BasicChallengeData> CL = simpleViewModel.getAllChallenges();
-//                   "asda",LocalDate.of(2020,1,1),LocalDate.of(2020,1,1)
-//           );
-            simpleViewModel.insertClan(
-                    1,LocalDate.parse("2030-01-01"),"modelki","clanLogos/red-logo.png"
-            );
+           Collection<FriendData> memberData = simpleViewModel.getFriends(8);
            return;
         }
         catch (Exception e)

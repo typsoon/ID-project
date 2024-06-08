@@ -139,3 +139,52 @@ begin
         );
 end
 $$language plpgsql;
+
+create or replace function GetFriends (playerID int)
+    returns table(
+                     friendID int,
+                     dateFrom timestamp,
+                     dateTo timestamp
+                 ) as
+$$
+begin
+    return query
+        (
+            select (case when player1_id = playerID then player2_id else player1_id end),date_from,date_to from friends
+            where (player1_id = playerID or player2_id=playerID) AND date_to is null
+        );
+end
+$$language plpgsql;
+
+create or replace function GetCurrentRole (playerID int)
+    returns varchar as
+$$
+begin
+    return
+        (
+            select rank_name from playerrole pr
+                                      join roles r on r.rank_id = pr.rank_id
+            where pr.player_id = playerID
+            order by date_from desc
+            limit 1
+        );
+end
+$$language plpgsql;
+
+create or replace function GetRole (playerID int, dateTo timestamp)
+    returns varchar as
+$$
+begin
+    if(dateTo is null) then
+        return GetCurrentRole(playerID);
+    end if;
+    return
+        (
+            select rank_name from playerrole pr
+                                      join roles r on r.rank_id = pr.rank_id
+            where pr.player_id = playerID and pr.date_from < dateTo
+            order by date_from desc
+            limit 1
+        );
+end
+$$language plpgsql;

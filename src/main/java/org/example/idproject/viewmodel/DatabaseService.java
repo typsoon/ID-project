@@ -31,8 +31,8 @@ public interface DatabaseService {
 
     Collection<NicknameData> getNicknames(int playerID) throws SQLException;
 
-    Collection<FriendData> getAllFriendInvites(int playerID) throws SQLException;
-    Collection<FriendData> getActiveFriendInvites(int playerID) throws SQLException;
+    Collection<FriendInvite> getAllFriendInvites(int playerID) throws SQLException;
+    Collection<FriendInvite> getActiveFriendInvites(int playerID) throws SQLException;
 
 //    only one role displayed
     Collection<ClanMemberData> getCurrentMembers(int clanID) throws SQLException;
