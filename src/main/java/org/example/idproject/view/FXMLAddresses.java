@@ -12,6 +12,7 @@ public class FXMLAddresses {
     static final String PLAYER_INFO = screenFolderPath + "player-info.fxml";
     static final String PLAYER_INSERT_VBOX = screenFolderPath + "player-insert-VBox.fxml";
     static final String SCREEN_MANAGER = screenFolderPath + "screen-manager.fxml";
+    public static final String TOURNAMENT_INSERT_DATA_TABLE = screenFolderPath + "tournament-insert-VBox.fxml";
 
     public static final String BASIC_PLAYER_DATA_TABLE = utilsFolderPath + "basic-player-data-table.fxml";
     public static final String BASIC_CLAN_DATA_TABLE = utilsFolderPath + "basic-clan-data-table.fxml";

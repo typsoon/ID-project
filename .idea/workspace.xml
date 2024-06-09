@@ -4,22 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b753b57e-ab60-46b8-9bb6-279e46c6879a" name="Changes" comment="tournament">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/dataTables/FriendInviteDataTable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/dataTables/NicknameNameDataTable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/idproject/utils/friend-invite-data-table.fxml" afterDir="false" />
+    <list default="true" id="b753b57e-ab60-46b8-9bb6-279e46c6879a" name="Changes" comment="Added functions to DatabaseService">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/common/MyIntegerWrapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/insertDataScreens/InsertTournamentController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/idproject/screens/tournament-insert-VBox.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/common/ClanMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/common/Message.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/common/NicknameData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/common/NicknameData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/core/SimpleDatabaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/core/SimpleDatabaseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/FXMLAddresses.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/FXMLAddresses.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/dataTables/ClanMessageDataTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/dataTables/MessageDataTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/dataTables/FriendDataTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/dataTables/FriendDataTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/infoPanes/ClanInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/infoPanes/ClanInfoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/infoPanes/PlayerInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/infoPanes/PlayerInfoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/viewmodel/DatabaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/viewmodel/DatabaseService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/idproject/screens/player-info.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/idproject/screens/player-info.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/idproject/utils/clan-message-data-table.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/idproject/utils/message-data-table.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/ScreenManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/ScreenManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/idproject/screens/screen-manager.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/idproject/screens/screen-manager.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +59,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/piotrek/GitHub/ID-project/src/main/resources/org/example/idproject/utils",
+    "last_opened_file_path": "/home/piotrek/GitHub/ID-project/src/main/resources/org/example/idproject/screens",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -77,6 +70,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/org/example/idproject/screens" />
       <recent name="$PROJECT_DIR$/src/main/resources/org/example/idproject/utils" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -121,6 +115,15 @@
       <updated>1717885595586</updated>
       <workItem from="1717885597079" duration="1082000" />
     </task>
+    <task id="LOCAL-00001" summary="Added functions to DatabaseService">
+      <option name="closed" value="true" />
+      <created>1717919216164</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1717919216164</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -128,6 +131,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="tournament" />
-    <option name="LAST_COMMIT_MESSAGE" value="tournament" />
+    <MESSAGE value="Added functions to DatabaseService" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added functions to DatabaseService" />
   </component>
 </project>
