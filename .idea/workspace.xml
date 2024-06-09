@@ -5,13 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b753b57e-ab60-46b8-9bb6-279e46c6879a" name="Changes" comment="tournament">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/dataTables/FriendInviteDataTable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/dataTables/NicknameNameDataTable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/idproject/utils/friend-invite-data-table.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/common/ClanMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/common/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/common/NicknameData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/common/NicknameData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/core/SimpleDatabaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/core/SimpleDatabaseService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/infoPanes/AbstractInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/infoPanes/AbstractInfoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/FXMLAddresses.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/FXMLAddresses.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/dataTables/ClanMessageDataTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/dataTables/MessageDataTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/dataTables/FriendDataTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/dataTables/FriendDataTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/infoPanes/ClanInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/infoPanes/ClanInfoController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/infoPanes/PlayerInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/infoPanes/PlayerInfoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/infoPanes/TournamentInfoPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/infoPanes/TournamentInfoPane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/viewmodel/DatabaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/viewmodel/DatabaseService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/idproject/screens/player-info.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/idproject/screens/player-info.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/idproject/utils/clan-message-data-table.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/idproject/utils/message-data-table.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +30,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Record" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -44,24 +53,56 @@
   &quot;associatedIndex&quot;: 8
 }</component>
   <component name="ProjectId" id="2hcFjL3WdUOfS6q56VqwIEi4s18" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.App.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/piotrek/GitHub/ID-project/src/main/resources/org/example/idproject/utils",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/org/example/idproject/utils" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.example.idproject.view.dataTables" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.idproject.App" />
+      <module name="ID-project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.idproject.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.App" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>

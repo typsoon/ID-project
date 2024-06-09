@@ -9,7 +9,10 @@ import javafx.scene.text.Text;
 import org.example.idproject.common.FullPlayerData;
 import org.example.idproject.utils.MyDateParser;
 import org.example.idproject.view.ScreenManager;
+import org.example.idproject.view.dataTables.MessageDataTable;
 import org.example.idproject.view.dataTables.FriendDataTable;
+import org.example.idproject.view.dataTables.FriendInviteDataTable;
+import org.example.idproject.view.dataTables.NicknameNameDataTable;
 import org.example.idproject.viewmodel.DatabaseService;
 
 import java.io.IOException;
@@ -41,6 +44,8 @@ public class PlayerInfoController extends AbstractInfoController {
 
     @FXML private Button showFriends;
 
+    @FXML private Button showInvites;
+
     @FXML private Button showAllFriends;
 
     @FXML private Button endDuelButton;
@@ -59,6 +64,9 @@ public class PlayerInfoController extends AbstractInfoController {
     @FXML private Button acceptFriendButton;
     @FXML private ChoiceBox<Integer> acceptFriendChoiceBox;
 
+    @FXML private Button seeFriendMessage;
+    @FXML private ChoiceBox<Integer> friendChatFriendID;
+
     @FXML private TextField clanName;
 
     @FXML private TextField addedID;
@@ -69,7 +77,8 @@ public class PlayerInfoController extends AbstractInfoController {
     @FXML private DatePicker dateTo;
     @FXML private TextField dateToTimestamp;
 
-    private FullPlayerData fullPlayerData;
+    @FXML private Button changeNicknameButton;
+    @FXML private TextField newNicknameField;
 
     @Override
     protected void initialize() throws IOException {
@@ -80,6 +89,9 @@ public class PlayerInfoController extends AbstractInfoController {
         });
 
         showFriends.setOnAction(getEventHandler(() -> databaseService.getCurrentFriends(fullPlayerData.getID()), new FriendDataTable()));
+
+        showInvites.setOnAction(getEventHandler(()->databaseService.getActiveFriendInvites(fullPlayerData.getID()),
+                new FriendInviteDataTable()));
 
         showAllFriends.setOnAction(getEventHandler(()->databaseService.getAllFriends(fullPlayerData.getID()), new FriendDataTable()));
 
@@ -128,10 +140,13 @@ public class PlayerInfoController extends AbstractInfoController {
             }
         });
 
+        sendFriendMessage.setOnAction(getEventHandler(()->databaseService.getFriendChatMessages(fullPlayerData.getID(), friendChatFriendID.getValue()),
+                new MessageDataTable()));
+
         endDuelButton.setOnAction(actionEvent -> {
             try {
                 databaseService.endDuel(Integer.parseInt(endDuelDuelID.getText()),
-                Boolean.parseBoolean(endDuelWonBoolean.getText()));
+                        Boolean.parseBoolean(endDuelWonBoolean.getText()));
             }
             catch (Exception e) {
                 screenManager.displayAlert(e);
@@ -147,8 +162,20 @@ public class PlayerInfoController extends AbstractInfoController {
             }
         });
 
+        pastNicknames.setOnAction(getEventHandler(()->databaseService.getNicknames(fullPlayerData.getID()),
+                new NicknameNameDataTable()));
 
+        changeNicknameButton.setOnAction(actionEvent -> {
+            try {
+                databaseService.changeNickname(fullPlayerData.getID(), newNicknameField.getText());
+            }
+            catch (Exception e) {
+                screenManager.displayAlert(e);
+            }
+        });
     }
+
+    private FullPlayerData fullPlayerData;
 
     @Override
     public void update(int id) {
@@ -170,6 +197,11 @@ public class PlayerInfoController extends AbstractInfoController {
                 for (var item : databaseService.getActiveFriendInvites(fullPlayerData.getID())) {
                     acceptFriendChoiceBox.getItems().add(item.senderId() == fullPlayerData.getID() ? item.receiverID() : item.senderId());
                 }
+            }
+
+            friendChatFriendID.getItems().clear();
+            for (var item : databaseService.getAllFriends(fullPlayerData.getID())) {
+                friendChatFriendID.getItems().add(item.getID());
             }
         }
         catch (Exception e) {

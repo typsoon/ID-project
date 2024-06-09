@@ -4,13 +4,13 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
-import org.example.idproject.common.ClanMessage;
+import org.example.idproject.common.Message;
 import org.example.idproject.view.FXMLAddresses;
 
 import java.io.IOException;
 
-public class ClanMessageDataTable extends CustomDataTable<ClanMessage> {
-    public ClanMessageDataTable() throws IOException {
+public class MessageDataTable extends CustomDataTable<Message> {
+    public MessageDataTable() throws IOException {
         super(FXMLAddresses.CLAN_MESSAGE_DATA_TABLE);
     }
 
@@ -22,8 +22,8 @@ public class ClanMessageDataTable extends CustomDataTable<ClanMessage> {
 
         messageColumn.setCellFactory(new Callback<>() {
             @Override
-            public TableCell<ClanMessage, String> call(TableColumn<ClanMessage, String> param) {
-                return new TableCell<ClanMessage, String>() {
+            public TableCell<Message, String> call(TableColumn<Message, String> param) {
+                return new TableCell<Message, String>() {
                     private final Text text = new Text();
 
                     {

@@ -15,7 +15,7 @@ public class FriendDataTable extends CustomDataTable<FriendData> {
         FriendData friendData;
 
         addDataColumn("Date From", "timestampFromAsStr");
-        addDataColumn("Date From", "timestampToAsStr");
+        addDataColumn("Date To", "timestampToAsStr");
         addDataColumn("ID", "ID");
         addDataColumn("Nickname", "nickname");
     }
