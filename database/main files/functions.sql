@@ -214,6 +214,36 @@ begin
 end
 $$language plpgsql;
 
+
+CREATE OR REPLACE FUNCTION archive_duels(days_old INTEGER)
+RETURNS void AS $$
+BEGIN
+    INSERT INTO ArchiveDuels (duel_ID, sender, receiver, date_from, date_to, outcome)
+    SELECT duel_ID, sender, receiver, date_from, date_to, outcome
+    FROM Duels
+    WHERE date_to < CURRENT_DATE - days_old * INTERVAL '1 day';
+
+    DELETE FROM Duels
+    WHERE duel_ID IN (SELECT duel_ID FROM ArchiveDuels);
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION archive_Waruels(days_old INTEGER)
+RETURNS void AS $$
+BEGIN
+    INSERT INTO ArchiveWarDuels (duel_ID, clan_war_ID)
+    SELECT duel_ID, clan_war_ID
+    FROM WarDuels
+    WHERE duel_ID IN (
+        select duel_ID from ArchivedDuels);
+
+    DELETE FROM WarDuels
+    WHERE duel_ID IN (SELECT duel_ID FROM ArchiveWarDuels);
+END;
+$$ LANGUAGE plpgsql;
+
+
 create or replace function createTournament (arr int[])
     returns void as
 $$
