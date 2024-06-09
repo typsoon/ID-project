@@ -9,12 +9,11 @@ import javafx.scene.text.Text;
 import org.example.idproject.App;
 import org.example.idproject.common.FullClanData;
 import org.example.idproject.view.ScreenManager;
-import org.example.idproject.view.dataTables.ClanMessageDataTable;
+import org.example.idproject.view.dataTables.MessageDataTable;
 import org.example.idproject.view.dataTables.ClanNameDataTable;
 import org.example.idproject.view.dataTables.MemberDataTable;
 import org.example.idproject.viewmodel.DatabaseService;
 
-import java.sql.SQLException;
 import java.util.Objects;
 
 public class ClanInfoController extends AbstractInfoController {
@@ -57,7 +56,7 @@ public class ClanInfoController extends AbstractInfoController {
     @Override
     protected void initialize() {
         try {
-            showClanChatButton.setOnAction(getEventHandler(()->databaseService.getClanMessages(fullClanData.getID()), new ClanMessageDataTable()));
+            showClanChatButton.setOnAction(getEventHandler(()->databaseService.getClanMessages(fullClanData.getID()), new MessageDataTable()));
 
             currentMembers.setOnAction(getEventHandler(()->databaseService.getCurrentMembers(fullClanData.getID()), new MemberDataTable()));
 
@@ -85,6 +84,8 @@ public class ClanInfoController extends AbstractInfoController {
                     }
 
                     databaseService.removeMember(fullClanData.getID(), Integer.parseInt(removedID.getText()), whoKickedID);
+//                    if (!databaseService.removeMember(fullClanData.getID(), Integer.parseInt(removedID.getText()), whoKickedID))
+//                        throw new Exception("No delete happened");
                 }
             catch (Exception e) {
                     screenManager.displayAlert(e);

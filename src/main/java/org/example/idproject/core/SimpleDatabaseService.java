@@ -4,15 +4,12 @@ package org.example.idproject.core;
 import org.example.idproject.common.BasicPlayerData;
 import org.example.idproject.common.*;
 import org.example.idproject.viewmodel.DatabaseService;
-import org.postgresql.util.PSQLException;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 import java.util.Date;
-import java.util.List;
 
 public class SimpleDatabaseService implements DatabaseService {
     private String url;
@@ -153,13 +150,13 @@ public class SimpleDatabaseService implements DatabaseService {
     }
 
     @Override
-    public Collection<ClanMessage> getClanMessages(int clanId) throws SQLException {
-        Collection<ClanMessage> massages = new ArrayList<>();
+    public Collection<Message> getClanMessages(int clanId) throws SQLException {
+        Collection<Message> massages = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery( "select clanchat.*,playernickname(sender_id) from clanchat where clan_ID = (\'" + clanId + "\');" );
             while (rs.next()) {
-                massages.add( new ClanMessage(
+                massages.add( new Message(
                         rs.getString(1),rs.getInt(2),rs.getString(5),rs.getString(4)
                         ));
                 // System.out.println(rs.getString(1) + " " + rs.getString(2) );
@@ -199,12 +196,11 @@ public class SimpleDatabaseService implements DatabaseService {
     }
 
     @Override
-    public void removeMember(int clanID, int memberID, Integer whoKicked) throws SQLException {
+    public boolean removeMember(int clanID, int memberID, Integer whoKicked) throws SQLException {
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Statement stmt = conn.createStatement();
 
-            stmt.execute( "update playerclan set date_to = current_timestamp, who_kicked = " + whoKicked +" where date_to is null and  player_ID=" + memberID +  " AND clan_ID = " + clanID + ";" );
-
+            return stmt.execute( "update playerclan set date_to = current_timestamp, who_kicked = " + whoKicked +" where date_to is null and  player_ID=" + memberID +  " AND clan_ID = " + clanID + ";" );
         }
     }
 
@@ -218,6 +214,36 @@ public class SimpleDatabaseService implements DatabaseService {
             );
 
         }
+    }
+
+    @Override
+    public void createWar(int clan1ID, int clan2ID, Date dateFrom) throws SQLException {
+
+    }
+
+    @Override
+    public void setWarOutcome(int clanWarID, boolean outcome) throws SQLException {
+
+    }
+
+    @Override
+    public void setDuelWarDuel(int clanWarID, int duelID) throws SQLException {
+
+    }
+
+    @Override
+    public void changeName(int clanID, String newName) throws SQLException {
+
+    }
+
+    @Override
+    public Map<String, Integer> addressToLogoIDMapping() {
+        return Map.of();
+    }
+
+    @Override
+    public void changeLogo(int clanID, int newLogoID) throws SQLException {
+
     }
 
     @Override
@@ -374,6 +400,11 @@ public class SimpleDatabaseService implements DatabaseService {
     }
 
     @Override
+    public void changeNickname(int playerID, String newNickName) throws SQLException {
+
+    }
+
+    @Override
     public Collection<FriendInvite> getAllFriendInvites(int playerID) throws SQLException {
         Collection<FriendInvite> invites = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
@@ -440,6 +471,11 @@ public class SimpleDatabaseService implements DatabaseService {
             stmt.execute( "select AcceptMember( "+ whoAccepts + "," + acceptedID +");" );
 
         }
+    }
+
+    @Override
+    public Collection<Message> getFriendChatMessages(int playerID, int friendID) throws SQLException {
+        return List.of();
     }
 
     @Override
@@ -522,6 +558,11 @@ public class SimpleDatabaseService implements DatabaseService {
     }
 
     @Override
+    public void createChallenge(BasicChallengeData challenge) throws SQLException {
+
+    }
+
+    @Override
     public Collection<TournamentData> browseTournaments(String tournamentName) throws SQLException {
        return List.of();
     }
@@ -562,6 +603,11 @@ public class SimpleDatabaseService implements DatabaseService {
 //            throw new RuntimeException(e);
 //        }
         return matches;
+    }
+
+    @Override
+    public void createTournament(String tournamentName, Collection<Integer> players) throws SQLException {
+
     }
 
     public static void main(String[] args) {

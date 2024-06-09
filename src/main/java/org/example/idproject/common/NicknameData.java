@@ -5,4 +5,12 @@ public record NicknameData(int playerID, String nickname, String dateFrom) imple
     public int getID() {
         return playerID;
     }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public String getDateFrom() {
+        return dateFrom;
+    }
 }
