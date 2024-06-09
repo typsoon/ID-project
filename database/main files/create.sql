@@ -2,7 +2,7 @@
 CREATE TABLE Clans
 (
     clan_ID      SERIAL PRIMARY KEY,
-    ranking_base integer
+    ranking_base integer default 500 NOT NULL
 );
 
 create table ClanWars
@@ -34,7 +34,7 @@ CREATE TABLE Players
     player_ID     SERIAL PRIMARY KEY,
     password_hash NUMERIC(13) not null,
     login         VARCHAR(40) not null unique,
-    ranking_base  integer
+    ranking_base  integer default 200 NOT NULL
 );
 
 create table ClanChat
@@ -45,6 +45,7 @@ create table ClanChat
     msg_text  VARCHAR(300) not null,
     primary key (sent_date, clan_ID, sender_ID)
 );
+
 
 create table Duels
 (
@@ -64,6 +65,13 @@ CHECK (sender != receiver);
 
 create table ArchivedDuels AS SELECT * FROM duels
 WHERE duel_ID IS NULL;
+
+create table DuelPoints
+(
+    duel_ID integer references Duels not null,
+    points integer check ( points > 0 ),
+    primary key (duel_ID)
+);
 
 create table WarDuels
 (
@@ -168,14 +176,20 @@ CREATE TABLE PlayerRole
 
 CREATE TABLE Tournaments
 (
-    matchup_id serial,
-    tournament_id INTEGER,
+    matchup_id serial PRIMARY KEY,
+    tournament_id INTEGER unique,
     duel_id integer unique references Duels,
     left_child integer unique references Duels,
     right_child integer unique references Duels,
-    CHECK ( (left_child IS NULL AND right_child IS NULL) OR (left_child IS NOT NULL AND right_child IS NOT NULL) ),
-    PRIMARY KEY (tournament_id, duel_id)
+    CHECK ( (left_child IS NULL AND right_child IS NULL) OR (left_child IS NOT NULL AND right_child IS NOT NULL) )
 );
+
+CREATE TABLE TournamentsName
+(
+    tournament_id INTEGER PRIMARY KEY REFERENCES Tournaments (tournament_id),
+    tournament_name VARCHAR(30)
+);
+
 
 CREATE TABLE Challenges
 (

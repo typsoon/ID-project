@@ -218,13 +218,13 @@ $$language plpgsql;
 CREATE OR REPLACE FUNCTION archive_duels(days_old INTEGER)
 RETURNS void AS $$
 BEGIN
-    INSERT INTO ArchiveDuels (duel_ID, sender, receiver, date_from, date_to, outcome)
+    INSERT INTO ArchivedDuels (duel_ID, sender, receiver, date_from, date_to, outcome)
     SELECT duel_ID, sender, receiver, date_from, date_to, outcome
     FROM Duels
     WHERE date_to < CURRENT_DATE - days_old * INTERVAL '1 day';
 
     DELETE FROM Duels
-    WHERE duel_ID IN (SELECT duel_ID FROM ArchiveDuels);
+    WHERE duel_ID IN (SELECT duel_ID FROM ArchivedDuels);
 END;
 $$ LANGUAGE plpgsql;
 
@@ -232,14 +232,14 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION archive_Waruels(days_old INTEGER)
 RETURNS void AS $$
 BEGIN
-    INSERT INTO ArchiveWarDuels (duel_ID, clan_war_ID)
+    INSERT INTO ArchivedWarDuels (duel_ID, clan_war_ID)
     SELECT duel_ID, clan_war_ID
     FROM WarDuels
     WHERE duel_ID IN (
         select duel_ID from ArchivedDuels);
 
     DELETE FROM WarDuels
-    WHERE duel_ID IN (SELECT duel_ID FROM ArchiveWarDuels);
+    WHERE duel_ID IN (SELECT duel_ID FROM ArchivedWarDuels);
 END;
 $$ LANGUAGE plpgsql;
 
@@ -314,6 +314,89 @@ begin
                 values (tID,(select max(duel_id)from duels),prev,r.matchup_id);
             end if;
         end loop;
+end
+$$language plpgsql;
+
+create or replace function IWon(duelID int,playerID int)
+    returns int as
+$$
+declare
+    r record;
+begin
+    for r in (select * from duels where duel_id = duelID) loop
+            if playerID <> r.sender AND playerID <> r.receiver then
+                raise exception 'not your duel';
+            end if;
+            if (playerID = r.sender AND r.outcome = true)
+                OR (playerID = r.receiver AND r.outcome = false) then
+                return 1;
+            end if;
+        end loop;
+    return -1;
+end
+$$language plpgsql;
+
+create or replace function DuelPoints(duelID int)
+    returns int as
+$$
+declare
+    p int;
+    r record;
+begin
+    p = (select points from duelpoints where duel_id = duelID);
+    if p is not null then
+        return p;
+    end if;
+    p=0;
+    for r in (select * from duels where duel_id = duelID) loop
+            p = 0.1 * abs(GetPoints(r.sender,r.date_from) - GetPoints(r.receiver,r.date_from));
+        end loop;
+    p = p + 5;
+
+    insert into DuelPoints (duel_id,points) values (duelID,p);
+    return p;
+end
+$$language plpgsql;
+
+
+
+create or replace function GetPoints(playerID int,t timestamp)
+    returns int as
+$$
+begin
+    return coalesce((
+                        select sum(DuelPoints(duel_id) * IWon(duel_id,playerID)) from duels
+                        where (sender = playerID or receiver = playerID)
+                          AND date_to <= t
+                    ),0) + (select ranking_base from players where player_id=playerID);
+end
+$$language plpgsql;
+
+create or replace function GetMembers(clanID int,t timestamp)
+    returns table(
+                     player_ID     int,
+                     password_hash NUMERIC(13),
+                     login         VARCHAR(40),
+                     ranking_base  integer
+                 ) as
+$$
+begin
+    return query(
+        select p.* from playerclan pc
+                            join players p on pc.player_id = p.player_id
+        where (t between pc.date_from and coalesce(pc.date_to,current_timestamp))
+          and pc.clan_id = clanID
+    );
+end
+$$language plpgsql;
+
+create or replace function GetClanPoints(clanID int,t timestamp)
+    returns int as
+$$
+begin
+    return(
+        select sum(getpoints(player_id,t)) from getmembers(clanID,t)
+    );
 end
 $$language plpgsql;
 
