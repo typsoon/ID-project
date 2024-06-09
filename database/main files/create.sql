@@ -46,6 +46,7 @@ create table ClanChat
     primary key (sent_date, clan_ID, sender_ID)
 );
 
+
 create table Duels
 (
     duel_ID   serial,
@@ -64,6 +65,13 @@ CHECK (sender != receiver);
 
 create table ArchivedDuels AS SELECT * FROM duels
 WHERE duel_ID IS NULL;
+
+create table DuelPoints
+(
+    duel_ID integer references Duels not null,
+    points integer check ( points > 0 ),
+    primary key (duel_ID)
+);
 
 create table WarDuels
 (
