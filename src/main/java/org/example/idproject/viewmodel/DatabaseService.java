@@ -52,4 +52,8 @@ public interface DatabaseService {
     void moveDuelsToArchive() throws SQLException;
 
     boolean tryLogIn(Credentials credentials);
+
+    Collection<TournamentData> browseTournaments(String tournamentName) throws SQLException;
+    Collection<TournamentData> getAllTournaments() throws SQLException;
+    Collection<TournamentMatch> getTournamentMatches(int tournamentID) throws SQLException;
 }

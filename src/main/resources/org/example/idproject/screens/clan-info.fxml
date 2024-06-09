@@ -138,7 +138,7 @@
                   <VBox prefHeight="61.0" prefWidth="235.0" />
                </children>
             </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox prefHeight="523.0" prefWidth="223.0">
                <children>
                   <VBox alignment="CENTER" prefHeight="201.0" prefWidth="200.0" spacing="20.0">
                      <children>

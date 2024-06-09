@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<!--suppress JavaFxDefaultTag -->
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="764.0" prefWidth="655.0" spacing="30.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<!--   xmlns:fx="http://javafx.com/fxml/1"-->
+   <children>
+      <HBox alignment="CENTER" prefHeight="51.0" prefWidth="600.0" spacing="20.0">
+         <children>
+            <Label text="Tournament info">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="402.0" prefWidth="655.0" spacing="50.0">
+         <children>
+            <AnchorPane fx:id="tournamentInfoPane" prefHeight="376.0" prefWidth="472.0">
+               <children>
+                  <VBox prefHeight="356.0" prefWidth="472.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="48.0" prefWidth="373.0" />
+                        <HBox prefHeight="50.0" prefWidth="373.0" />
+                        <HBox prefHeight="52.0" prefWidth="373.0" />
+                        <HBox prefHeight="55.0" prefWidth="373.0" />
+                        <HBox prefHeight="56.0" prefWidth="373.0" />
+                        <HBox prefHeight="47.0" prefWidth="373.0" />
+                        <HBox prefHeight="52.0" prefWidth="472.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="37.0" prefWidth="655.0" spacing="50.0" />
+      <AnchorPane fx:id="tablePane" prefHeight="332.0" prefWidth="562.0">
+         <children>
+            <TableView fx:id="dataTable" layoutX="84.0" layoutY="14.0" prefHeight="233.0" prefWidth="487.0">
+               <columns>
+                  <TableColumn prefWidth="91.0" />
+                  <TableColumn prefWidth="343.0" />
+               </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>

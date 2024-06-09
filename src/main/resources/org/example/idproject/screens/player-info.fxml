@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -31,7 +32,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="345.0" prefWidth="655.0" spacing="50.0">
          <children>
-            <VBox prefHeight="135.0" prefWidth="180.0" spacing="5.0">
+            <VBox prefHeight="290.0" prefWidth="200.0" spacing="5.0">
                <children>
                   <Label text="Current clan">
                      <font>
@@ -54,6 +55,22 @@
                         <TextField fx:id="message" prefHeight="212.0" prefWidth="180.0" />
                      </children>
                   </VBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="63.0" prefWidth="115.0">
+                           <children>
+                              <Button fx:id="applyToClanButton" mnemonicParsing="false" prefHeight="24.0" prefWidth="150.0" text="Apply to clan" />
+                              <TextField fx:id="applyToClanField" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="63.0" prefWidth="68.0">
+                           <children>
+                              <Button fx:id="acceptMemberButton" mnemonicParsing="false" prefHeight="24.0" prefWidth="74.0" text="Accept" />
+                              <ChoiceBox fx:id="acceptMemberChoiceBox" prefHeight="24.0" prefWidth="78.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="100.0" prefWidth="271.0">
@@ -85,13 +102,29 @@
                         <TextField fx:id="friendMessage" prefHeight="212.0" prefWidth="180.0" />
                      </children>
                   </VBox>
+                  <HBox alignment="CENTER" prefHeight="55.0" prefWidth="295.0">
+                     <children>
+                        <VBox prefHeight="45.0" prefWidth="95.0">
+                           <children>
+                              <Button fx:id="sendInviteButton" mnemonicParsing="false" prefHeight="24.0" prefWidth="74.0" text="Send" />
+                              <TextField fx:id="sendInviteField" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="45.0" prefWidth="95.0">
+                           <children>
+                              <Button fx:id="acceptFriendButton" mnemonicParsing="false" text="Accept" />
+                              <ChoiceBox fx:id="acceptFriendChoiceBox" prefWidth="150.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="75.0" prefWidth="600.0" spacing="50.0">
          <children>
-            <VBox prefHeight="71.0" prefWidth="341.0" spacing="5.0">
+            <VBox prefHeight="77.0" prefWidth="290.0" spacing="5.0">
                <children>
                   <Label text="Current nickname">
                      <font>
@@ -105,7 +138,7 @@
                               <Text fx:id="currentNickname" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RIPer" wrappingWidth="210.0" />
                            </children>
                         </Pane>
-                        <Button fx:id="pastNicknames" alignment="CENTER" mnemonicParsing="false" prefHeight="24.0" prefWidth="146.0" text="Past Nicknames" />
+                        <Button fx:id="pastNicknames" alignment="CENTER" mnemonicParsing="false" prefHeight="24.0" prefWidth="181.0" text="Past Nicknames" />
                      </children>
                   </HBox>
                </children>
