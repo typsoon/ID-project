@@ -670,7 +670,7 @@ public class SimpleDatabaseService implements DatabaseService {
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Array sqlArray = conn.createArrayOf("integer", players.toArray());
 
-            String sql = "SELECT createtournament((?::int[], ?::varchar(30)))";
+            String sql = "SELECT createtournament(?::int[], ?::varchar(30))";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
 

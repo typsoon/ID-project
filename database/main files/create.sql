@@ -177,7 +177,7 @@ CREATE TABLE PlayerRole
 CREATE TABLE Tournaments
 (
     matchup_id serial PRIMARY KEY,
-    tournament_id INTEGER unique,
+    tournament_id INTEGER REFERENCES TournamentsName,
     duel_id integer unique references Duels,
     left_child integer unique references Duels,
     right_child integer unique references Duels,
@@ -186,7 +186,7 @@ CREATE TABLE Tournaments
 
 CREATE TABLE TournamentsName
 (
-    tournament_id INTEGER PRIMARY KEY REFERENCES Tournaments (tournament_id),
+    tournament_id SERIAL PRIMARY KEY ,
     tournament_name VARCHAR(30)
 );
 

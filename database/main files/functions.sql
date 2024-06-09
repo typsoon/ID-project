@@ -250,11 +250,11 @@ END;
 $$ LANGUAGE plpgsql;
 
 
-create or replace function createTournament (arr int[])
+create or replace function createTournament (arr int[], temp_name varchar(30))
     returns void as
 $$
 declare
-    id int;
+    tour_id int;
 begin
     if(array_length(arr,1) < 2 ) then
         raise exception 'need more players';
@@ -262,12 +262,13 @@ begin
     if(power(2,floor(log(2,array_length(arr,1)))) <> array_length(arr,1) ) then
         raise exception 'number must be power of two';
     end if;
-    id = nextval('tournaments_matchup_id_seq');
+    tour_id = nextval('tournamentsname_tournament_id_seq');
     for i in 1..array_length(arr,1) by 2 loop
             insert into duels(sender,receiver) values(arr[i],arr[i+1]);
-            insert into Tournaments (matchup_id,duel_id)
-            values (id,(select max(duel_id)from duels));
+            insert into Tournaments (tournament_id,duel_id)
+            values (tour_id,(select max(duel_id)from duels));
         end loop;
+    INSERT INTO tournamentsname(tournament_id, tournament_name) VALUES (tour_id, temp_name);
 end
 $$language plpgsql;
 

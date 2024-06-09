@@ -29,6 +29,8 @@ public class InsertTournamentController extends AbstractInsertDataController {
 
     @Override
     void initialize() {
+        addSimpleDataButton.setOnAction(event -> insertSimpleData());
+
         contestantIDTable.setItems(contestants);
 
         addContestantButton.setOnAction(event -> {
