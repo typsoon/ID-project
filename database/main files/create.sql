@@ -206,6 +206,43 @@ CREATE TABLE PlayerChallenge
     PRIMARY KEY (player_id, challenge_id)
 );
 
+
+---------------------------------------------INDEKSY-------------------------------------------------------------
+-- Indeksy na kluczach obcych
+CREATE INDEX idx_clanwars_clan1_id ON ClanWars (clan1_ID);
+CREATE INDEX idx_clanwars_clan2_id ON ClanWars (clan2_ID);
+CREATE INDEX idx_clanchat_clan_id ON ClanChat (clan_ID);
+CREATE INDEX idx_clanchat_sender_id ON ClanChat (sender_ID);
+CREATE INDEX idx_clanchat_player_id ON ClanChat (player_ID);
+CREATE INDEX idx_friendschat_sender_id ON FriendsChat (sender_ID);
+CREATE INDEX idx_friendschat_receiver_id ON FriendsChat (receiver_ID);
+CREATE INDEX idx_playerclan_clan_id ON PlayerClan (clan_ID);
+CREATE INDEX idx_playerclan_player_id ON PlayerClan (player_ID);
+
+-- Indeks na kolumnie login w tabeli Players
+CREATE INDEX idx_players_login ON Players (login);
+
+-- Indeks na kolumnie date_to w tabeli Challenges
+CREATE INDEX idx_challenges_date_to ON Challenges (date_to);
+
+-- Indeksy na kolumnach używanych w złączeniach (JOIN)
+CREATE INDEX idx_tournaments_duel_id ON Tournaments (duel_id);
+CREATE INDEX idx_tournaments_left_child ON Tournaments (left_child);
+CREATE INDEX idx_tournaments_right_child ON Tournaments (right_child);
+
+-- Indeksowanie tabeli PlayerClan
+CREATE INDEX idx_playerclan_player_id ON PlayerClan (player_ID);
+CREATE INDEX idx_playerclan_clan_id ON PlayerClan (clan_ID);
+CREATE INDEX idx_playerclan_date_from ON PlayerClan (date_from);
+CREATE INDEX idx_playerclan_date_to ON PlayerClan (date_to);
+
+-- Indeksowanie tabeli Duels
+CREATE INDEX idx_duels_sender ON Duels (sender);
+CREATE INDEX idx_duels_receiver ON Duels (receiver);
+CREATE INDEX idx_duels_date_from ON Duels (date_from);
+CREATE INDEX idx_duels_date_to ON Duels (date_to);
+
+
 ---------------------------------------------WSTAWIANIE PRZYKŁADOWYCH DANYCH-----------------------------------------------
 -- INSERT INTO Clans DEFAULT
 -- VALUES;
