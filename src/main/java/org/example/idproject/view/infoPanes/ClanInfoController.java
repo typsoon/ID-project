@@ -9,6 +9,7 @@ import javafx.scene.text.Text;
 import org.example.idproject.App;
 import org.example.idproject.common.FullClanData;
 import org.example.idproject.view.ScreenManager;
+import org.example.idproject.view.dataTables.ClanApplicationDataTable;
 import org.example.idproject.view.dataTables.MessageDataTable;
 import org.example.idproject.view.dataTables.ClanNameDataTable;
 import org.example.idproject.view.dataTables.MemberDataTable;
@@ -91,6 +92,9 @@ public class ClanInfoController extends AbstractInfoController {
                     screenManager.displayAlert(e);
             }
             });
+
+            activeApplications.setOnAction(getEventHandler(()->databaseService.getClanApplications(fullClanData.getID()),
+                    new ClanApplicationDataTable()));
         }
         catch (Exception e) {
             throw new RuntimeException(e);

@@ -59,6 +59,8 @@ public interface DatabaseService {
     void applyToClan(int applierID, int clanID) throws SQLException;
     void acceptMember(int whoAccepts, int acceptedID) throws SQLException;
 
+    void sendFriendInvite(int senderID, int receiverID, Date date) throws SQLException;
+
     Collection<Message> getFriendChatMessages(int playerID, int friendID) throws SQLException;
 //    only one role displayed
     Collection<ClanMemberData> getCurrentMembers(int clanID) throws SQLException;

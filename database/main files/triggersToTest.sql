@@ -107,7 +107,8 @@ RETURNS TRIGGER AS $check_rank_before_kick$
 BEGIN
     IF (SELECT rank_ID FROM PlayerRole pr1 WHERE player_ID = NEW.who_kicked AND clan_ID = NEW.clan_ID) <
        (SELECT rank_ID FROM PlayerRole pr2 WHERE player_ID = NEW.player_ID AND clan_ID = NEW.clan_ID)
-       AND pr1.clan_ID=pr2.clan_ID THEN
+--        AND pr1.clan_ID=pr2.clan_ID
+       THEN
         RAISE EXCEPTION 'You do not have sufficient rank to kick this player';
     END IF;
     RETURN NEW;
@@ -126,7 +127,7 @@ EXECUTE PROCEDURE check_rank_before_kick();
 CREATE OR REPLACE FUNCTION check_rank_before_accept()
 RETURNS TRIGGER AS $check_rank_before_accept$
 BEGIN
-    IF (SELECT rank_ID FROM PlayerRole pr1 WHERE player_ID = NEW.who_accepted AND clan_ID = NEW.clan_ID) <=
+    IF (SELECT rank_ID FROM PlayerRole pr1 WHERE player_ID = NEW.who_accepted AND playerclanid(pr1.player_id) = NEW.clan_ID) <=
        (SELECT rank_ID FROM Roles WHERE rank_name = 'Member') THEN
         RAISE EXCEPTION 'You do not have sufficient rank to accept this application';
     END IF;

@@ -508,6 +508,11 @@ public class SimpleDatabaseService implements DatabaseService {
     }
 
     @Override
+    public void sendFriendInvite(int senderID, int receiverID, Date date) throws SQLException {
+
+    }
+
+    @Override
     public Collection<Message> getFriendChatMessages(int playerID, int friendID) throws SQLException {
         Collection<Message> memberData = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {

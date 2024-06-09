@@ -173,6 +173,24 @@ public class PlayerInfoController extends AbstractInfoController {
                 screenManager.displayAlert(e);
             }
         });
+
+
+        sendInviteButton.setOnAction(actionEvent -> {
+            try {
+                databaseService.sendFriendInvite(fullPlayerData.getID(), Integer.parseInt(sendInviteField.getText()), MyDateParser.parseFrom(null, ""));
+            }
+            catch (Exception e) {
+                screenManager.displayAlert(e);
+            }
+        });
+
+        applyToClanButton.setOnAction(actionEvent -> {
+            try {
+                databaseService.applyToClan(fullPlayerData.getID(), Integer.parseInt(applyToClanField.getText()));
+            } catch (Exception e) {
+                screenManager.displayAlert(e);
+            }
+        });
     }
 
     private FullPlayerData fullPlayerData;

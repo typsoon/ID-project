@@ -4,9 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b753b57e-ab60-46b8-9bb6-279e46c6879a" name="Changes" comment="Tournament browse string">
+    <list default="true" id="b753b57e-ab60-46b8-9bb6-279e46c6879a" name="Changes" comment="points">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/dataTables/ClanApplicationDataTable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/insertDataScreens/InsertTournamentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/insertDataScreens/InsertTournamentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/init.sh" beforeDir="false" afterPath="$PROJECT_DIR$/database/init.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/main files/clear.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/main files/clear.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/main files/functions.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/main files/functions.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/main files/triggersToTest.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/main files/triggersToTest.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/common/ClanApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/common/ClanApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/core/SimpleDatabaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/core/SimpleDatabaseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/infoPanes/ClanInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/infoPanes/ClanInfoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/infoPanes/PlayerInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/infoPanes/PlayerInfoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/viewmodel/DatabaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/viewmodel/DatabaseService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +31,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="testingTriggers" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -53,7 +67,6 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/piotrek/GitHub/ID-project/src/main/resources/org/example/idproject/screens&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -63,11 +76,7 @@
   }
 }</component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/resources/org/example/idproject/screens" />
-      <recent name="$PROJECT_DIR$/src/main/resources/org/example/idproject/utils" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
+    <key name="CreateClassDialog.RecentsKey">
       <recent name="org.example.idproject.view.dataTables" />
     </key>
   </component>
@@ -87,6 +96,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.App" />
+        <item itemvalue="Application.App" />
+        <item itemvalue="Application.App" />
+        <item itemvalue="Application.App" />
         <item itemvalue="Application.App" />
       </list>
     </recent_temporary>
@@ -109,21 +122,21 @@
       <updated>1717885595586</updated>
       <workItem from="1717885597079" duration="1082000" />
     </task>
-    <task id="LOCAL-00001" summary="Added functions to DatabaseService">
+    <task id="LOCAL-00001" summary="handling">
       <option name="closed" value="true" />
-      <created>1717919216164</created>
+      <created>1717912146112</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1717919216164</updated>
+      <updated>1717912146112</updated>
     </task>
-    <task id="LOCAL-00002" summary="Tournament browse string">
+    <task id="LOCAL-00002" summary="points">
       <option name="closed" value="true" />
-      <created>1717922839622</created>
+      <created>1717917086744</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1717922839622</updated>
+      <updated>1717917086744</updated>
     </task>
     <option name="localTasksCounter" value="3" />
     <servers />
@@ -133,8 +146,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="tournament" />
-    <MESSAGE value="Added functions to DatabaseService" />
-    <MESSAGE value="Tournament browse string" />
-    <option name="LAST_COMMIT_MESSAGE" value="Tournament browse string" />
+    <MESSAGE value="handling" />
+    <MESSAGE value="points" />
+    <option name="LAST_COMMIT_MESSAGE" value="points" />
   </component>
 </project>

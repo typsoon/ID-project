@@ -6,5 +6,15 @@ public record ClanApplication(int clanID, int playerID, String dateFrom, String 
         return clanID;
     }
 
+    public int getPlayerID() {
+        return playerID;
+    }
 
+    public String getDateFrom() {
+        return dateFrom;
+    }
+
+    public String getDateTo() {
+        return dateTo;
+    }
 }

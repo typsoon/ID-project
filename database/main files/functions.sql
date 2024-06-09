@@ -256,10 +256,10 @@ begin
     if(power(2,floor(log(2,array_length(arr,1)))) <> array_length(arr,1) ) then
         raise exception 'number must be power of two';
     end if;
-    id = nextval('tournamentID');
+    id = nextval('tournaments_matchup_id_seq');
     for i in 1..array_length(arr,1) by 2 loop
             insert into duels(sender,receiver) values(arr[i],arr[i+1]);
-            insert into Tournaments (tournament_id,duel_id)
+            insert into Tournaments (matchup_id,duel_id)
             values (id,(select max(duel_id)from duels));
         end loop;
 end
