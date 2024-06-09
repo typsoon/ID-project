@@ -264,6 +264,7 @@ begin
         end loop;
 end
 $$language plpgsql;
+
 create or replace function winner(matchup int)
     returns int as
 $$
@@ -282,6 +283,7 @@ begin
     );
 end
 $$language plpgsql;
+
 create or replace function nextRound (tID int)
     returns void as
 $$
@@ -314,3 +316,27 @@ begin
         end loop;
 end
 $$language plpgsql;
+
+
+CREATE OR REPLACE FUNCTION get_level(duel_id INTEGER) RETURNS INTEGER AS $$
+DECLARE
+    left INTEGER;
+    level INTEGER;
+BEGIN
+    IF duel_id IS NULL THEN
+        RETURN 0;
+    END IF;
+
+    SELECT left_child INTO left
+    FROM Tournaments
+    WHERE duel_id = duel_id;
+
+    IF left IS NULL THEN
+        RETURN 1;
+    END IF;
+
+    level := get_level(left) + 1;
+    
+    RETURN level;
+END;
+$$ LANGUAGE plpgsql;

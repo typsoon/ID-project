@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b753b57e-ab60-46b8-9bb6-279e46c6879a" name="Changes" comment="Added TournamentInfoPane">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/common/ClanApplication.java" afterDir="false" />
+    <list default="true" id="b753b57e-ab60-46b8-9bb6-279e46c6879a" name="Changes" comment="tournament">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/common/FriendInvite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/common/FriendInvite.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/core/SimpleDatabaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/core/SimpleDatabaseService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/infoPanes/AbstractInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/infoPanes/AbstractInfoController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/infoPanes/PlayerInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/infoPanes/PlayerInfoController.java" afterDir="false" />
@@ -38,25 +36,21 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;git@github.com:typsoon/ID-project.git&quot;,
-    &quot;accountId&quot;: &quot;48d42842-8b50-42c5-8926-2116c96c2791&quot;
+    &quot;url&quot;: &quot;https://github.com/typsoon/ID-project.git&quot;,
+    &quot;accountId&quot;: &quot;411ae041-99e7-4099-949e-b80de54d442e&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
   <component name="ProjectId" id="2hcFjL3WdUOfS6q56VqwIEi4s18" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;Application.App.executor&quot;: &quot;Run&quot;,
-    &quot;Application.SimpleDatabaseService.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
@@ -68,26 +62,6 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager">
-    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.example.idproject.App" />
-      <module name="ID-project" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.idproject.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.App" />
-      </list>
-    </recent_temporary>
-  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -105,8 +79,6 @@
       <option name="presentableId" value="Default" />
       <updated>1717885595586</updated>
       <workItem from="1717885597079" duration="1082000" />
-      <workItem from="1717912982309" duration="1079000" />
-      <workItem from="1717914071946" duration="1990000" />
     </task>
     <servers />
   </component>
@@ -114,7 +86,7 @@
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added some tournament methods to DatabaseService" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added some tournament methods to DatabaseService" />
+    <MESSAGE value="tournament" />
+    <option name="LAST_COMMIT_MESSAGE" value="tournament" />
   </component>
 </project>
