@@ -401,25 +401,34 @@ end
 $$language plpgsql;
 
 
-CREATE OR REPLACE FUNCTION get_level(duel_id INTEGER) RETURNS INTEGER AS $$
-DECLARE
-    left INTEGER;
-    level INTEGER;
+CREATE OR REPLACE FUNCTION get_level(matchupID INTEGER)
+    RETURNS INTEGER AS $$
 BEGIN
-    IF duel_id IS NULL THEN
+    IF matchupID IS NULL THEN
         RETURN 0;
     END IF;
 
-    SELECT left_child INTO left
-    FROM Tournaments
-    WHERE duel_id = duel_id;
+    return 1 + get_level(
+            (select left_child from tournaments where matchup_id = matchupID)
+               );
+END;
+$$ LANGUAGE plpgsql;
 
-    IF left IS NULL THEN
-        RETURN 1;
+
+CREATE OR REPLACE FUNCTION AcceptMember(acceptor INTEGER,applier integer)
+    RETURNS void AS $$
+BEGIN
+    IF PlayerClanID(acceptor) IS NULL THEN
+        raise exception 'wrong acceptor';
     END IF;
-
-    level := get_level(left) + 1;
-    
-    RETURN level;
+    IF GetCurrentRole(acceptor) <> 'Leader' AND GetCurrentRole(acceptor) <> 'Elder'  IS NULL THEN
+        raise exception 'wrong acceptor';
+    END IF;
+    if (select * from Applications
+        where clan_id = PlayerClanID(acceptor) and player_id = applier) is null then
+        raise exception 'wrong applier';
+    END IF;
+    delete from Applications where clan_id = PlayerClanID(acceptor) and player_id = applier;
+    insert into playerclan (clan_ID,player_ID,who_accepted) values (PlayerClanID(acceptor),applier,acceptor);
 END;
 $$ LANGUAGE plpgsql;

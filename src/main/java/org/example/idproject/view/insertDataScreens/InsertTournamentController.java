@@ -53,11 +53,11 @@ public class InsertTournamentController extends AbstractInsertDataController {
         try {
             databaseService.createTournament(tournamentName.getText(),
                     contestants.stream().map(MyIntegerWrapper::getValue).toList());
-            contestants.clear();
         }
         catch (Exception e) {
             screenManager.displayAlert(e);
         }
+        contestants.clear();
     }
 }
 

@@ -99,15 +99,8 @@ public class SimpleDatabaseService implements DatabaseService {
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Statement stmt = conn.createStatement();
 
-            if(player1ID > player2ID){
-                return  stmt.execute( "insert into duels (sender, receiver, date_from,date_to,outcome) values (\'" +
-                        player1ID + "\',\'" + player2ID +"\',\'" + dateFrom +  "\',\'" + dateTo + "\',1,)");
-            }
-            else
-            {
-                return  stmt.execute( "insert into duels (receiver,sender, date_from,date_to,outcome) values (\'" +
-                        player1ID + "\',\'" + player2ID +"\',\'" + dateFrom +  "\',\'" + dateTo + "\',0,)");
-            }
+            return  stmt.execute( "insert into duels (sender, receiver, date_from) values (\'" +
+                        player1ID + "\',\'" + player2ID +"\',\'" + dateFrom +  "\',)" );
         }
     }
 
@@ -225,33 +218,63 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public void createWar(int clan1ID, int clan2ID, Date dateFrom) throws SQLException {
-
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            stmt.execute("INSERT INTO ClanWars (clan1_ID, clan2_ID, date_from) VALUES (" + clan1ID + ", " + clan2ID + ", '" + dateFrom + "')");
+        }
     }
-
+    
     @Override
     public void setWarOutcome(int clanWarID, boolean outcome) throws SQLException {
-
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            stmt.execute("UPDATE ClanWars SET outcome = " + outcome + " WHERE clan_war_ID = " + clanWarID);
+        }
     }
+    
 
     @Override
     public void setDuelWarDuel(int clanWarID, int duelID) throws SQLException {
-
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            stmt.execute("INSERT INTO WarDuels (duel_ID, clan_war_ID) VALUES (" + duelID + ", " + clanWarID + ")");
+        }
     }
-
+    
     @Override
     public void changeName(int clanID, String newName) throws SQLException {
-
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            stmt.execute("INSERT INTO ClanName (clan_ID, cl_name) VALUES (" + clanID + ", '" + newName + "')");
+        }
     }
+    
 
     @Override
-    public Map<String, Integer> addressToLogoIDMapping() {
-        return Map.of();
+    public Map<String, Integer> addressToLogoIDMapping() throws SQLException {
+       Map<String, Integer> addressToLogoIDMapping = new HashMap<>();
+        Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password());
+        Statement stmt = conn.createStatement();
+        // System.out.println("select * from Getduels(" + tookPartID +",\'" + dateFrom + "\',\'" +  dateTo +"\');");
+        ResultSet rs = stmt.executeQuery("select * from logos");
+        while (rs.next()) {
+            addressToLogoIDMapping.put(rs.getString(2),rs.getInt(1));
+           //System.out.println(rs.getString(1) + " " + rs.getString(2) );
+        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+        return addressToLogoIDMapping;
     }
 
     @Override
     public void changeLogo(int clanID, int newLogoID) throws SQLException {
-
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            stmt.execute("INSERT INTO ClanLogos (clan_ID, logo_ID) VALUES (" + clanID + ", " + newLogoID + ")");
+        }
     }
+    
 
     @Override
     public Collection<BasicDuelData> browseDuels(String tookPart, LocalDate dateFrom, LocalDate dateTo) throws SQLException {
@@ -291,7 +314,16 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public Collection<BasicDuelData> getSingleDuelData(int duelID) throws SQLException {
-        return List.of();
+        Collection<BasicDuelData> duels = new ArrayList<>();
+        Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password());
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from duels where duel_id = " + duelID);
+        while (rs.next()) {
+            duels.add(new BasicDuelData(rs.getInt(1),rs.getInt(2),rs.getInt(3),
+                    rs.getTimestamp(4).toString(),rs.getTimestamp(5).toString(),rs.getBoolean(6)));
+        }
+
+        return duels;
     }
 
     @Override
@@ -335,7 +367,7 @@ public class SimpleDatabaseService implements DatabaseService {
         Collection<FriendData> friends = new ArrayList<>();
         Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password());
         Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("select * from friends where (player1_ID  =\'" + playerID + "\' or player2_ID =\'" + playerID + "\');");
+        ResultSet rs = stmt.executeQuery("select * from friends where date_to is not null AND (player1_ID  =\'" + playerID + "\' or player2_ID =\'" + playerID + "\');");
         while (rs.next()) {
             if(rs.getInt(1)==playerID)
                 friends.add(new FriendData(rs.getString(3),rs.getString(4),getFullPlayerData(rs.getInt(2)).basicPlayerData()));
@@ -398,9 +430,13 @@ public class SimpleDatabaseService implements DatabaseService {
     }
 
     @Override
-    public void changeNickname(int playerID, String newNickName) throws SQLException {
-
+    public void changeNickname(int playerID, String newNickname) throws SQLException {
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            stmt.execute("INSERT INTO PlayerNickname (player_ID, nickname) VALUES (" + playerID + ", '" + newNickname + "')");
+        }
     }
+    
 
     @Override
     public Collection<FriendInvite> getAllFriendInvites(int playerID) throws SQLException {
@@ -440,22 +476,54 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public void endDuel(int duelID, boolean firstWon) throws SQLException {
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            //return
+            stmt.execute( "update duels set date_to = current_timestamp , outcome = " + firstWon + " where duel_id= " + duelID
+            );
 
+        }
     }
 
     @Override
     public void applyToClan(int applierID, int clanID) throws SQLException {
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            //return
+            stmt.execute( "insert into applications (clan_ID,player_id) values (" +
+                    clanID + "," + applierID + ")"
+            );
 
+        }
     }
 
     @Override
     public void acceptMember(int whoAccepts, int acceptedID) throws SQLException {
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            //return
+            stmt.execute( "select AcceptMember( "+ whoAccepts + "," + acceptedID +");" );
 
+        }
     }
 
     @Override
     public Collection<Message> getFriendChatMessages(int playerID, int friendID) throws SQLException {
-        return List.of();
+        Collection<Message> memberData = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery( "select * from friendschat where (sender_id =\'" + playerID + "\' and receiver_id =\'" + friendID + "\') or (sender_id=\'"+friendID+"\' and receiver_id = \'"+playerID +"\')" );
+            while (rs.next()) {
+                memberData.add(new Message(
+                        rs.getString(2),rs.getInt(3),getFullPlayerData(rs.getInt(3)).basicPlayerData().currentNickname(),rs.getString(1)
+                ));
+                // System.out.println(rs.getString(1) + " " + rs.getString(2) );
+            }
+        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+        return memberData;
     }
 
     @Override
@@ -500,7 +568,21 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public Collection<ClanApplication> getClanApplications(int clanID) throws SQLException {
-        return List.of();
+        Collection<ClanApplication> tournaments = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery( "select * from Applications where clan_ID =" + clanID + " ;");
+            while (rs.next()) {
+                tournaments.add(new ClanApplication(
+                        rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4)
+                ));
+                // System.out.println(rs.getString(1) + " " + rs.getString(2) );
+            }
+        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+        return tournaments;
     }
 
     @Override
@@ -525,22 +607,57 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public void createChallenge(BasicChallengeData challenge) throws SQLException {
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            //return
+            stmt.execute("insert into Challenges(date_from,date_to,objective,description) values (\'" +
+                   challenge.dateFrom() +"\',\'" + challenge.dateTo() + "\',"+challenge.objective() +
+                    ",\'" + challenge.description() + "\');");
 
+        }
     }
 
     @Override
     public Collection<TournamentData> browseTournaments(String tournamentName) throws SQLException {
-        return List.of();
+       return List.of();
     }
 
     @Override
     public Collection<TournamentData> getAllTournaments() throws SQLException {
-        return List.of();
+        Collection<TournamentData> tournaments = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery( "select distinct tournament_id from tournaments ;");
+            while (rs.next()) {
+                tournaments.add(new TournamentData(
+                        rs.getInt(1),""
+                ));
+                // System.out.println(rs.getString(1) + " " + rs.getString(2) );
+            }
+        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+        return tournaments;
     }
 
     @Override
     public Collection<TournamentMatch> getTournamentMatches(int tournamentID) throws SQLException {
-        return List.of();
+        Collection<TournamentMatch> matches = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery( "select * from tournaments where tournament_id  =\'"+ tournamentID + "\';");
+            while (rs.next()) {
+                matches.add(new TournamentMatch(
+                        rs.getInt(1),"",rs.getInt(3), rs.getInt(4),rs.getInt(5)
+                ));
+                // System.out.println(rs.getString(1) + " " + rs.getString(2) );
+            }
+        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+        return matches;
     }
 
     @Override
