@@ -12,3 +12,7 @@ current_timestamp as time
 from clans cl
 
     );
+
+create sequence tournamentID
+increment 1
+start 1;

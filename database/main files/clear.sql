@@ -38,3 +38,4 @@ DROP TABLE IF EXISTS ArchivedDuels CASCADE ;
 DROP TABLE IF EXISTS Challenges CASCADE ;
 DROP TABLE IF EXISTS PlayerChallenge CASCADE ;
 DROP  TABLE IF EXISTS Tournaments CASCADE ;
+drop sequence if exists tournamentID cascade;
