@@ -25,6 +25,8 @@ psql < 'main files'/clanMessege.sql;
 psql < 'main files'/clanInvites.sql;
 psql < 'main files'/friendInvites.sql;
 
+psql < 'main files'/triggersToTest.sql
+
 
 
 

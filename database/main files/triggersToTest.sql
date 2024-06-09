@@ -6,7 +6,6 @@ BEGIN
         SELECT 1
         FROM PlayerNickname
         WHERE player_ID = NEW.player_ID
-        AND date_to IS NULL
     ) THEN
         RAISE EXCEPTION 'Player does not have an active nickname';
     END IF;
@@ -29,7 +28,6 @@ BEGIN
         SELECT 1
         FROM ClanLogos
         WHERE clan_ID = NEW.clan_ID
-        AND date_to IS NULL
     ) THEN
         RAISE EXCEPTION 'Clan does not have an active logo';
     END IF;
@@ -193,7 +191,7 @@ BEGIN
     FROM Duels
     WHERE 
         ((NEW.sender = sender AND NEW.receiver = receiver) OR (NEW.sender = receiver AND NEW.receiver = sender))
-        AND date_from IS NOT NULL AND date_to IS NULL AND outcome IS NULL;
+        AND date_to IS NULL AND outcome IS NULL;
 
     IF active_duel_id IS NOT NULL THEN
         RAISE EXCEPTION 'Ten gracz aktualnie bierze udział w innym pojedynku';
@@ -404,8 +402,7 @@ BEGIN
     FROM PlayerRole pr
     JOIN Roles r ON pr.rank_ID = r.rank_ID
     WHERE pr.player_ID = p_acceptor_id
-      AND r.rank_name = 'Leader'
-      AND pr.date_to IS NULL; 
+      AND r.rank_name = 'Leader';
 
     IF acceptor_role IS NULL THEN
         RAISE EXCEPTION 'The player accepting the application does not have the required role';
@@ -472,7 +469,7 @@ EXECUTE PROCEDURE check_clan_member();
 CREATE OR REPLACE FUNCTION check_leader_before_logo_change()
 RETURNS TRIGGER AS $check_leader_before_logo_change$
 BEGIN
-    IF (SELECT rank_ID FROM PlayerRole pr
+    IF (SELECT pr.rank_ID FROM PlayerRole pr
         JOIN Roles r ON pr.rank_ID = r.rank_ID
         WHERE player_ID = NEW.player_ID AND clan_ID = NEW.clan_ID AND r.rank_name = 'Leader') IS NULL THEN
         RAISE EXCEPTION 'Only the clan leader can change the logo';
@@ -552,7 +549,7 @@ EXECUTE FUNCTION trigger_invalidate_applications();
 
 
 -- update ranking_base -------------------------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION update_ranking_base(duel_id INTEGER)
+CREATE OR REPLACE FUNCTION update_ranking_base(duel_iddd INTEGER)
 RETURNS VOID AS $$
 DECLARE
     duel_record RECORD;
@@ -561,8 +558,8 @@ DECLARE
 BEGIN
     SELECT *
     INTO duel_record
-    FROM Duels
-    WHERE duel_ID = duel_id;
+    FROM Duels d
+    WHERE d.duel_ID = duel_iddd;
     
     IF duel_record.outcome IS NULL THEN
         RAISE EXCEPTION 'Duel outcome is not set';
