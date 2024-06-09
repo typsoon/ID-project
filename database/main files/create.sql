@@ -2,7 +2,7 @@
 CREATE TABLE Clans
 (
     clan_ID      SERIAL PRIMARY KEY,
-    ranking_base integer
+    ranking_base integer default 500 NOT NULL
 );
 
 create table ClanWars
@@ -34,7 +34,7 @@ CREATE TABLE Players
     player_ID     SERIAL PRIMARY KEY,
     password_hash NUMERIC(13) not null,
     login         VARCHAR(40) not null unique,
-    ranking_base  integer
+    ranking_base  integer default 200 NOT NULL
 );
 
 create table ClanChat
