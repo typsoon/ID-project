@@ -170,6 +170,12 @@
                   </Pane>
                </children>
             </VBox>
+            <VBox prefHeight="523.0" prefWidth="94.0">
+               <children>
+                  <Button fx:id="changeClanNameButton" mnemonicParsing="false" text="Change Name" />
+                  <TextField fx:id="newClanName" promptText="newName" />
+               </children>
+            </VBox>
          </children>
       </HBox>
       <AnchorPane fx:id="tablePane" prefHeight="341.0" prefWidth="646.0">

@@ -15,6 +15,7 @@ import org.example.idproject.view.dataTables.ClanNameDataTable;
 import org.example.idproject.view.dataTables.MemberDataTable;
 import org.example.idproject.viewmodel.DatabaseService;
 
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class ClanInfoController extends AbstractInfoController {
@@ -45,6 +46,9 @@ public class ClanInfoController extends AbstractInfoController {
     @FXML private Button passLeaderButton;
 
     @FXML private Button removeMemberButton;
+
+    @FXML private Button changeClanNameButton;
+    @FXML private TextField newClanName;
 
     @FXML private TextField newLeader;
 
@@ -95,6 +99,14 @@ public class ClanInfoController extends AbstractInfoController {
 
             activeApplications.setOnAction(getEventHandler(()->databaseService.getClanApplications(fullClanData.getID()),
                     new ClanApplicationDataTable()));
+
+            changeClanNameButton.setOnAction(actionEvent -> {
+                try {
+                    databaseService.changeName(fullClanData.getID(), newClanName.getText());
+                } catch (SQLException e) {
+                    screenManager.displayAlert(e);
+                }
+            });
         }
         catch (Exception e) {
             throw new RuntimeException(e);

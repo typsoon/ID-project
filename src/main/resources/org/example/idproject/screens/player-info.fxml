@@ -191,7 +191,7 @@
       </HBox>
       <AnchorPane fx:id="tablePane" prefHeight="272.0" prefWidth="655.0">
          <children>
-            <TableView fx:id="dataTable" layoutX="84.0" layoutY="14.0" prefHeight="233.0" prefWidth="487.0">
+            <TableView fx:id="dataTable" layoutX="129.0" layoutY="15.0" prefHeight="242.0" prefWidth="593.0">
                <columns>
                   <TableColumn prefWidth="91.0" />
                   <TableColumn prefWidth="343.0" />
