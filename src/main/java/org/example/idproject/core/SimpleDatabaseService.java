@@ -245,7 +245,7 @@ public class SimpleDatabaseService implements DatabaseService {
     public void changeName(int clanID, String newName) throws SQLException {
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Statement stmt = conn.createStatement();
-            stmt.execute("UPDATE ClanName SET cl_name = '" + newName + "' WHERE clan_ID = " + clanID);
+            stmt.execute("INSERT INTO ClanName (clan_ID, cl_name) VALUES (" + clanID + ", '" + newName + "')");
         }
     }
     
