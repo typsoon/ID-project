@@ -19,15 +19,15 @@ ALTER TABLE ClanWars
 ADD CONSTRAINT check_clan_ids
 CHECK (clan1_ID != clan2_ID);
 
-ALTER TABLE ClanWars
-ADD CONSTRAINT unique_active_war_for_clan
-UNIQUE (clan1_ID)
-WHERE outcome IS NULL;
-
-ALTER TABLE ClanWars
-ADD CONSTRAINT unique_active_war_for_clan2
-UNIQUE (clan2_ID)
-WHERE outcome IS NULL;
+-- ALTER TABLE ClanWars
+-- ADD CONSTRAINT unique_active_war_for_clan
+-- UNIQUE (clan1_ID)
+-- WHERE outcome IS NULL;
+--
+-- ALTER TABLE ClanWars
+-- ADD CONSTRAINT unique_active_war_for_clan2
+-- UNIQUE (clan2_ID)
+-- WHERE outcome IS NULL;
 
 CREATE TABLE Players
 (
@@ -39,7 +39,7 @@ CREATE TABLE Players
 
 create table ClanChat
 (
-    sent_date timestamp,
+    sent_date timestamp DEFAULT CURRENT_TIMESTAMP,
     clan_ID   integer references Clans,
     sender_ID integer references Players,
     msg_text  VARCHAR(300) not null,
@@ -60,7 +60,7 @@ create table Duels
 
 ALTER TABLE Duels
 ADD CONSTRAINT check_players
-CHECK (player1_ID != receiver_ID);
+CHECK (sender != receiver);
 
 create table ArchivedDuels AS SELECT * FROM duels
 WHERE duel_ID IS NULL;
@@ -98,7 +98,7 @@ create table PlayerClan
 CREATE TABLE FriendsChat
 (
     msg_text    varchar(300) not null,
-    sent_date   timestamp,
+    sent_date   timestamp DEFAULT CURRENT_TIMESTAMP,
     sender_ID   INTEGER REFERENCES Players (player_ID),
     receiver_ID INTEGER REFERENCES Players (player_ID),
     PRIMARY KEY (sent_date, sender_ID, receiver_ID)

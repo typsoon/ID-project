@@ -156,6 +156,22 @@ begin
 end
 $$language plpgsql;
 
+create or replace function GetAllFriends (playerID int)
+    returns table(
+                     friendID int,
+                     dateFrom timestamp,
+                     dateTo timestamp
+                 ) as
+$$
+begin
+    return query
+        (
+            select (case when player1_id = playerID then player2_id else player1_id end),date_from,date_to from friends
+            where (player1_id = playerID or player2_id=playerID)
+        );
+end
+$$language plpgsql;
+
 create or replace function GetCurrentRole (playerID int)
     returns varchar as
 $$
@@ -186,5 +202,14 @@ begin
             order by date_from desc
             limit 1
         );
+end
+$$language plpgsql;
+
+create or replace function PassLeader (clanID int, leaderID int)
+    returns void as
+$$
+begin
+    insert into playerrole (player_ID,rank_ID) values(GetClanLeader(clanID),2);
+    insert into playerrole (player_ID,rank_ID) values(leaderID,1);
 end
 $$language plpgsql;

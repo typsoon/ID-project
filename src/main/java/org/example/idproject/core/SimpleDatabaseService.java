@@ -45,8 +45,8 @@ public class SimpleDatabaseService implements DatabaseService {
                 return
                 new FullPlayerData(
                         rs.getLong(1),rs.getString(2),rs.getString(3),
-                        rs.getInt(3),
-                        new BasicPlayerData(rs.getInt(4),rs.getString(5))
+                        rs.getInt(4),
+                        new BasicPlayerData(rs.getInt(5),rs.getString(6))
                 );
                 // System.out.println(rs.getString(1) + " " + rs.getString(2) );
             }
@@ -78,8 +78,8 @@ public class SimpleDatabaseService implements DatabaseService {
     public boolean insertPlayer(String login, String password, String nickName) throws SQLException {
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Statement stmt = conn.createStatement();
-            stmt.execute( "insert into fullplayerdata (password_hash, login, playernickname) values (" + password.hashCode() + ",'" + login + "','" + nickName + "');" );
-            return true;
+            return stmt.execute( "insert into fullplayerdata (password_hash, login, playernickname) values (" + password.hashCode() + ",'" + login + "','" + nickName + "');" );
+
         }
 //        catch (Exception e) {
 //            throw new RuntimeException(e);
@@ -90,16 +90,28 @@ public class SimpleDatabaseService implements DatabaseService {
     public boolean insertClan(int leaderID, java.util.Date dateFrom, String clanName, String logoFilePath) throws SQLException {
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Statement stmt = conn.createStatement();
-            stmt.execute( "insert into fullclandata (clanimage, clanname, leader,time) values (\'" +
+            return stmt.execute( "insert into fullclandata (clanimage, clanname, leader,time) values (\'" +
                     logoFilePath + "\',\'" + clanName +"\',\'" + leaderID +  "\',\'" + dateFrom + "\')"
             );
-            return true;
+
         }
     }
 
     @Override
     public boolean insertDuel(int player1ID, int player2ID, Date dateFrom, Date dateTo) throws SQLException {
-        return false;
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+
+            if(player1ID > player2ID){
+                return  stmt.execute( "insert into duels (sender, receiver, date_from,date_to,outcome) values (\'" +
+                        player1ID + "\',\'" + player2ID +"\',\'" + dateFrom +  "\',\'" + dateTo + "\',1,)");
+            }
+            else
+            {
+                return  stmt.execute( "insert into duels (receiver,sender, date_from,date_to,outcome) values (\'" +
+                        player1ID + "\',\'" + player2ID +"\',\'" + dateFrom +  "\',\'" + dateTo + "\',0,)");
+            }
+        }
     }
 
     @Override
@@ -168,22 +180,51 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public Collection<ClanNameData> getClanNames(int clanID) throws SQLException {
-        return List.of();
+        Collection<ClanNameData> names = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery( "select * from ClanName where clan_ID = (\'" + clanID + "\');" );
+            while (rs.next()) {
+                names.add( new ClanNameData(rs.getString(2),rs.getInt(1),rs.getString(3)
+
+                         ));
+                // System.out.println(rs.getString(1) + " " + rs.getString(2) );
+            }
+        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+        return names;
     }
 
     @Override
     public void passLeader(int clanID, int newLeaderID) throws SQLException {
-
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            stmt.execute( "select PassLeader(" + clanID + " , " + newLeaderID + ");" );
+        }
     }
 
     @Override
     public void removeMember(int clanID, int memberID, Integer whoKicked) throws SQLException {
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
 
+            stmt.execute( "update playerclan set date_to = current_timestamp, who_kicked = " + whoKicked +" where date_to is null and  player_ID=" + memberID +  " AND clan_ID = " + clanID + ";" );
+
+        }
     }
 
     @Override
     public boolean sendClanMessage(int playerID, String message) throws SQLException {
-        return false;
+
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            return stmt.execute( "insert into ClanChat (sender_ID, msg_text, clan_ID) values (" +
+                    playerID + ",\'" + message +"\',PlayerClanID(" + playerID +  "))"
+            );
+
+        }
     }
 
     @Override
@@ -279,12 +320,33 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public Collection<FriendData> getAllFriends(int playerID) throws SQLException {
-        return List.of();
+        Collection<FriendData> friends = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery( "select * from getallfriends(\'"+ playerID+ "\') ;");
+            while (rs.next()) {
+                friends.add(new FriendData(
+                        rs.getString(2),rs.getString(3),getFullPlayerData(rs.getInt(1)).basicPlayerData()
+                        ));
+                // System.out.println(rs.getString(1) + " " + rs.getString(2) );
+            }
+        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+        return friends;
     }
 
     @Override
     public void sendFriendMessage(int senderID, int receiverID, String message) throws SQLException {
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            //return
+                    stmt.execute( "insert into FriendsChat (sender_ID, receiver_ID, msg_text) values (\'" +
+                    senderID + "\'," + receiverID +",\'" + message +"\')"
+            );
 
+        }
     }
 
     @Override
@@ -382,7 +444,10 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public void moveDuelsToArchive() throws SQLException {
-
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            stmt.execute( "select archivizeDuels();" );
+        }
     }
 
     @Override
@@ -406,7 +471,7 @@ public class SimpleDatabaseService implements DatabaseService {
            FullPlayerData fullPlayerData = simpleViewModel.getFullPlayerData(1);
            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
            Date date = format.parse("2024-12-12 00:00:00");
-           simpleViewModel.insertClan(1, date, "asdasd","clanLogos/green-logo.png");
+           simpleViewModel.passLeader(1,1376);
            return;
         }
         catch (Exception e)
