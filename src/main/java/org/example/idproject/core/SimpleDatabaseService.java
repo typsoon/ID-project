@@ -446,7 +446,7 @@ public class SimpleDatabaseService implements DatabaseService {
     public void moveDuelsToArchive() throws SQLException {
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Statement stmt = conn.createStatement();
-            stmt.execute( "select archivizeDuels();" );
+            stmt.execute( "select archive_duels(90);" );
         }
     }
 
