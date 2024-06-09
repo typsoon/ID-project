@@ -209,6 +209,12 @@ create or replace function PassLeader (clanID int, leaderID int)
     returns void as
 $$
 begin
+    if GetClanLeader(clanID) = leaderID then
+        raise exception 'not';
+    end if;
+    if coalesce(playerclanid(leaderID),0) <> clanID  then
+        raise exception 'not in clan';
+    end if;
     insert into playerrole (player_ID,rank_ID) values(GetClanLeader(clanID),2);
     insert into playerrole (player_ID,rank_ID) values(leaderID,1);
 end
@@ -421,14 +427,15 @@ BEGIN
     IF PlayerClanID(acceptor) IS NULL THEN
         raise exception 'wrong acceptor';
     END IF;
-    IF GetCurrentRole(acceptor) <> 'Leader' AND GetCurrentRole(acceptor) <> 'Elder'  IS NULL THEN
+    IF GetCurrentRole(acceptor) <> 'Leader' AND GetCurrentRole(acceptor) <> 'Elder' THEN
         raise exception 'wrong acceptor';
     END IF;
-    if (select * from Applications
-        where clan_id = PlayerClanID(acceptor) and player_id = applier) is null then
+    if (select clan_id from Applications
+        where clan_id = PlayerClanID(acceptor) and player_id = applier limit 1) is null then
         raise exception 'wrong applier';
     END IF;
     delete from Applications where clan_id = PlayerClanID(acceptor) and player_id = applier;
     insert into playerclan (clan_ID,player_ID,who_accepted) values (PlayerClanID(acceptor),applier,acceptor);
-END;
+    insert into playerrole (player_id, rank_id) values  (applier,3);
+    END;
 $$ LANGUAGE plpgsql;

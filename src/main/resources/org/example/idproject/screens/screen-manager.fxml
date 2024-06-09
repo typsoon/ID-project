@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<SplitPane dividerPositions="0.09812108559498957" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="848.0" prefWidth="1138.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<SplitPane dividerPositions="0.09812108559498957" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="848.0" prefWidth="1138.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
   <items>
     <AnchorPane maxHeight="40.0" minHeight="0.0" minWidth="0.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="22.0" prefWidth="1136.0" style="-fx-background-color: #F0F0F0;">
          <children>
             <ButtonBar layoutX="30.0" layoutY="-6.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="51.0" prefWidth="1119.0" AnchorPane.leftAnchor="30.0">
               <buttons>
+                  <Button fx:id="browseTournamentsButton" mnemonicParsing="false" text="Insert tournaments" />
                   <Button fx:id="addClansButton" mnemonicParsing="false" text="Add clans" />
                 <Button fx:id="addPlayersButton" mnemonicParsing="false" text="Add players" />
                   <Button fx:id="browseChallengesButton" mnemonicParsing="false" text="Browse challenges" />
-                  <Button fx:id="browseTournamentsButton" mnemonicParsing="false" text="Browse tournaments" />
                   <Button fx:id="browseDuelsButton" mnemonicParsing="false" text="Browse duels" />
                   <Button fx:id="browseClansButton" mnemonicParsing="false" text="Browse clans" />
                   <Button fx:id="browsePlayersButton" mnemonicParsing="false" prefWidth="118.0" text="Browse players" />

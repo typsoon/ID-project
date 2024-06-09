@@ -105,8 +105,8 @@ EXECUTE FUNCTION remove_friend_invites_after_acceptance();
 CREATE OR REPLACE FUNCTION check_rank_before_kick()
 RETURNS TRIGGER AS $check_rank_before_kick$
 BEGIN
-    IF (SELECT rank_ID FROM PlayerRole pr1 WHERE player_ID = NEW.who_kicked AND clan_ID = NEW.clan_ID) <
-       (SELECT rank_ID FROM PlayerRole pr2 WHERE player_ID = NEW.player_ID AND clan_ID = NEW.clan_ID)
+    IF (SELECT rank_ID FROM PlayerRole pr1 WHERE player_ID = NEW.who_kicked AND playerclanid(pr1.player_id) = NEW.clan_ID limit 1) <
+       (SELECT rank_ID FROM PlayerRole pr2 WHERE player_ID = NEW.player_ID AND playerclanid(pr2.player_id) = NEW.clan_ID limit 1)
 --        AND pr1.clan_ID=pr2.clan_ID
        THEN
         RAISE EXCEPTION 'You do not have sufficient rank to kick this player';
@@ -467,22 +467,22 @@ EXECUTE PROCEDURE check_clan_member();
 ------------------------------------------------------------------------------------------------------------
 
 -- sprawdzanie czy lider + zmiana logo ---------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION check_leader_before_logo_change()
-RETURNS TRIGGER AS $check_leader_before_logo_change$
-BEGIN
-    IF (SELECT pr.rank_ID FROM PlayerRole pr
-        JOIN Roles r ON pr.rank_ID = r.rank_ID
-        WHERE player_ID = NEW.player_ID AND clan_ID = NEW.clan_ID AND r.rank_name = 'Leader') IS NULL THEN
-        RAISE EXCEPTION 'Only the clan leader can change the logo';
-    END IF;
-    RETURN NEW;
-END;
-$check_leader_before_logo_change$ LANGUAGE plpgsql;
-
-CREATE TRIGGER check_leader_before_logo_change
-BEFORE INSERT ON ClanLogos
-FOR EACH ROW
-EXECUTE FUNCTION check_leader_before_logo_change();
+-- CREATE OR REPLACE FUNCTION check_leader_before_logo_change()
+-- RETURNS TRIGGER AS $check_leader_before_logo_change$
+-- BEGIN
+--     IF (SELECT pr.rank_ID FROM PlayerRole pr
+--         JOIN Roles r ON pr.rank_ID = r.rank_ID
+--         WHERE player_ID = NEW.player_ID AND clan_ID = NEW.clan_ID AND r.rank_name = 'Leader') IS NULL THEN
+--         RAISE EXCEPTION 'Only the clan leader can change the logo';
+--     END IF;
+--     RETURN NEW;
+-- END;
+-- $check_leader_before_logo_change$ LANGUAGE plpgsql;
+--
+-- CREATE TRIGGER check_leader_before_logo_change
+-- BEFORE INSERT ON ClanLogos
+-- FOR EACH ROW
+-- EXECUTE FUNCTION check_leader_before_logo_change();
 ------------------------------------------------------------------------------------------------------------
 
 
@@ -668,7 +668,7 @@ DECLARE
 BEGIN
     -- Sprawdzenie, czy gracz bierze udział w maksymalnie jednym turnieju jednocześnie
     IF EXISTS (
-        SELECT 1 FROM Tournaments WHERE (left_child = NEW.duel_id OR right_child = NEW.duel_id) AND date_to IS NULL
+        SELECT 1 FROM Tournaments INNER JOIN duels USING(duel_id) WHERE (duel_id = NEW.duel_id) AND date_to IS NULL
     ) THEN
         RAISE EXCEPTION 'Player is already participating in another tournament.';
     END IF;
@@ -724,7 +724,7 @@ END;
 $check_clan_has_leader$ LANGUAGE plpgsql;
 
 CREATE TRIGGER check_clan_has_leader
-BEFORE UPDATE OR INSERT ON Clans
+AFTER UPDATE OR INSERT OR DELETE ON Clans
 FOR EACH ROW
 EXECUTE FUNCTION check_clan_has_leader();
 ------------------------------------------------------------------------------------------------------------
@@ -732,24 +732,29 @@ EXECUTE FUNCTION check_clan_has_leader();
 --
 CREATE OR REPLACE FUNCTION ensure_clan_has_leader()
 RETURNS TRIGGER AS $$
+    DECLARE
+        lastClan integer = (
+        SELECT clan_id FROM playerclan
+        WHERE player_id = old.player_id
+        ORDER BY date_to DESC
+        LIMIT 1
+     );
 BEGIN
-    IF OLD.rank_ID = (SELECT rank_ID FROM Roles WHERE rank_name = 'Leader') THEN
-        IF GetClanLeader(OLD.clan_ID) IS NULL THEN
-            RAISE EXCEPTION 'Cannot remove or update leader. Clan would be left without a leader.';
-        END IF;
+--     IF OLD.rank_ID = (SELECT rank_ID FROM Roles WHERE rank_name = 'Leader') THEN
+    IF lastClan IS NULL THEN
+        RETURN NEW;
+    END IF;
+
+    IF GetClanLeader(lastClan) IS NULL THEN
+        RAISE EXCEPTION 'Cannot remove or update leader. Clan would be left without a leader.';
     END IF;
 
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER ensure_clan_has_leader_before_delete
-BEFORE DELETE ON PlayerRole
-FOR EACH ROW
-EXECUTE FUNCTION ensure_clan_has_leader();
-
-CREATE TRIGGER ensure_clan_has_leader_before_update
-BEFORE UPDATE ON PlayerRole
+CREATE TRIGGER ensure_clan_has_leader
+AFTER DELETE OR UPDATE ON PlayerRole
 FOR EACH ROW
 EXECUTE FUNCTION ensure_clan_has_leader();
 ------------------------------------------------------------------------------------------------------------

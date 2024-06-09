@@ -667,24 +667,18 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public void createTournament(String tournamentName, Collection<Integer> players) throws SQLException {
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Array sqlArray = conn.createArrayOf("integer", players.toArray());
 
-    }
+            String sql = "SELECT createtournament((?::int[], ?::varchar(30)))";
 
-    public static void main(String[] args) {
-        SimpleDatabaseService simpleViewModel = new SimpleDatabaseService();
-        simpleViewModel.tryLogIn(new Credentials("riper", "aaa"));
-        try
-        {
-            //  Collection<FriendData> memberData = simpleViewModel.getAllFriends(8);
-           FullPlayerData fullPlayerData = simpleViewModel.getFullPlayerData(1);
-           SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-           Date date = format.parse("2024-12-12 00:00:00");
-           simpleViewModel.passLeader(1,1376);
-           return;
-        }
-        catch (Exception e)
-        {
-            throw new RuntimeException(e);
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setArray(1, sqlArray);
+            stmt.setString(2, tournamentName);
+
+            stmt.executeQuery();
         }
     }
+
 }
