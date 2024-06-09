@@ -33,7 +33,7 @@ public interface DatabaseService {
     void setDuelWarDuel(int clanWarID, int duelID) throws SQLException;
 
     void changeName(int clanID, String newName) throws SQLException;
-    Map<String, Integer> addressToLogoIDMapping();
+    Map<String, Integer> addressToLogoIDMapping() throws SQLException;
     void changeLogo(int clanID, int newLogoID) throws SQLException;
 
     Collection<BasicDuelData> browseDuels(String tookPart, LocalDate dateFrom, LocalDate dateTo) throws SQLException;

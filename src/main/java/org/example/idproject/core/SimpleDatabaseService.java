@@ -251,8 +251,20 @@ public class SimpleDatabaseService implements DatabaseService {
     
 
     @Override
-    public Map<String, Integer> addressToLogoIDMapping() {
-        return Map.of();
+    public Map<String, Integer> addressToLogoIDMapping() throws SQLException {
+       Map<String, Integer> addressToLogoIDMapping = new HashMap<>();
+        Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password());
+        Statement stmt = conn.createStatement();
+        // System.out.println("select * from Getduels(" + tookPartID +",\'" + dateFrom + "\',\'" +  dateTo +"\');");
+        ResultSet rs = stmt.executeQuery("select * from logos");
+        while (rs.next()) {
+            addressToLogoIDMapping.put(rs.getString(2),rs.getInt(1));
+           //System.out.println(rs.getString(1) + " " + rs.getString(2) );
+        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+        return addressToLogoIDMapping;
     }
 
     @Override
@@ -497,7 +509,21 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public Collection<Message> getFriendChatMessages(int playerID, int friendID) throws SQLException {
-        return List.of();
+        Collection<Message> memberData = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery( "select * from friendschat where (sender_id =\'" + playerID + "\' and receiver_id =\'" + friendID + "\') or (sender_id=\'"+friendID+"\' and receiver_id = \'"+playerID +"\')" );
+            while (rs.next()) {
+                memberData.add(new Message(
+                        rs.getString(2),rs.getInt(3),getFullPlayerData(rs.getInt(3)).basicPlayerData().currentNickname(),rs.getString(1)
+                ));
+                // System.out.println(rs.getString(1) + " " + rs.getString(2) );
+            }
+        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+        return memberData;
     }
 
     @Override
@@ -581,7 +607,14 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public void createChallenge(BasicChallengeData challenge) throws SQLException {
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            //return
+            stmt.execute("insert into Challenges(date_from,date_to,objective,description) values (\'" +
+                   challenge.dateFrom() +"\',\'" + challenge.dateTo() + "\',"+challenge.objective() +
+                    ",\'" + challenge.description() + "\');");
 
+        }
     }
 
     @Override
