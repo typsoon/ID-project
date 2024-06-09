@@ -9,7 +9,7 @@ module org.example.idproject {
     requires java.sql;
     requires org.postgresql.jdbc;
 
-    opens org.example.idproject.common to javafx.base;
+    //    opens org.example.idproject.view.insertDataScreens to javafx.base;
     exports org.example.idproject;
 
 
@@ -23,4 +23,5 @@ module org.example.idproject {
     exports org.example.idproject.viewmodel;
     exports org.example.idproject.common;
     exports org.example.idproject.core;
+    opens org.example.idproject.common to javafx.base, javafx.fxml;
 }

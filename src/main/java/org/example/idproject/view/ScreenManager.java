@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.idproject.App;
@@ -18,6 +17,7 @@ import org.example.idproject.view.infoPanes.ClanInfoController;
 import org.example.idproject.view.infoPanes.PlayerInfoController;
 import org.example.idproject.view.insertDataScreens.InsertClansController;
 import org.example.idproject.view.insertDataScreens.InsertPlayersController;
+import org.example.idproject.view.insertDataScreens.InsertTournamentController;
 import org.example.idproject.viewmodel.DatabaseService;
 
 import java.io.IOException;
@@ -43,6 +43,7 @@ public class ScreenManager {
     @FXML Button browsePlayersButton;
     @FXML Button browseDuelsButton;
     @FXML Button browseChallengesButton;
+    @FXML Button browseTournamentsButton;
 
     @FXML Button addPlayersButton;
     @FXML Button addClansButton;
@@ -78,6 +79,9 @@ public class ScreenManager {
 
         myItemWrappers.add(new MyItemWrapper(FXMLAddresses.BROWSING_WITH_DATE, browseDuelsButton, new BrowseDuelsController(databaseService, this),
                 "Browse Duels", leftAnchorPane));
+
+        myItemWrappers.add(new MyItemWrapper(FXMLAddresses.TOURNAMENT_INSERT_DATA_TABLE, browseTournamentsButton, new InsertTournamentController(databaseService, this),
+                "Browse Tournaments", leftAnchorPane));
 
         myItemWrappers.add(new MyItemWrapper(FXMLAddresses.BROWSING_WITH_DATE, browseChallengesButton, new BrowseChallengesController(databaseService, this),
                 "Browse Challenges", leftAnchorPane));
@@ -124,6 +128,7 @@ public class ScreenManager {
         void initialize() {
             if (itemData.button != null)
                 itemData.button.setOnAction(event -> handleClick());
+            else throw new RuntimeException("itemData.button should not be null");
         }
 
         private void handleClick() {
