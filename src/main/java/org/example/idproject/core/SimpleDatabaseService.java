@@ -218,23 +218,37 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public void createWar(int clan1ID, int clan2ID, Date dateFrom) throws SQLException {
-
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            stmt.execute("INSERT INTO ClanWars (clan1_ID, clan2_ID, date_from) VALUES (" + clan1ID + ", " + clan2ID + ", '" + dateFrom + "')");
+        }
     }
-
+    
     @Override
     public void setWarOutcome(int clanWarID, boolean outcome) throws SQLException {
-
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            stmt.execute("UPDATE ClanWars SET outcome = " + outcome + " WHERE clan_war_ID = " + clanWarID);
+        }
     }
+    
 
     @Override
     public void setDuelWarDuel(int clanWarID, int duelID) throws SQLException {
-
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            stmt.execute("INSERT INTO WarDuels (duel_ID, clan_war_ID) VALUES (" + duelID + ", " + clanWarID + ")");
+        }
     }
-
+    
     @Override
     public void changeName(int clanID, String newName) throws SQLException {
-
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            stmt.execute("UPDATE ClanName SET cl_name = '" + newName + "' WHERE clan_ID = " + clanID);
+        }
     }
+    
 
     @Override
     public Map<String, Integer> addressToLogoIDMapping() {
@@ -243,8 +257,12 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public void changeLogo(int clanID, int newLogoID) throws SQLException {
-
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            stmt.execute("INSERT INTO ClanLogos (clan_ID, logo_ID) VALUES (" + clanID + ", " + newLogoID + ")");
+        }
     }
+    
 
     @Override
     public Collection<BasicDuelData> browseDuels(String tookPart, LocalDate dateFrom, LocalDate dateTo) throws SQLException {
@@ -400,9 +418,13 @@ public class SimpleDatabaseService implements DatabaseService {
     }
 
     @Override
-    public void changeNickname(int playerID, String newNickName) throws SQLException {
-
+    public void changeNickname(int playerID, String newNickname) throws SQLException {
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            stmt.execute("INSERT INTO PlayerNickname (player_ID, nickname) VALUES (" + playerID + ", '" + newNickname + "')");
+        }
     }
+    
 
     @Override
     public Collection<FriendInvite> getAllFriendInvites(int playerID) throws SQLException {
