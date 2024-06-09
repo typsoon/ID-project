@@ -176,14 +176,20 @@ CREATE TABLE PlayerRole
 
 CREATE TABLE Tournaments
 (
-    matchup_id serial,
-    tournament_id INTEGER,
+    matchup_id serial PRIMARY KEY,
+    tournament_id INTEGER unique,
     duel_id integer unique references Duels,
     left_child integer unique references Duels,
     right_child integer unique references Duels,
-    CHECK ( (left_child IS NULL AND right_child IS NULL) OR (left_child IS NOT NULL AND right_child IS NOT NULL) ),
-    PRIMARY KEY (tournament_id, duel_id)
+    CHECK ( (left_child IS NULL AND right_child IS NULL) OR (left_child IS NOT NULL AND right_child IS NOT NULL) )
 );
+
+CREATE TABLE TournamentsName
+(
+    tournament_id INTEGER PRIMARY KEY REFERENCES Tournaments (tournament_id),
+    tournament_name VARCHAR(30)
+);
+
 
 CREATE TABLE Challenges
 (
