@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b753b57e-ab60-46b8-9bb6-279e46c6879a" name="Changes" comment="handling">
+    <list default="true" id="b753b57e-ab60-46b8-9bb6-279e46c6879a" name="Changes" comment="points">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/main files/clear.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/main files/clear.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/main files/create.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/main files/create.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/main files/functions.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/main files/functions.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/core/SimpleDatabaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/core/SimpleDatabaseService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +58,26 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RunManager">
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.idproject.App" />
+      <module name="ID-project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.idproject.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.App" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -85,7 +104,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717912146112</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="points">
+      <option name="closed" value="true" />
+      <created>1717917086744</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1717917086744</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -94,6 +121,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="tournament" />
     <MESSAGE value="handling" />
-    <option name="LAST_COMMIT_MESSAGE" value="handling" />
+    <MESSAGE value="points" />
+    <option name="LAST_COMMIT_MESSAGE" value="points" />
   </component>
 </project>

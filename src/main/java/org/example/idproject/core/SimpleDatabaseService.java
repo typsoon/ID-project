@@ -102,15 +102,8 @@ public class SimpleDatabaseService implements DatabaseService {
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Statement stmt = conn.createStatement();
 
-            if(player1ID > player2ID){
-                return  stmt.execute( "insert into duels (sender, receiver, date_from,date_to,outcome) values (\'" +
-                        player1ID + "\',\'" + player2ID +"\',\'" + dateFrom +  "\',\'" + dateTo + "\',1,)");
-            }
-            else
-            {
-                return  stmt.execute( "insert into duels (receiver,sender, date_from,date_to,outcome) values (\'" +
-                        player1ID + "\',\'" + player2ID +"\',\'" + dateFrom +  "\',\'" + dateTo + "\',0,)");
-            }
+            return  stmt.execute( "insert into duels (sender, receiver, date_from) values (\'" +
+                        player1ID + "\',\'" + player2ID +"\',\'" + dateFrom +  "\',)" );
         }
     }
 
@@ -265,7 +258,16 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public Collection<BasicDuelData> getSingleDuelData(int duelID) throws SQLException {
-        return List.of();
+        Collection<BasicDuelData> duels = new ArrayList<>();
+        Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password());
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from duels where duel_id = " + duelID);
+        while (rs.next()) {
+            duels.add(new BasicDuelData(rs.getInt(1),rs.getInt(2),rs.getInt(3),
+                    rs.getTimestamp(4).toString(),rs.getTimestamp(5).toString(),rs.getBoolean(6)));
+        }
+
+        return duels;
     }
 
     @Override
@@ -309,7 +311,7 @@ public class SimpleDatabaseService implements DatabaseService {
         Collection<FriendData> friends = new ArrayList<>();
         Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password());
         Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("select * from friends where (player1_ID  =\'" + playerID + "\' or player2_ID =\'" + playerID + "\');");
+        ResultSet rs = stmt.executeQuery("select * from friends where date_to is not null AND (player1_ID  =\'" + playerID + "\' or player2_ID =\'" + playerID + "\');");
         while (rs.next()) {
             if(rs.getInt(1)==playerID)
                 friends.add(new FriendData(rs.getString(3),rs.getString(4),getFullPlayerData(rs.getInt(2)).basicPlayerData()));
@@ -409,17 +411,35 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public void endDuel(int duelID, boolean firstWon) throws SQLException {
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            //return
+            stmt.execute( "update duels set date_to = current_timestamp , outcome = " + firstWon + " where duel_id= " + duelID
+            );
 
+        }
     }
 
     @Override
     public void applyToClan(int applierID, int clanID) throws SQLException {
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            //return
+            stmt.execute( "insert into applications (clan_ID,player_id) values (" +
+                    clanID + "," + applierID + ")"
+            );
 
+        }
     }
 
     @Override
     public void acceptMember(int whoAccepts, int acceptedID) throws SQLException {
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            //return
+            stmt.execute( "select AcceptMember( "+ whoAccepts + "," + acceptedID +");" );
 
+        }
     }
 
     @Override
@@ -464,7 +484,21 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public Collection<ClanApplication> getClanApplications(int clanID) throws SQLException {
-        return List.of();
+        Collection<ClanApplication> tournaments = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery( "select * from Applications where clan_ID =" + clanID + " ;");
+            while (rs.next()) {
+                tournaments.add(new ClanApplication(
+                        rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4)
+                ));
+                // System.out.println(rs.getString(1) + " " + rs.getString(2) );
+            }
+        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+        return tournaments;
     }
 
     @Override
@@ -489,17 +523,45 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public Collection<TournamentData> browseTournaments(String tournamentName) throws SQLException {
-        return List.of();
+       return List.of();
     }
 
     @Override
     public Collection<TournamentData> getAllTournaments() throws SQLException {
-        return List.of();
+        Collection<TournamentData> tournaments = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery( "select distinct tournament_id from tournaments ;");
+            while (rs.next()) {
+                tournaments.add(new TournamentData(
+                        rs.getInt(1),""
+                ));
+                // System.out.println(rs.getString(1) + " " + rs.getString(2) );
+            }
+        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+        return tournaments;
     }
 
     @Override
     public Collection<TournamentMatch> getTournamentMatches(int tournamentID) throws SQLException {
-        return List.of();
+        Collection<TournamentMatch> matches = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery( "select * from tournaments where tournament_id  =\'"+ tournamentID + "\';");
+            while (rs.next()) {
+                matches.add(new TournamentMatch(
+                        rs.getInt(1),"",rs.getInt(3), rs.getInt(4),rs.getInt(5)
+                ));
+                // System.out.println(rs.getString(1) + " " + rs.getString(2) );
+            }
+        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+        return matches;
     }
 
     public static void main(String[] args) {
