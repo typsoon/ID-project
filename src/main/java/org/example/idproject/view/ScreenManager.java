@@ -8,13 +8,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.idproject.App;
-import org.example.idproject.view.browsingScreens.BrowseChallengesController;
-import org.example.idproject.view.browsingScreens.BrowseClansController;
-import org.example.idproject.view.browsingScreens.BrowseDuelsController;
-import org.example.idproject.view.browsingScreens.BrowsePlayersController;
+import org.example.idproject.view.browsingScreens.*;
 import org.example.idproject.view.infoPanes.AbstractInfoController;
 import org.example.idproject.view.infoPanes.ClanInfoController;
 import org.example.idproject.view.infoPanes.PlayerInfoController;
+import org.example.idproject.view.infoPanes.TournamentInfoController;
 import org.example.idproject.view.insertDataScreens.InsertClansController;
 import org.example.idproject.view.insertDataScreens.InsertPlayersController;
 import org.example.idproject.view.insertDataScreens.InsertTournamentController;
@@ -32,9 +30,11 @@ public class ScreenManager {
 
     private final AbstractInfoController playerInfoController;
     private final AbstractInfoController clanInfoController;
+    private final AbstractInfoController tournamentInfoController;
 
     private final VBox playerInfoVBox;
     private final VBox clanInfoVBox;
+    private VBox tournamentInfoVBox;
 
     @FXML AnchorPane leftAnchorPane;
     @FXML AnchorPane rightAnchorPane;
@@ -47,6 +47,7 @@ public class ScreenManager {
 
     @FXML Button addPlayersButton;
     @FXML Button addClansButton;
+    @FXML Button insertTournamentsButton;
 
     public ScreenManager(DatabaseService databaseService, Stage primaryStage) throws IOException {
         this.databaseService = databaseService;
@@ -58,6 +59,9 @@ public class ScreenManager {
 
         clanInfoController = new ClanInfoController(databaseService, this);
         clanInfoVBox = loadVBox(FXMLAddresses.CLAN_INFO, clanInfoController);
+
+        tournamentInfoController = new TournamentInfoController(databaseService, this);
+        tournamentInfoVBox = loadVBox(FXMLAddresses.TOURNAMENT_INFO, tournamentInfoController);
     }
 
     private static VBox loadVBox(String resourceName, Object controller) throws IOException {
@@ -83,13 +87,16 @@ public class ScreenManager {
         myItemWrappers.add(new MyItemWrapper(FXMLAddresses.BROWSING_WITH_DATE, browseChallengesButton, new BrowseChallengesController(databaseService, this),
                 "Browse Challenges", leftAnchorPane));
 
+        myItemWrappers.add(new MyItemWrapper(FXMLAddresses.BROWSING_HBOX, browseTournamentsButton, new BrowseTournamentsController(databaseService, this),
+                "Browse Tournaments", leftAnchorPane));
+
         myItemWrappers.add(new MyItemWrapper(FXMLAddresses.PLAYER_INSERT_VBOX, addPlayersButton, new InsertPlayersController(databaseService, this),
                 "Add Players", leftAnchorPane));
 
         myItemWrappers.add(new MyItemWrapper(FXMLAddresses.CLAN_INSERT_VBOX, addClansButton, new InsertClansController(databaseService, this),
                 "Add Clans", leftAnchorPane));
 
-        myItemWrappers.add(new MyItemWrapper(FXMLAddresses.TOURNAMENT_INSERT_DATA_TABLE, browseTournamentsButton, new InsertTournamentController(databaseService, this),
+        myItemWrappers.add(new MyItemWrapper(FXMLAddresses.TOURNAMENT_INSERT_DATA_TABLE, insertTournamentsButton, new InsertTournamentController(databaseService, this),
                 "Add Tournaments", leftAnchorPane));
     }
 
@@ -120,6 +127,12 @@ public class ScreenManager {
         clanInfoController.update(clanId);
         rightAnchorPane.getChildren().clear();
         rightAnchorPane.getChildren().add(clanInfoVBox);
+    }
+
+    public void showTournamentInfo(int tournamentID) {
+        tournamentInfoController.update(tournamentID);
+        rightAnchorPane.getChildren().clear();
+        rightAnchorPane.getChildren().add(tournamentInfoVBox);
     }
 
     private class MyItemWrapper {

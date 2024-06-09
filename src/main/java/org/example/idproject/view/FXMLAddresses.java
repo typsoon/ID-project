@@ -10,6 +10,7 @@ public class FXMLAddresses {
     static final String CLAN_INFO = screenFolderPath + "clan-info.fxml";
     static final String CLAN_INSERT_VBOX = screenFolderPath + "clan-insert-VBox.fxml";
     static final String PLAYER_INFO = screenFolderPath + "player-info.fxml";
+    public static final String TOURNAMENT_INFO = screenFolderPath + "tournament-info.fxml";
     static final String PLAYER_INSERT_VBOX = screenFolderPath + "player-insert-VBox.fxml";
     static final String SCREEN_MANAGER = screenFolderPath + "screen-manager.fxml";
     public static final String TOURNAMENT_INSERT_DATA_TABLE = screenFolderPath + "tournament-insert-VBox.fxml";

@@ -2,20 +2,23 @@ package org.example.idproject.view.browsingScreens;
 
 import org.example.idproject.common.TournamentData;
 import org.example.idproject.view.ScreenManager;
+import org.example.idproject.view.dataTables.TournamentDataTable;
 import org.example.idproject.viewmodel.DatabaseService;
 
 import java.io.IOException;
 
-public class TournamentBrowsingScreen extends AbstractBrowsingScreenController<TournamentData> {
-    TournamentBrowsingScreen(DatabaseService databaseService, ScreenManager screenManager) {
+public class BrowseTournamentsController extends AbstractBrowsingScreenController<TournamentData> {
+    public BrowseTournamentsController(DatabaseService databaseService, ScreenManager screenManager) throws IOException {
         super(databaseService, screenManager);
+
+        dataTable = new TournamentDataTable().getTableView();
     }
 
     @Override
     protected void initialize() throws IOException {
         displayAll();
 
-        searchField.setPromptText("Browse Players by nickname");
+        searchField.setPromptText("Browse Tournaments");
 
         super.initialize();
     }
@@ -46,6 +49,6 @@ public class TournamentBrowsingScreen extends AbstractBrowsingScreenController<T
 
     @Override
     protected void handleClickOnDataTable(int id) {
-        screenManager.showPlayerInfo(id);
+        screenManager.showTournamentInfo(id);
     }
 }
