@@ -729,6 +729,31 @@ FOR EACH ROW
 EXECUTE FUNCTION check_clan_has_leader();
 ------------------------------------------------------------------------------------------------------------
 
+--
+CREATE OR REPLACE FUNCTION ensure_clan_has_leader()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF OLD.rank_ID = (SELECT rank_ID FROM Roles WHERE rank_name = 'Leader') THEN
+        IF GetClanLeader(OLD.clan_ID) IS NULL THEN
+            RAISE EXCEPTION 'Cannot remove or update leader. Clan would be left without a leader.';
+        END IF;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER ensure_clan_has_leader_before_delete
+BEFORE DELETE ON PlayerRole
+FOR EACH ROW
+EXECUTE FUNCTION ensure_clan_has_leader();
+
+CREATE TRIGGER ensure_clan_has_leader_before_update
+BEFORE UPDATE ON PlayerRole
+FOR EACH ROW
+EXECUTE FUNCTION ensure_clan_has_leader();
+------------------------------------------------------------------------------------------------------------
+
 -- udział w turnieju idk
 -- CREATE OR REPLACE FUNCTION check_tournament_participation()
 -- RETURNS TRIGGER AS $check_tournament_participation$
