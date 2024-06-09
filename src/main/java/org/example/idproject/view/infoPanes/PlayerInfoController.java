@@ -2,6 +2,7 @@ package org.example.idproject.view.infoPanes;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -41,6 +42,24 @@ public class PlayerInfoController extends AbstractInfoController {
     @FXML private Button showFriends;
 
     @FXML private Button showAllFriends;
+
+    @FXML private Button endDuelButton;
+    @FXML private TextField endDuelDuelID;
+    @FXML private TextField endDuelWonBoolean;
+
+    @FXML private Button applyToClanButton;
+    @FXML private TextField applyToClanField;
+
+    @FXML private Button acceptMemberButton;
+    @FXML private ChoiceBox<Integer> acceptMemberChoiceBox;
+
+    @FXML private Button sendInviteButton;
+    @FXML private TextField sendInviteField;
+
+    @FXML private Button acceptFriendButton;
+    @FXML private ChoiceBox<Integer> acceptFriendChoiceBox;
+
+    @FXML private TextField clanName;
 
     @FXML private TextField addedID;
 
@@ -108,6 +127,27 @@ public class PlayerInfoController extends AbstractInfoController {
                 screenManager.displayAlert(e);
             }
         });
+
+        endDuelButton.setOnAction(actionEvent -> {
+            try {
+                databaseService.endDuel(Integer.parseInt(endDuelDuelID.getText()),
+                Boolean.parseBoolean(endDuelWonBoolean.getText()));
+            }
+            catch (Exception e) {
+                screenManager.displayAlert(e);
+            }
+        });
+
+        acceptMemberButton.setOnAction(actionEvent -> {
+            try {
+                databaseService.acceptMember(fullPlayerData.getID(), acceptMemberChoiceBox.getValue());
+            }
+            catch (Exception e) {
+                screenManager.displayAlert(e);
+            }
+        });
+
+
     }
 
     @Override
@@ -117,6 +157,20 @@ public class PlayerInfoController extends AbstractInfoController {
 
             currentClanName.setText(fullPlayerData.currentClanName() == null ? "" : fullPlayerData.currentClanName());
             currentNickname.setText(fullPlayerData.basicPlayerData().currentNickname());
+
+            acceptMemberChoiceBox.getItems().clear();
+            if (fullPlayerData.currentClanId() != null) {
+                for (var item : databaseService.getClanApplications(fullPlayerData.currentClanId())) {
+                    acceptMemberChoiceBox.getItems().add(item.playerID());
+                }
+            }
+
+            acceptFriendChoiceBox.getItems().clear();
+            if (fullPlayerData.currentClanId() != null) {
+                for (var item : databaseService.getActiveFriendInvites(fullPlayerData.getID())) {
+                    acceptFriendChoiceBox.getItems().add(item.senderId() == fullPlayerData.getID() ? item.receiverID() : item.senderId());
+                }
+            }
         }
         catch (Exception e) {
 //            throw new RuntimeException(e);

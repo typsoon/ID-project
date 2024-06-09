@@ -3,6 +3,7 @@ package org.example.idproject.view.infoPanes;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
@@ -33,7 +34,7 @@ public abstract class AbstractInfoController {
         T get() throws SQLException;
     }
 
-    protected  <T extends HasID> EventHandler<ActionEvent> getEventHandler(CheckedSupplier<Collection<T>> supplier, CustomDataTable<T> dataTableCreator) {
+    protected  <T extends HasID, E extends Event> EventHandler<E> getEventHandler(CheckedSupplier<Collection<T>> supplier, CustomDataTable<T> dataTableCreator) {
         return event -> {
 //            if (fullPlayerData != null) {
             tablePane.getChildren().clear();

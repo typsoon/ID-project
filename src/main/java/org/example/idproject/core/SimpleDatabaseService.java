@@ -264,6 +264,11 @@ public class SimpleDatabaseService implements DatabaseService {
     }
 
     @Override
+    public Collection<BasicDuelData> getSingleDuelData(int duelID) throws SQLException {
+        return List.of();
+    }
+
+    @Override
     public Collection<BasicChallengeData> browseChallenges(String objective, LocalDate dateFrom, LocalDate dateTo) throws SQLException {
         Collection<BasicChallengeData> challenges = new ArrayList<>();
         Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password());
@@ -403,6 +408,21 @@ public class SimpleDatabaseService implements DatabaseService {
     }
 
     @Override
+    public void endDuel(int duelID, boolean firstWon) throws SQLException {
+
+    }
+
+    @Override
+    public void applyToClan(int applierID, int clanID) throws SQLException {
+
+    }
+
+    @Override
+    public void acceptMember(int whoAccepts, int acceptedID) throws SQLException {
+
+    }
+
+    @Override
     public Collection<ClanMemberData> getCurrentMembers(int clanID) throws SQLException {
         Collection<ClanMemberData> memberData = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
@@ -443,6 +463,11 @@ public class SimpleDatabaseService implements DatabaseService {
     }
 
     @Override
+    public Collection<ClanApplication> getClanApplications(int clanID) throws SQLException {
+        return List.of();
+    }
+
+    @Override
     public void moveDuelsToArchive() throws SQLException {
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Statement stmt = conn.createStatement();
@@ -460,6 +485,21 @@ public class SimpleDatabaseService implements DatabaseService {
         catch (Exception e) {
            return false;
         }
+    }
+
+    @Override
+    public Collection<TournamentData> browseTournaments(String tournamentName) throws SQLException {
+        return List.of();
+    }
+
+    @Override
+    public Collection<TournamentData> getAllTournaments() throws SQLException {
+        return List.of();
+    }
+
+    @Override
+    public Collection<TournamentMatch> getTournamentMatches(int tournamentID) throws SQLException {
+        return List.of();
     }
 
     public static void main(String[] args) {

@@ -28,8 +28,8 @@ public interface DatabaseService {
     boolean sendClanMessage(int playerID, String message) throws SQLException;
 
     Collection<BasicDuelData> browseDuels(String tookPart, LocalDate dateFrom, LocalDate dateTo) throws SQLException;
-
     Collection<BasicDuelData> getAllDuels() throws SQLException;
+    Collection<BasicDuelData> getSingleDuelData(int duelID) throws SQLException;
 
     Collection<BasicChallengeData> browseChallenges(String objective, LocalDate dateFrom, LocalDate dateTo) throws SQLException;
     Collection<BasicChallengeData> getAllChallenges() throws SQLException;
@@ -43,11 +43,18 @@ public interface DatabaseService {
     Collection<FriendInvite> getAllFriendInvites(int playerID) throws SQLException;
     Collection<FriendInvite> getActiveFriendInvites(int playerID) throws SQLException;
 
+    void endDuel(int duelID, boolean firstWon) throws SQLException;
+
+    void applyToClan(int applierID, int clanID) throws SQLException;
+    void acceptMember(int whoAccepts, int acceptedID) throws SQLException;
+
 //    only one role displayed
     Collection<ClanMemberData> getCurrentMembers(int clanID) throws SQLException;
 
 //  all changes in roles displayed - multiple records for each player
     Collection<ClanMemberData> getCurrentAndPastMembers(int clanID) throws SQLException;
+
+    Collection<ClanApplication> getClanApplications(int clanID) throws SQLException;
 
     void moveDuelsToArchive() throws SQLException;
 

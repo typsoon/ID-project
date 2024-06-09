@@ -18,7 +18,7 @@
 
 <!--suppress JavaFxDefaultTag -->
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="764.0" prefWidth="655.0" spacing="30.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="861.0" prefWidth="731.0" spacing="30.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
 <!--   xmlns:fx="http://javafx.com/fxml/1"-->
    <children>
       <HBox alignment="CENTER" prefHeight="51.0" prefWidth="600.0" spacing="20.0">
@@ -143,7 +143,14 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="75.0" prefWidth="290.0" spacing="5.0">
+            <VBox prefHeight="77.0" prefWidth="116.0">
+               <children>
+                  <Button fx:id="endDuelButton" mnemonicParsing="false" text="End duel" />
+                  <TextField fx:id="endDuelDuelID" promptText="Duel ID" />
+                  <TextField fx:id="endDuelWonBoolean" promptText="First won" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="77.0" prefWidth="277.0" spacing="5.0">
                <children>
                   <Button fx:id="addDuel" mnemonicParsing="false" prefHeight="29.0" prefWidth="101.0" text="Add Duel" />
                   <ButtonBar prefHeight="40.0" prefWidth="200.0">
@@ -170,7 +177,7 @@
             </VBox>
          </children>
       </HBox>
-      <AnchorPane fx:id="tablePane" prefHeight="332.0" prefWidth="562.0">
+      <AnchorPane fx:id="tablePane" prefHeight="272.0" prefWidth="655.0">
          <children>
             <TableView fx:id="dataTable" layoutX="84.0" layoutY="14.0" prefHeight="233.0" prefWidth="487.0">
                <columns>
