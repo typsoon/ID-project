@@ -1,7 +1,6 @@
 package org.example.idproject.core;
 
 
-import org.example.idproject.common.BasicPlayerData;
 import org.example.idproject.common.*;
 import org.example.idproject.viewmodel.DatabaseService;
 
@@ -73,6 +72,9 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public boolean insertPlayer(String login, String password, String nickName) throws SQLException {
+        preventSqlInjection(login);
+        preventSqlInjection(password);
+        preventSqlInjection(nickName);
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Statement stmt = conn.createStatement();
             return stmt.execute( "insert into fullplayerdata (password_hash, login, playernickname) values (" + password.hashCode() + ",'" + login + "','" + nickName + "');" );
@@ -85,6 +87,8 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public boolean insertClan(int leaderID, java.util.Date dateFrom, String clanName, String logoFilePath) throws SQLException {
+        preventSqlInjection(clanName);
+        
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Statement stmt = conn.createStatement();
             return stmt.execute( "insert into fullclandata (clanimage, clanname, leader,time) values (\'" +
@@ -106,6 +110,7 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public Collection<BasicClanData> browseClans(String name) throws SQLException {
+        preventSqlInjection(name);
         Collection<BasicClanData> clans = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Statement stmt = conn.createStatement();
@@ -206,6 +211,7 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public boolean sendClanMessage(int playerID, String message) throws SQLException {
+        preventSqlInjection(message);
 
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Statement stmt = conn.createStatement();
@@ -243,6 +249,7 @@ public class SimpleDatabaseService implements DatabaseService {
     
     @Override
     public void changeName(int clanID, String newName) throws SQLException {
+        preventSqlInjection(newName);
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Statement stmt = conn.createStatement();
             stmt.execute("INSERT INTO ClanName (clan_ID, cl_name) VALUES (" + clanID + ", '" + newName + "')");
@@ -278,6 +285,7 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public Collection<BasicDuelData> browseDuels(String tookPart, LocalDate dateFrom, LocalDate dateTo) throws SQLException {
+        preventSqlInjection(tookPart);
         int tookPartID = Integer.parseInt(tookPart);
         Collection<BasicDuelData> duels = new ArrayList<>();
         Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password());
@@ -328,6 +336,7 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public Collection<BasicChallengeData> browseChallenges(String objective, LocalDate dateFrom, LocalDate dateTo) throws SQLException {
+        preventSqlInjection(objective);
         Collection<BasicChallengeData> challenges = new ArrayList<>();
         Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password());
         Statement stmt = conn.createStatement();
@@ -402,6 +411,7 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public void sendFriendMessage(int senderID, int receiverID, String message) throws SQLException {
+        preventSqlInjection(message);
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Statement stmt = conn.createStatement();
             //return
@@ -431,6 +441,7 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public void changeNickname(int playerID, String newNickname) throws SQLException {
+        preventSqlInjection(newNickname);
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Statement stmt = conn.createStatement();
             stmt.execute("INSERT INTO PlayerNickname (player_ID, nickname) VALUES (" + playerID + ", '" + newNickname + "')");
@@ -667,6 +678,7 @@ public class SimpleDatabaseService implements DatabaseService {
 
     @Override
     public void createTournament(String tournamentName, Collection<Integer> players) throws SQLException {
+        preventSqlInjection(tournamentName);
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Array sqlArray = conn.createArrayOf("integer", players.toArray());
 
@@ -679,6 +691,11 @@ public class SimpleDatabaseService implements DatabaseService {
 
             stmt.executeQuery();
         }
+    }
+
+    public void preventSqlInjection(String string) throws SQLException {
+        if(!string.matches("[a-zA-Z0-9]+"))
+            throw new SQLException("SQL Injection Detected");
     }
 
 }
