@@ -57,12 +57,9 @@ create table Duels
     outcome   boolean,
     primary key (duel_ID),
     CHECK ( AGE(COALESCE(date_to, NOW()), date_from) < interval '10 minutes'),
-    CHECK ( (outcome IS NOT NULL AND date_to IS NOT NULL) OR (outcome IS NULL AND date_to IS NULL))
+    CHECK ( (outcome IS NOT NULL AND date_to IS NOT NULL) OR (outcome IS NULL AND date_to IS NULL)),
+    CHECK ( sender < receiver )
 );
-
-ALTER TABLE Duels
-ADD CONSTRAINT check_players
-CHECK (sender != receiver);
 
 create table ArchivedDuels AS SELECT * FROM duels
 WHERE duel_ID IS NULL;
