@@ -14,7 +14,7 @@ END;
 $check_player_has_nickname$ LANGUAGE plpgsql;
 
 CREATE constraint TRIGGER check_player_has_nickname
-BEFORE UPDATE OR INSERT ON Players
+after UPDATE OR INSERT ON Players
     deferrable
     initially deferred
 FOR EACH ROW
@@ -195,16 +195,12 @@ EXECUTE FUNCTION expire_clan_applications();
 -- czy gracz jest już aktywny w innym pojedynku ------------------------------------------------------------
 CREATE OR REPLACE FUNCTION check_active_duel()
 RETURNS TRIGGER AS $check_active_duel$
-DECLARE
-    active_duel_id INTEGER;
 BEGIN
-    SELECT duel_ID INTO active_duel_id
-    FROM Duels
-    WHERE 
-        ((NEW.sender = sender AND NEW.receiver = receiver) OR (NEW.sender = receiver AND NEW.receiver = sender))
-        AND date_to IS NULL AND outcome IS NULL;
-
-    IF active_duel_id IS NOT NULL THEN
+   -- raise exception '% % %', new.sender, new.receiver , new.date_from;
+    IF exists ( select * from duels d
+                         where (d.date_from,coalesce(d.date_to,current_timestamp::timestamp)+interval '1 minute') overlaps (new.date_from,coalesce(new.date_to,current_timestamp::timestamp))
+                                    AND (d.sender = new.sender or d.sender = new.receiver or d.receiver = new.sender or d.receiver = new.receiver)
+    ) THEN
         RAISE EXCEPTION 'Ten gracz aktualnie bierze udział w innym pojedynku';
     END IF;
 
@@ -212,8 +208,8 @@ BEGIN
 END;
 $check_active_duel$ LANGUAGE plpgsql;
 
-CREATE TRIGGER check_active_duel
-BEFORE INSERT ON Duels
+CREATE or replace TRIGGER check_active_duel
+BEFORE INSERT ON duels
 FOR EACH ROW
 EXECUTE PROCEDURE check_active_duel();
 ------------------------------------------------------------------------------------------------------------
@@ -799,6 +795,45 @@ CREATE constraint TRIGGER player_exist_before_clan_join
         initially deferred
     FOR EACH ROW
 EXECUTE PROCEDURE player_exist_before_clan_join();
+
+
+CREATE OR REPLACE FUNCTION remove_invite()
+    RETURNS TRIGGER AS $remove_invite$
+BEGIN
+    delete from FriendsInvites fi where fi.player1_ID = new.player1_ID
+                                    and fi.player2_ID = new.player2_ID;
+    return new;
+END;
+$remove_invite$ LANGUAGE plpgsql;
+
+CREATE or replace TRIGGER remove_invite
+    after INSERT ON friends
+    FOR EACH ROW
+EXECUTE PROCEDURE remove_invite();
+
+
+CREATE OR REPLACE FUNCTION doubleFriends()
+    RETURNS TRIGGER AS $doubleFriends$
+BEGIN
+    if exists(
+        select * from friends f where f.player1_ID = new.player1_ID
+                                  and f.player2_ID = new.player2_ID and
+            (
+                (new.date_from,coalesce(new.date_to,current_timestamp::timestamp))
+                    overlaps
+                (f.date_from,coalesce(f.date_to,current_timestamp::timestamp))
+                )
+    ) then
+        raise exception 'double friends';
+    end if;
+    return new;
+END;
+$doubleFriends$ LANGUAGE plpgsql;
+
+CREATE or replace TRIGGER doubleFriends
+    before INSERT ON friends
+    FOR EACH ROW
+EXECUTE PROCEDURE doubleFriends();
 
 -- udział w turnieju idk
 -- CREATE OR REPLACE FUNCTION check_tournament_participation()
