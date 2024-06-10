@@ -672,45 +672,29 @@ EXECUTE FUNCTION check_duplicate_invite();
 
 -- sprawdzanie turniejów -----------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION fn_check_tournament_rules() RETURNS TRIGGER AS $$
-DECLARE
-    left_child_level INTEGER;
-    right_child_level INTEGER;
 BEGIN
-    -- Sprawdzenie, czy gracz bierze udział w maksymalnie jednym turnieju jednocześnie
-    IF EXISTS (
-        SELECT 1 FROM Tournaments INNER JOIN duels USING(duel_id) WHERE (duel_id = NEW.duel_id) AND date_to IS NULL
-    ) THEN
-        RAISE EXCEPTION 'Player is already participating in another tournament.';
-    END IF;
-
-    -- Sprawdzenie, czy dzieci mają takie same id_turnieju co ojciec
-    IF NEW.left_child IS NOT NULL AND NEW.right_child IS NOT NULL THEN
-        IF NOT EXISTS (
-            SELECT 1 FROM Tournaments WHERE duel_id IN (NEW.left_child, NEW.right_child) AND tournament_id = NEW.tournament_id
-        ) THEN
-            RAISE EXCEPTION 'Children must have the same tournament_id as their parent.';
-        END IF;
-    END IF;
-
-    -- Sprawdzenie, czy dzieci mają ten sam poziom
-    IF NEW.left_child IS NOT NULL AND NEW.right_child IS NOT NULL THEN
-        left_child_level := get_level(NEW.left_child);
-        right_child_level := get_level(NEW.right_child);
-
-        IF left_child_level != right_child_level THEN
-            RAISE EXCEPTION 'Children must be on the same level in the tree.';
-        END IF;
-    END IF;
-
-    -- Sprawdzenie, czy pojedynek rozpoczyna się po dzieciach
-    IF NEW.left_child IS NOT NULL AND NEW.right_child IS NOT NULL THEN
-        IF NOT EXISTS (
-            SELECT 1 FROM Duels WHERE duel_id = NEW.duel_id AND date_from > ALL(SELECT date_to FROM Duels WHERE duel_id IN (NEW.left_child, NEW.right_child))
-        ) THEN
-            RAISE EXCEPTION 'Parent duel must start after the children duels have ended.';
-        END IF;
-    END IF;
-
+    if new.left_child is null AND exists (select * from tournaments t join duels d on t.duel_id = d.duel_id
+                     where t.tournament_id=new.tournament_id AND
+                           (
+                               d.sender in (select d.sender,d.receiver from duels d where d.duel_id = new.duel_id)
+                               or d.receiver in (select d.sender,d.receiver from duels d where d.duel_id = new.duel_id)
+                               )
+                           ) then
+        raise exception 'doubled player';
+    end if;
+    if get_level(new.left_child) <> get_level(new.right_child) then
+        raise exception 'wrong structure';
+    end if;
+    if new.left_child is not null AND (select d.outcome from tournaments t
+                                  join duels d on t.duel_id = d.duel_id
+        where t.matchup_id = new.left_child) is null then
+        raise exception 'child didnt end';
+    end if;
+    if new.right_child is not null AND (select d.outcome from tournaments t
+                                                                 join duels d on t.duel_id = d.duel_id
+                                       where t.matchup_id = new.right_child) is null then
+        raise exception 'child didnt end';
+    end if;
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
