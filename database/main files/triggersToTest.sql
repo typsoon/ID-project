@@ -116,7 +116,7 @@ BEGIN
     if coalesce(playerclanid(new.who_kicked) ,-1) <> coalesce(playerclanid(new.player_id),0) then
         raise exception 'Not in same clan!';
     end if;
-    IF (SELECT rank_ID FROM PlayerRole pr1 WHERE player_ID = NEW.who_kicked AND playerclanid(PR1.player_id) = NEW.clan_ID ORDER BY PR1.date_from DESC LIMIT 1) >
+    IF (SELECT rank_ID FROM PlayerRole pr1 WHERE player_ID = NEW.who_kicked AND playerclanid(PR1.player_id) = NEW.clan_ID ORDER BY PR1.date_from DESC LIMIT 1) >=
        (SELECT rank_ID FROM PlayerRole pr2 WHERE player_ID = NEW.player_ID AND playerclanid(PR2.player_id) = NEW.clan_ID ORDER BY PR2.date_from DESC LIMIT 1)
 --        AND pr1.clan_ID=pr2.clan_ID
        THEN
@@ -830,6 +830,56 @@ CREATE or replace TRIGGER doubleFriends
     before INSERT ON friends
     FOR EACH ROW
 EXECUTE PROCEDURE doubleFriends();
+
+
+CREATE OR REPLACE FUNCTION clanMemberHasRole()
+    RETURNS TRIGGER AS $clanMemberHasRole$
+    BEGIN
+        IF getcurrentrole(NEW.player_id) IS NULL THEN
+            RAISE EXCEPTION 'Player has no role';
+        END IF;
+
+        RETURN NEW;
+    END ;
+    $clanMemberHasRole$ LANGUAGE plpgsql;
+
+CREATE CONSTRAINT trigger clanMemberHasRole AFTER INSERT ON playerclan
+    deferrable
+    initially deferred
+    FOR EACH ROW
+EXECUTE PROCEDURE clanMemberHasRole();
+
+
+CREATE OR REPLACE FUNCTION memberAccepted()
+    RETURNS TRIGGER AS $memberAccepted$
+    BEGIN
+
+        IF NEW.who_accepted IS NULL AND getclanleader(NEW.clan_id) is null THEN
+            RETURN NEW;
+        end if;
+
+        IF PlayerClanID(NEW.who_accepted) IS NULL THEN
+            raise exception 'wrong acceptor';
+        END IF;
+        IF GetCurrentRole(NEW.who_accepted) IS NULL OR GetCurrentRole(NEW.who_accepted) <> 'Leader' AND GetCurrentRole(NEW.who_accepted) <> 'Elder' THEN
+            raise exception 'wrong acceptor';
+        END IF;
+        if not exists (select clan_id from Applications
+            where clan_id = PlayerClanID(NEW.who_accepted) and player_id = NEW.player_ID limit 1)
+            then
+            raise exception 'wrong applier';
+        END IF;
+        delete from Applications where clan_id = PlayerClanID(NEW.who_accepted) and player_id = NEW.player_ID;
+        RETURN NEW;
+    END ;
+    $memberAccepted$ LANGUAGE plpgsql;
+
+CREATE  trigger memberAccepted before INSERT ON playerclan
+    FOR EACH ROW
+EXECUTE PROCEDURE memberAccepted();
+
+
+
 
 -- udział w turnieju idk
 -- CREATE OR REPLACE FUNCTION check_tournament_participation()

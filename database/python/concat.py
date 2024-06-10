@@ -24,7 +24,8 @@ my_input_files = [
     "../main files/clanMessege.sql",
     "../main files/clanInvites.sql",
     "../main files/friendInvites.sql",
-    "../main files/triggersToTest.sql"
+    "../main files/triggersToTest.sql",
+    '../main files/cannotDelete.sql'
 ]
 
 my_output_file = '../final/create.sql'

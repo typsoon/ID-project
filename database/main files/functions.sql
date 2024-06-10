@@ -172,6 +172,10 @@ create or replace function GetCurrentRole (playerID int)
     returns varchar as
 $$
 begin
+    IF PlayerClanID(playerID) IS NULL THEN
+        RETURN NULL;
+    end if;
+
     return
         (
             select rank_name from playerrole pr
@@ -418,15 +422,17 @@ BEGIN
     IF PlayerClanID(acceptor) IS NULL THEN
         raise exception 'wrong acceptor';
     END IF;
-    IF GetCurrentRole(acceptor) <> 'Leader' AND GetCurrentRole(acceptor) <> 'Elder' THEN
+    IF GetCurrentRole(acceptor) IS NULL OR GetCurrentRole(acceptor) <> 'Leader' AND GetCurrentRole(acceptor) <> 'Elder' THEN
         raise exception 'wrong acceptor';
     END IF;
     if (select clan_id from Applications
         where clan_id = PlayerClanID(acceptor) and player_id = applier limit 1) is null then
         raise exception 'wrong applier';
     END IF;
-    delete from Applications where clan_id = PlayerClanID(acceptor) and player_id = applier;
+
+
     insert into playerclan (clan_ID,player_ID,who_accepted) values (PlayerClanID(acceptor),applier,acceptor);
     insert into playerrole (player_id, rank_id) values  (applier,3);
+
     END;
 $$ LANGUAGE plpgsql;

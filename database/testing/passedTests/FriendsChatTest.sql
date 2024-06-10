@@ -12,6 +12,6 @@ INSERT INTO FriendsChat(sent_date, receiver_id, sender_id, msg_text) VALUES ('20
 --shouldn't execute
     INSERT INTO FriendsChat(sent_date, sender_id, receiver_id, msg_text) VALUES ('2020-01-01', 1, 3, 'test');
     INSERT INTO FriendsChat(sent_date, receiver_id, sender_id, msg_text) VALUES ('2020-01-01', 1, 3, 'test');
-    DELETE FROM FriendsChat WHERE TRUE;
+    DELETE FROM FriendsChat WHERE sender_id = 1;
 -- INSERT INTO FriendsChat(sent_date, sender_id, receiver_id, msg_text) VALUES ('2022-06-01', 1, 3, 'test');
 -- INSERT INTO FriendsChat(sent_date, receiver_id, sender_id, msg_text) VALUES ('2022-06-01', 1, 3, 'test');
