@@ -15,7 +15,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         stage.setTitle("Welcome to IDProject");
         LoginSceneController loginSceneController = new LoginSceneController(stage);
-        FXMLLoader loginScreenLoader = new FXMLLoader(getClass().getResource(FXMLAddresses.LOGIN_SCREEN));
+        FXMLLoader loginScreenLoader = new FXMLLoader(App.class.getResource(FXMLAddresses.LOGIN_SCREEN));
         loginScreenLoader.setController(loginSceneController);
 
         if (!loginSceneController.loggedInWithSavedCredentials()) {
