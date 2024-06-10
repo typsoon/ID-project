@@ -105,8 +105,15 @@ EXECUTE FUNCTION remove_friend_invites_after_acceptance();
 CREATE OR REPLACE FUNCTION check_rank_before_kick()
 RETURNS TRIGGER AS $check_rank_before_kick$
 BEGIN
-    IF (SELECT rank_ID FROM PlayerRole pr1 WHERE player_ID = NEW.who_kicked AND playerclanid(pr1.player_id) = NEW.clan_ID limit 1) <
-       (SELECT rank_ID FROM PlayerRole pr2 WHERE player_ID = NEW.player_ID AND playerclanid(pr2.player_id) = NEW.clan_ID limit 1)
+    --raise exception '% , %', new.who_kicked, new.player_id;
+    IF new.who_kicked is null then
+        return new;
+    end if;
+    if coalesce(playerclanid(new.who_kicked) ,-1) <> coalesce(playerclanid(new.player_id),0) then
+        raise exception 'Not in same clan!';
+    end if;
+    IF (SELECT rank_ID FROM PlayerRole pr1 WHERE player_ID = NEW.who_kicked AND playerclanid(PR1.player_id) = NEW.clan_ID ORDER BY PR1.date_from DESC LIMIT 1) >
+       (SELECT rank_ID FROM PlayerRole pr2 WHERE player_ID = NEW.player_ID AND playerclanid(PR2.player_id) = NEW.clan_ID ORDER BY PR2.date_from DESC LIMIT 1)
 --        AND pr1.clan_ID=pr2.clan_ID
        THEN
         RAISE EXCEPTION 'You do not have sufficient rank to kick this player';
@@ -115,31 +122,30 @@ BEGIN
 END;
 $check_rank_before_kick$ LANGUAGE plpgsql;
 
-CREATE TRIGGER check_rank_before_kick
+CREATE OR REPLACE TRIGGER check_rank_before_kick
 BEFORE UPDATE ON PlayerClan
 FOR EACH ROW
-WHEN (NEW.date_to IS NOT NULL)
 EXECUTE PROCEDURE check_rank_before_kick();
 ------------------------------------------------------------------------------------------------------------
 
 
 -- funkcja sprawdzająca rangę przed akceptacją aplikacji do klanu ------------------------------------------
-CREATE OR REPLACE FUNCTION check_rank_before_accept()
-RETURNS TRIGGER AS $check_rank_before_accept$
-BEGIN
-    IF (SELECT rank_ID FROM PlayerRole pr1 WHERE player_ID = NEW.who_accepted AND playerclanid(pr1.player_id) = NEW.clan_ID) <=
-       (SELECT rank_ID FROM Roles WHERE rank_name = 'Member') THEN
-        RAISE EXCEPTION 'You do not have sufficient rank to accept this application';
-    END IF;
-    RETURN NEW;
-END;
-$check_rank_before_accept$ LANGUAGE plpgsql;
-
-CREATE TRIGGER check_rank_before_accept
-BEFORE UPDATE ON Applications
-FOR EACH ROW
-WHEN (NEW.date_to IS NOT NULL)
-EXECUTE FUNCTION check_rank_before_accept();
+-- CREATE OR REPLACE FUNCTION check_rank_before_accept()
+-- RETURNS TRIGGER AS $check_rank_before_accept$
+-- BEGIN
+--     IF (SELECT rank_ID FROM PlayerRole pr1 WHERE player_ID = NEW.who_accepted AND playerclanid(pr1.player_id) = NEW.clan_ID) <=
+--        (SELECT rank_ID FROM Roles WHERE rank_name = 'Member') THEN
+--         RAISE EXCEPTION 'You do not have sufficient rank to accept this application';
+--     END IF;
+--     RETURN NEW;
+-- END;
+-- $check_rank_before_accept$ LANGUAGE plpgsql;
+--
+-- CREATE TRIGGER check_rank_before_accept
+-- BEFORE UPDATE ON Applications tu jest jakis troll bo to playerclan powinno byc
+-- FOR EACH ROW
+-- WHEN (NEW.date_to IS NOT NULL)
+-- EXECUTE FUNCTION check_rank_before_accept();
 ------------------------------------------------------------------------------------------------------------
 
 
@@ -724,41 +730,47 @@ END;
 $check_clan_has_leader$ LANGUAGE plpgsql;
 
 CREATE TRIGGER check_clan_has_leader
-AFTER UPDATE OR INSERT OR DELETE ON Clans
+BEFORE UPDATE OR INSERT ON Clans
 FOR EACH ROW
 EXECUTE FUNCTION check_clan_has_leader();
 ------------------------------------------------------------------------------------------------------------
 
 --
 CREATE OR REPLACE FUNCTION ensure_clan_has_leader()
-RETURNS TRIGGER AS $$
-    DECLARE
-        lastClan integer = (
-        SELECT clan_id FROM playerclan
-        WHERE player_id = old.player_id
-        ORDER BY date_to DESC
-        LIMIT 1
-     );
+    RETURNS TRIGGER AS $$
 BEGIN
---     IF OLD.rank_ID = (SELECT rank_ID FROM Roles WHERE rank_name = 'Leader') THEN
-    IF lastClan IS NULL THEN
-        RETURN NEW;
+    IF GetClanLeader(PlayerClanID(new.player_id)) IS NULL THEN
+        RAISE EXCEPTION 'Clan does not have a leader';
     END IF;
-
-    IF GetClanLeader(lastClan) IS NULL THEN
-        RAISE EXCEPTION 'Cannot remove or update leader. Clan would be left without a leader.';
-    END IF;
-
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER ensure_clan_has_leader
-AFTER DELETE OR UPDATE ON PlayerRole
-FOR EACH ROW
+
+CREATE constraint TRIGGER ensure_clan_has_leader_before_update
+    after insert ON PlayerRole
+    deferrable
+    initially deferred
+    FOR EACH ROW
 EXECUTE FUNCTION ensure_clan_has_leader();
 ------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION leader_can_leave_if_empty_clan()
+    RETURNS TRIGGER AS $$
+BEGIN
+    IF GetCurrentRole(new.player_id) = 'Leader' AND
+       (select count(*) from GetMembers(new.clan_id,current_timestamp::timestamp)) <> 1
+    THEN
+        RAISE EXCEPTION 'Leader cant leave';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
+
+CREATE TRIGGER leader_can_leave_if_empty_clan
+    after UPDATE ON PlayerClan
+    FOR EACH ROW
+EXECUTE FUNCTION leader_can_leave_if_empty_clan();
 -- udział w turnieju idk
 -- CREATE OR REPLACE FUNCTION check_tournament_participation()
 -- RETURNS TRIGGER AS $check_tournament_participation$

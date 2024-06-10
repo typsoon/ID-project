@@ -4,17 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b753b57e-ab60-46b8-9bb6-279e46c6879a" name="Changes" comment="Final commit">
-      <change afterPath="$PROJECT_DIR$/database/final/clear.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/final/diagram.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/final/opis.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/initFinal.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/python/concat.py" afterDir="false" />
+    <list default="true" id="b753b57e-ab60-46b8-9bb6-279e46c6879a" name="Changes" comment="some debug">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/main files/create.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/main files/create.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/main files/createAll.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/final/create.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/main files/functions.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/main files/functions.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/main files/views.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/main files/views.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/main files/triggersToTest.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/main files/triggersToTest.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/core/SimpleDatabaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/core/SimpleDatabaseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/infoPanes/ClanInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/infoPanes/ClanInfoController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,36 +56,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.App.executor": "Run",
-    "Database Script.create.sql.executor": "Run",
-    "Database Script.createAll.sql.executor": "Run",
-    "Python.concat.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Shell Script.initFinal.executor": "Run",
-    "git-widget-placeholder": "main",
-    "jdk.selected.JAVA_MODULE": "21",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/piotrek/GitHub/ID-project/database",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "SDKs",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.App.executor&quot;: &quot;Run&quot;,
+    &quot;Database Script.create.sql.executor&quot;: &quot;Run&quot;,
+    &quot;Database Script.createAll.sql.executor&quot;: &quot;Run&quot;,
+    &quot;Python.concat.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Shell Script.initFinal.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/piotrek/GitHub/ID-project/database&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "RunConfigurationTargetLRU": [
-      "094d7937-b210-4176-9d5e-131190dc6335",
-      "094d7937-b210-4176-9d5e-131190dc6335/database/\"piotrek\""
+  &quot;keyToStringList&quot;: {
+    &quot;RunConfigurationTargetLRU&quot;: [
+      &quot;094d7937-b210-4176-9d5e-131190dc6335&quot;,
+      &quot;094d7937-b210-4176-9d5e-131190dc6335/database/\&quot;piotrek\&quot;&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="org.example.idproject.view.dataTables" />
@@ -105,7 +100,7 @@
       <recent name="$PROJECT_DIR$/database" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.concat">
+  <component name="RunManager" selected="Application.App">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.idproject.App" />
       <module name="ID-project" />
@@ -166,7 +161,6 @@
     <list>
       <item itemvalue="Application.App" />
       <item itemvalue="Database Script.create.sql" />
-      <item itemvalue="Python.concat" />
       <item itemvalue="Shell Script.initFinal" />
     </list>
     <recent_temporary>
@@ -267,7 +261,8 @@
     <MESSAGE value="Added add tournaments" />
     <MESSAGE value="Pushed fixes to functions.sql" />
     <MESSAGE value="Final commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Final commit" />
+    <MESSAGE value="some debug" />
+    <option name="LAST_COMMIT_MESSAGE" value="some debug" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

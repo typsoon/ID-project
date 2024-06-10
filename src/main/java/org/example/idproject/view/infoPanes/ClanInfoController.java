@@ -82,7 +82,7 @@ public class ClanInfoController extends AbstractInfoController {
                 try {
                     Integer whoKickedID;
                     try {
-                        whoKickedID = Integer.getInteger(whoKicked.getText());
+                        whoKickedID = Integer.parseInt(whoKicked.getText());
                     }
                     catch (Exception ignored) {
                         whoKickedID = null;
