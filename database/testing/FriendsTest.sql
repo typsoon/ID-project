@@ -20,4 +20,3 @@ INSERT INTO friends(player1_id, player2_id, date_from, date_to) VALUES (4, 5, '2
     WHERE (player1_id, player2_id, date_from, date_to) = (4, 5, '2022-01-01', null);
 
 
-

@@ -136,7 +136,7 @@ CREATE TABLE FriendsInvites
 CREATE TABLE PlayerNickname
 (
     player_ID INTEGER REFERENCES Players (player_ID),
-    date_from timestamp default CURRENT_TIMESTAMP ,
+    date_from timestamp default CURRENT_TIMESTAMP NOT NULL,
     nickname  varchar(40) not null,
     PRIMARY KEY (player_ID, date_from)
 );
@@ -197,8 +197,9 @@ CREATE TABLE Challenges
 (
     challenge_id SERIAL PRIMARY KEY,
     date_from TIMESTAMP default CURRENT_TIMESTAMP  NOT NULL,
-    date_to TIMESTAMP NOT NULL,
+    date_to TIMESTAMP,
     objective INTEGER NOT NULL CHECK ( objective > 0 ),
+    CHECK ( date_to IS NULL OR  date_from < date_to ),
     description VARCHAR(200) NOT NULL
 );
 CREATE TABLE PlayerChallenge
