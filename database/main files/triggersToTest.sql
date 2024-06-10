@@ -673,11 +673,23 @@ EXECUTE FUNCTION check_duplicate_invite();
 -- sprawdzanie turniejów -----------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION fn_check_tournament_rules() RETURNS TRIGGER AS $$
 BEGIN
+
+    if new.left_child is not NULL then
+        if (select tournament_id from tournaments where matchup_id = new.left_child) <> new.tournament_id or
+           (select tournament_id from tournaments where matchup_id = new.right_child) <> new.tournament_id then
+            raise exception 'not your child';
+        end if;
+        if exists(select * from tournaments where right_child = new.right_child or left_child = new.right_child or right_child=new.left_child or left_child=new.left_child) then
+            raise 'doubled child';
+        end if;
+    end if;
     if new.left_child is null AND exists (select * from tournaments t join duels d on t.duel_id = d.duel_id
                      where t.tournament_id=new.tournament_id AND
                            (
-                               d.sender in (select d.sender,d.receiver from duels d where d.duel_id = new.duel_id)
-                               or d.receiver in (select d.sender,d.receiver from duels d where d.duel_id = new.duel_id)
+                               d.sender in (select d.sender from duels d where d.duel_id = new.duel_id)
+                               or d.receiver in (select d.receiver from duels d where d.duel_id = new.duel_id)
+                               or d.sender in (select d.receiver from duels d where d.duel_id = new.duel_id)
+                                or d.receiver in (select d.sender from duels d where d.duel_id = new.duel_id)
                                )
                            ) then
         raise exception 'doubled player';
@@ -688,7 +700,7 @@ BEGIN
     if new.left_child is not null AND (select d.outcome from tournaments t
                                   join duels d on t.duel_id = d.duel_id
         where t.matchup_id = new.left_child) is null then
-        raise exception 'child didnt end';
+        raise exception 'child didnt end1';
     end if;
     if new.right_child is not null AND (select d.outcome from tournaments t
                                                                  join duels d on t.duel_id = d.duel_id
