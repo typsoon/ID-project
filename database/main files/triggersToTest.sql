@@ -1,4 +1,4 @@
--- jeden aktywnt nick na gracza ---------------------------------------------------------------------
+-- jeden aktywny nick na gracza ---------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION check_player_has_nickname()
 RETURNS TRIGGER AS $check_player_has_nickname$
 BEGIN
