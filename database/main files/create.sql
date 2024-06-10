@@ -56,8 +56,8 @@ create table Duels
     date_to timestamp,
     outcome   boolean,
     primary key (duel_ID),
-    CHECK ( AGE(COALESCE(date_to, NOW()), date_from) < interval '10 minutes'),
-    CHECK ( date_from < coalesce(date_to, now()) ),
+    CHECK ( COALESCE(date_to, NOW()) - date_from < interval '10 minutes'),
+    CHECK ( date_from < coalesce(date_to, now()+interval'1 minute') ),
     CHECK ( (outcome IS NOT NULL AND date_to IS NOT NULL) OR (outcome IS NULL AND date_to IS NULL)),
     CHECK ( sender < receiver )
 );
@@ -188,8 +188,8 @@ CREATE TABLE Tournaments
     matchup_id serial PRIMARY KEY,
     tournament_id INTEGER REFERENCES TournamentsName,
     duel_id integer unique references Duels,
-    left_child integer unique references Duels,
-    right_child integer unique references Duels,
+    left_child integer unique references Tournaments,
+    right_child integer unique references Tournaments,
     CHECK ( (left_child IS NULL AND right_child IS NULL) OR (left_child IS NOT NULL AND right_child IS NOT NULL) )
 );
 
