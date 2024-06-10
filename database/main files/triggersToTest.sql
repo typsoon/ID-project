@@ -13,8 +13,10 @@ BEGIN
 END;
 $check_player_has_nickname$ LANGUAGE plpgsql;
 
-CREATE TRIGGER check_player_has_nickname
+CREATE constraint TRIGGER check_player_has_nickname
 BEFORE UPDATE OR INSERT ON Players
+    deferrable
+    initially deferred
 FOR EACH ROW
 EXECUTE FUNCTION check_player_has_nickname();
 ------------------------------------------------------------------------------------------------------------
@@ -35,8 +37,10 @@ BEGIN
 END;
 $check_clan_has_logo$ LANGUAGE plpgsql;
 
-CREATE TRIGGER check_clan_has_logo
-BEFORE UPDATE OR INSERT ON Clans
+CREATE constraint TRIGGER check_clan_has_logo
+after UPDATE OR INSERT ON Clans
+    deferrable
+        initially deferred
 FOR EACH ROW
 EXECUTE FUNCTION check_clan_has_logo();
 ------------------------------------------------------------------------------------------------------------
@@ -223,8 +227,10 @@ BEGIN
         SELECT player1_ID
         FROM Friends
         WHERE
-            (NEW.sender_ID = player1_ID AND NEW.receiver_ID = player2_ID)
-            OR (NEW.sender_ID = player2_ID AND NEW.receiver_ID = player1_ID)
+            (
+                (NEW.sender_ID = player1_ID AND NEW.receiver_ID = player2_ID)
+                    OR (NEW.sender_ID = player2_ID AND NEW.receiver_ID = player1_ID)
+                ) and new.sent_date between date_from and coalesce(date_to,current_timestamp)
     ) THEN
         RAISE EXCEPTION 'Only friends can exchange private messages';
     END IF;
@@ -471,6 +477,8 @@ BEFORE INSERT ON ClanChat
 FOR EACH ROW
 EXECUTE PROCEDURE check_clan_member();
 ------------------------------------------------------------------------------------------------------------
+
+
 
 -- sprawdzanie czy lider + zmiana logo ---------------------------------------------------------------------
 -- CREATE OR REPLACE FUNCTION check_leader_before_logo_change()
@@ -729,8 +737,10 @@ BEGIN
 END;
 $check_clan_has_leader$ LANGUAGE plpgsql;
 
-CREATE TRIGGER check_clan_has_leader
-BEFORE UPDATE OR INSERT ON Clans
+CREATE constraint TRIGGER check_clan_has_leader
+after UPDATE OR INSERT ON Clans
+deferrable
+initially deferred
 FOR EACH ROW
 EXECUTE FUNCTION check_clan_has_leader();
 ------------------------------------------------------------------------------------------------------------
@@ -771,6 +781,25 @@ CREATE TRIGGER leader_can_leave_if_empty_clan
     after UPDATE ON PlayerClan
     FOR EACH ROW
 EXECUTE FUNCTION leader_can_leave_if_empty_clan();
+
+CREATE OR REPLACE FUNCTION player_exist_before_clan_join()
+    RETURNS TRIGGER AS $player_exist_before_clan_join$
+BEGIN
+    if (select min(pn.date_from) from playernickname pn
+        where pn.player_id = new.player_id ) > new.date_from then
+        raise exception 'player didnt exists';
+    end if;
+    RETURN NEW;
+END;
+$player_exist_before_clan_join$ LANGUAGE plpgsql;
+
+CREATE constraint TRIGGER player_exist_before_clan_join
+    after INSERT ON playerclan
+    deferrable
+        initially deferred
+    FOR EACH ROW
+EXECUTE PROCEDURE player_exist_before_clan_join();
+
 -- udział w turnieju idk
 -- CREATE OR REPLACE FUNCTION check_tournament_participation()
 -- RETURNS TRIGGER AS $check_tournament_participation$
