@@ -130,11 +130,7 @@ begin
     return
         (
             select pc.player_ID from playerclan pc
-                              join playerrole pr on pc.player_ID = pr.player_ID
-                              join roles r on r.rank_ID = pr.rank_ID
-            where pc.date_to IS NULL AND pc.clan_ID = clanID AND
-                rank_name = 'Leader'
-            order by pr.date_from desc
+            where pc.date_to IS NULL AND pc.clan_ID = clanID and getcurrentrole(pc.player_id) = 'Leader'
             limit 1
         );
 end
@@ -209,12 +205,6 @@ create or replace function PassLeader (clanID int, leaderID int)
     returns void as
 $$
 begin
-    if GetClanLeader(clanID) = leaderID then
-        raise exception 'not';
-    end if;
-    if coalesce(PlayerClanID(leaderID),0) <> clanID  then
-        raise exception 'not in clan';
-    end if;
     insert into playerrole (player_ID,rank_ID) values(GetClanLeader(clanID),2);
     insert into playerrole (player_ID,rank_ID) values(leaderID,1);
 end

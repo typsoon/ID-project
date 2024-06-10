@@ -199,7 +199,7 @@ public class SimpleDatabaseService implements DatabaseService {
     public boolean removeMember(int clanID, int memberID, Integer whoKicked) throws SQLException {
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Statement stmt = conn.createStatement();
-
+            System.out.println("update playerclan set date_to = current_timestamp, who_kicked = " + whoKicked +" where date_to is null and  player_ID=" + memberID +  " AND clan_ID = " + clanID + ";");
             return stmt.execute( "update playerclan set date_to = current_timestamp, who_kicked = " + whoKicked +" where date_to is null and  player_ID=" + memberID +  " AND clan_ID = " + clanID + ";" );
         }
     }

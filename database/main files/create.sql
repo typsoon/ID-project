@@ -106,9 +106,9 @@ create table PlayerClan
 CREATE TABLE FriendsChat
 (
     msg_text    varchar(300) not null,
-    sent_date   timestamp DEFAULT CURRENT_TIMESTAMP,
-    sender_ID   INTEGER REFERENCES Players (player_ID),
-    receiver_ID INTEGER REFERENCES Players (player_ID),
+    sent_date   timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    sender_ID   INTEGER REFERENCES Players,
+    receiver_ID INTEGER REFERENCES Players,
     PRIMARY KEY (sent_date, sender_ID, receiver_ID)
 );
 
@@ -119,7 +119,7 @@ CREATE TABLE Friends
     date_from  timestamp default CURRENT_TIMESTAMP ,
     date_to    timestamp CHECK (date_from < date_to),
     PRIMARY KEY (player1_ID, player2_ID, date_from),
-    CHECK ( player1_ID != player2_ID )
+    CHECK ( player1_ID < player2_ID )
 );
 
 CREATE TABLE FriendsInvites
@@ -129,6 +129,7 @@ CREATE TABLE FriendsInvites
     date_from  timestamp default CURRENT_TIMESTAMP ,
     date_to    timestamp CHECK (date_from < date_to AND AGE(date_to, date_from) < INTERVAL '2 weeks'
 ) ,
+    CHECK (player1_ID < player2_ID),
     PRIMARY KEY (player1_ID, player2_ID, date_from)
 );
 
@@ -178,7 +179,7 @@ CREATE TABLE PlayerRole
 CREATE TABLE TournamentsName
 (
     tournament_id SERIAL PRIMARY KEY ,
-    tournament_name VARCHAR(30)
+    tournament_name VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE Tournaments
