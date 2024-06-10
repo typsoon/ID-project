@@ -57,6 +57,7 @@ create table Duels
     outcome   boolean,
     primary key (duel_ID),
     CHECK ( AGE(COALESCE(date_to, NOW()), date_from) < interval '10 minutes'),
+    CHECK ( date_from < coalesce(date_to, now()) ),
     CHECK ( (outcome IS NOT NULL AND date_to IS NOT NULL) OR (outcome IS NULL AND date_to IS NULL)),
     CHECK ( sender < receiver )
 );
@@ -86,7 +87,8 @@ create table Applications
     clan_ID   integer references Clans,
     player_ID integer references Players,
     date_from timestamp default CURRENT_TIMESTAMP ,
-    date_to   timestamp CHECK (date_from < date_to AND AGE(date_to, date_from) < INTERVAL '2 weeks'),
+    date_to   timestamp,
+    CHECK (date_from < NOW() +interval '1 minute' AND (NOW() - date_from) < INTERVAL '2 weeks'),
     primary key (date_from,clan_ID,player_ID)
 );
 
@@ -124,9 +126,10 @@ CREATE TABLE FriendsInvites
 (
     player1_ID INTEGER REFERENCES Players (player_ID),
     player2_ID INTEGER REFERENCES Players (player_ID),
-    date_from  timestamp default CURRENT_TIMESTAMP ,
-    date_to    timestamp CHECK (date_from < date_to AND AGE(date_to, date_from) < INTERVAL '2 weeks'
-) ,
+    date_from  timestamp default CURRENT_TIMESTAMP NOT NULL ,
+    date_to    timestamp ,
+    CHECK (date_from < NOW()+interval '1 minute' AND NOW() - date_from < INTERVAL '2 weeks'
+        AND COALESCE(date_to, NOW()) - date_from < INTERVAL '2 weeks') ,
     CHECK (player1_ID < player2_ID),
     PRIMARY KEY (player1_ID, player2_ID, date_from)
 );

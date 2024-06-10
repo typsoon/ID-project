@@ -819,7 +819,7 @@ BEGIN
         select * from friends f where f.player1_ID = new.player1_ID
                                   and f.player2_ID = new.player2_ID and
             (
-                (new.date_from,coalesce(new.date_to,current_timestamp::timestamp))
+                (new.date_from,coalesce(new.date_to,current_timestamp::timestamp+interval '1 minute'))
                     overlaps
                 (f.date_from,coalesce(f.date_to,current_timestamp::timestamp))
                 )
