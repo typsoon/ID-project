@@ -56,7 +56,8 @@ create table Duels
     date_to timestamp,
     outcome   boolean,
     primary key (duel_ID),
-    CHECK ( AGE(COALESCE(date_to, NOW()), date_from) < interval '10 minutes')
+    CHECK ( AGE(COALESCE(date_to, NOW()), date_from) < interval '10 minutes'),
+    CHECK ( (outcome IS NOT NULL AND date_to IS NOT NULL) OR (outcome IS NULL AND date_to IS NULL))
 );
 
 ALTER TABLE Duels
