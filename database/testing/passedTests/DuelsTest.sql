@@ -12,9 +12,9 @@
     VALUES (3, 1, current_timestamp, null, null);
 
 INSERT INTO duels(sender, receiver, date_from, date_to, outcome)
-VALUES (1, 3, current_timestamp, null, null);
+VALUES (1, 3, NOW() - interval '1 minute', null, null);
 
 -- Shouldn't execute
     INSERT INTO duels(sender, receiver, date_from, date_to, outcome)
-    VALUES (1, 4, NOW() + interval '1 minute', null, null);
+    VALUES (1, 4, NOW(), null, null);
 

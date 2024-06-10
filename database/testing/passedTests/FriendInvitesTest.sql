@@ -20,7 +20,7 @@ VALUES (1, 2, NOW(), null);
 
     INSERT INTO friends(player1_id, player2_id, date_from, date_to) VALUES (2, 1, now(), null);
 
-INSERT INTO friends(player1_id, player2_id, date_from, date_to) VALUES (1, 2, NOW(), null);
+    INSERT INTO friends(player1_id, player2_id, date_from, date_to) VALUES (1, 2, NOW(), null);
 -- should be empty
     SELECT * FROM friendsinvites WHERE player1_id = 1 AND player2_id = 2;
 

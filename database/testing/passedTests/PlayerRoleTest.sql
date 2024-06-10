@@ -4,7 +4,7 @@ INSERT INTO playernickname(player_id, date_from, nickname) VALUES (10000000, cur
 END TRANSACTION;
 
 -- Shouldn't execute
-    INSERT INTO PlayerRole(date_from, player_id, rank_id) VALUES ('2020-01-01', 10000000, 3);
+    INSERT INTO PlayerRole(date_from, player_id, rank_id) VALUES ('2020-01-01', 55555, 3);
 
 -- Shouldn't execute
     BEGIN TRANSACTION;
