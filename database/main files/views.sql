@@ -13,6 +13,6 @@ from clans cl
 
     );
 
-create sequence tournamentID
-increment 1
-start 1;
+-- create sequence tournamentID
+-- increment 1
+-- start 1;

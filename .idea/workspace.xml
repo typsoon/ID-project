@@ -4,16 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b753b57e-ab60-46b8-9bb6-279e46c6879a" name="Changes" comment="Pushed fixes to functions.sql">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/dataTables/TournamentDataTable.java" afterDir="false" />
+    <list default="true" id="b753b57e-ab60-46b8-9bb6-279e46c6879a" name="Changes" comment="Final commit">
+      <change afterPath="$PROJECT_DIR$/database/final/clear.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/final/diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/final/opis.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/initFinal.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/python/concat.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/FXMLAddresses.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/FXMLAddresses.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/LoginSceneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/LoginSceneController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/ScreenManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/ScreenManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/browsingScreens/TournamentBrowsingScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/browsingScreens/BrowseTournamentsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/infoPanes/TournamentInfoPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/infoPanes/TournamentInfoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/idproject/screens/screen-manager.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/idproject/screens/screen-manager.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/idproject/screens/tournament-info.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/idproject/screens/tournament-info.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/main files/create.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/main files/create.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/main files/createAll.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/final/create.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/main files/functions.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/main files/functions.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/main files/views.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/main files/views.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +26,7 @@
       <list>
         <option value="Record" />
         <option value="Class" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -62,23 +64,48 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.App.executor": "Run",
+    "Database Script.create.sql.executor": "Run",
+    "Database Script.createAll.sql.executor": "Run",
+    "Python.concat.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Shell Script.initFinal.executor": "Run",
     "git-widget-placeholder": "main",
+    "jdk.selected.JAVA_MODULE": "21",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/piotrek/GitHub/ID-project/database",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "RunConfigurationTargetLRU": [
+      "094d7937-b210-4176-9d5e-131190dc6335",
+      "094d7937-b210-4176-9d5e-131190dc6335/database/\"piotrek\""
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="org.example.idproject.view.dataTables" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/database/final" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/database/untitled" />
+      <recent name="$PROJECT_DIR$/database/pythonScripts" />
+      <recent name="$PROJECT_DIR$/database/final" />
+      <recent name="$PROJECT_DIR$/database" />
+    </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.concat">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.idproject.App" />
       <module name="ID-project" />
@@ -92,12 +119,60 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="create.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/database/final/create.sql" />
+      <script-mode>FILE</script-mode>
+      <data-source id="094d7937-b210-4176-9d5e-131190dc6335" namespace="database/&quot;piotrek&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="concat" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="python-module" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/database/python" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/database/python/concat.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="initFinal" type="ShConfigurationType">
+      <option name="SCRIPT_TEXT" value="" />
+      <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
+      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/database/initFinal.sh" />
+      <option name="SCRIPT_OPTIONS" value="" />
+      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
+      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$/database" />
+      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
+      <option name="INTERPRETER_PATH" value="/bin/bash" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="EXECUTE_IN_TERMINAL" value="true" />
+      <option name="EXECUTE_SCRIPT_FILE" value="true" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.App" />
+      <item itemvalue="Database Script.create.sql" />
+      <item itemvalue="Python.concat" />
+      <item itemvalue="Shell Script.initFinal" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.App" />
-        <item itemvalue="Application.App" />
-        <item itemvalue="Application.App" />
-        <item itemvalue="Application.App" />
+        <item itemvalue="Database Script.create.sql" />
         <item itemvalue="Application.App" />
       </list>
     </recent_temporary>
@@ -119,6 +194,7 @@
       <option name="presentableId" value="Default" />
       <updated>1717885595586</updated>
       <workItem from="1717885597079" duration="1082000" />
+      <workItem from="1718022463639" duration="2863000" />
     </task>
     <task id="LOCAL-00001" summary="handling">
       <option name="closed" value="true" />
@@ -168,7 +244,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717935519577</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Final commit">
+      <option name="closed" value="true" />
+      <created>1717938011959</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1717938011959</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -182,7 +266,8 @@
     <MESSAGE value="Added changing clan name" />
     <MESSAGE value="Added add tournaments" />
     <MESSAGE value="Pushed fixes to functions.sql" />
-    <option name="LAST_COMMIT_MESSAGE" value="Pushed fixes to functions.sql" />
+    <MESSAGE value="Final commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Final commit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -199,5 +284,8 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/ID_project$concat.coverage" NAME="concat Coverage Results" MODIFIED="1718024937927" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/database/python" />
   </component>
 </project>

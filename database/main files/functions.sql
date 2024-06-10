@@ -212,7 +212,7 @@ begin
     if GetClanLeader(clanID) = leaderID then
         raise exception 'not';
     end if;
-    if coalesce(playerclanid(leaderID),0) <> clanID  then
+    if coalesce(PlayerClanID(leaderID),0) <> clanID  then
         raise exception 'not in clan';
     end if;
     insert into playerrole (player_ID,rank_ID) values(GetClanLeader(clanID),2);
@@ -263,12 +263,12 @@ begin
         raise exception 'number must be power of two';
     end if;
     tour_id = nextval('tournamentsname_tournament_id_seq');
+    INSERT INTO tournamentsname(tournament_id, tournament_name) VALUES (tour_id, temp_name);
     for i in 1..array_length(arr,1) by 2 loop
             insert into duels(sender,receiver) values(arr[i],arr[i+1]);
             insert into Tournaments (tournament_id,duel_id)
             values (tour_id,(select max(duel_id)from duels));
         end loop;
-    INSERT INTO tournamentsname(tournament_id, tournament_name) VALUES (tour_id, temp_name);
 end
 $$language plpgsql;
 
