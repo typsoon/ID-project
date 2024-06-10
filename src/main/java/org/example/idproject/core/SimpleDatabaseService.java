@@ -88,7 +88,7 @@ public class SimpleDatabaseService implements DatabaseService {
         try (Connection conn = DriverManager.getConnection(url, credentials.username(), credentials.password())) {
             Statement stmt = conn.createStatement();
             return stmt.execute( "insert into fullclandata (clanimage, clanname, leader,time) values (\'" +
-                    logoFilePath + "\',\'" + clanName +"\',\'" + leaderID +  "\',\'" + dateFrom + "\')"
+                    logoFilePath + "\',\'" + clanName +"\',\'" + leaderID +  "\',\'" + (new Timestamp(dateFrom.getTime())) + "\')"
             );
 
         }
