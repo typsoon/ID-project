@@ -4,12 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b753b57e-ab60-46b8-9bb6-279e46c6879a" name="Changes" comment="some debug">
+    <list default="true" id="b753b57e-ab60-46b8-9bb6-279e46c6879a" name="Changes" comment="Final commit">
+      <change afterPath="$PROJECT_DIR$/database/final/clear.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/final/diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/final/opis.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/initFinal.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/python/concat.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/main files/create.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/main files/create.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/main files/createAll.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/final/create.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/main files/functions.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/main files/functions.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/main files/triggersToTest.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/main files/triggersToTest.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/core/SimpleDatabaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/core/SimpleDatabaseService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/infoPanes/ClanInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/idproject/view/infoPanes/ClanInfoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/main files/views.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/main files/views.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,20 +39,20 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
+    &quot;lastFilter&quot;: {
     &quot;state&quot;: &quot;OPEN&quot;,
     &quot;assignee&quot;: &quot;mkdusia&quot;
-  }
-}</component>
+    }
+    }</component>
   <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/typsoon/ID-project.git&quot;,
     &quot;accountId&quot;: &quot;411ae041-99e7-4099-949e-b80de54d442e&quot;
-  }
-}</component>
+    }
+    }</component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 8
-}</component>
+    &quot;associatedIndex&quot;: 8
+    }</component>
   <component name="ProjectId" id="2hcFjL3WdUOfS6q56VqwIEi4s18" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -161,6 +166,7 @@
     <list>
       <item itemvalue="Application.App" />
       <item itemvalue="Database Script.create.sql" />
+      <item itemvalue="Python.concat" />
       <item itemvalue="Shell Script.initFinal" />
     </list>
     <recent_temporary>
@@ -261,8 +267,7 @@
     <MESSAGE value="Added add tournaments" />
     <MESSAGE value="Pushed fixes to functions.sql" />
     <MESSAGE value="Final commit" />
-    <MESSAGE value="some debug" />
-    <option name="LAST_COMMIT_MESSAGE" value="some debug" />
+    <option name="LAST_COMMIT_MESSAGE" value="Final commit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
